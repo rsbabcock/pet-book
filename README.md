@@ -1,0 +1,3 @@
+# Pet Book
+
+ An app that allows users who have pets to make a page that holds all of their pets information. This is designed for those that have someone else watch their pet overnight or longer. From training hand signals, to eating habits and walking quirks. This app will allow users to share their pets profile with other users via email, or username. Users will also be able to view pets that have been shared with them, add information and update information on their own pets. Also Sitters or Friends will be able to add notes for individual pets that can be archived by the users.
