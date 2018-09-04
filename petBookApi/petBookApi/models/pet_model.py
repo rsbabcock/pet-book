@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from petBookApi.models import *
 
 class Pet(models.Model):
     '''
@@ -32,8 +33,8 @@ class Pet(models.Model):
     #The following line of code creates a relationship between pets and allergies
     #Need to specify 'through' kwarg to reference the join table model
     #This line is needed to embed the allergies information in the Orders table
-    allergy = models.ManyToManyField(Allergy, through='PetAllergy')
-    command = models.ManyToManyField(Command, through='PetCommand')
+    allergy = models.ManyToManyField('Allergy', through='PetAllergy')
+    command = models.ManyToManyField('Command', through='PetCommand')
 
 
     def __str__(self):
