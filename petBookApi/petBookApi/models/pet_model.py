@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Pet(models.Model):
     '''
-    Model to represents pets and their information 
+    Model to represents pets and their information through join tables
     '''
     
     owner = models.ForeignKey('Owner', on_delete=models.CASCADE)
@@ -29,12 +29,11 @@ class Pet(models.Model):
     bed_time = models.CharField(max_length=300)
     fav_toy = models.CharField(max_length=300)
     deceased = models.BooleanField(default=False)
+    #The following line of code creates a relationship between pets and allergies
+    #Need to specify 'through' kwarg to reference the join table model
+    #This line is needed to embed the allergies information in the Orders table
+    allergy = models.ManyToManyField(Allergy, through='PetAllergy')
 
 
     def __str__(self):
         return "{} {}".format(self.name, self.image)
-
-
-
-    # def __str__(self):
-    # return "{} {}".format(self.user.first_name, self.user.last_name)
