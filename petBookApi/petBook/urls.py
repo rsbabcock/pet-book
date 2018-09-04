@@ -1,7 +1,7 @@
 """petBook URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
+from petBookApi.views import *
+
+router = routers.DefaultRouter()
+router.register(r'users', owner_view.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+    url(r'^register/', register_view.register_user),
+    url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+
