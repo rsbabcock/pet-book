@@ -1,0 +1,17 @@
+nav {
+    background: purple;
+    color: white;
+    height: 3.5em;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  nav li {
+    list-style: none;
+    display: inline-block;
+  }
+  
+  nav h3 {
+    margin-right: 8px;
+  }
+  
