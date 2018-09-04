@@ -1,17 +1,26 @@
 nav {
-    background: purple;
+    background: #94D9E5;
     color: white;
-    height: 3.5em;
+    height: 4em;
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     flex-direction: row;
-  }
-  
-  nav li {
-    list-style: none;
-    display: inline-block;
-  }
-  
-  nav h3 {
-    margin-right: 8px;
-  }
-  
+}
+.brand {
+    align-items: flex-start;
+    height: 3.5em;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}  
+.brand img{
+    /* width: 25%; */
+    height: 100%;
+}  
+.nav__links{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
