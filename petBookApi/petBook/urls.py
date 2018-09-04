@@ -21,7 +21,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 from petBookApi.views import *
 
 router = routers.DefaultRouter()
-router.register(r'users', owner_view.UserViewSet)
+router.register(r'users', owner_view.UserViewSet),
+router.register(r'pet-types', pet_type_view.PetTypeViewSet),
+router.register(r'breeds', breed_view.BreedViewSet),
+router.register(r'pets', pet_view.PetViewSet),
 
 urlpatterns = [
     path('admin/', admin.site.urls),

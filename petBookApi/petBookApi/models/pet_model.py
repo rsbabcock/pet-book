@@ -4,11 +4,17 @@ class Pet(models.Model):
     '''
     Model to represents pets and their information 
     '''
+    
     user = models.ForeignKey('Owner', on_delete=models.CASCADE)
     pet_type = models.ForeignKey('PetType', on_delete=models.CASCADE)
     breed = models.ForeignKey('Breed', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='%m/%d')
+    GENDER = (
+            ('M', 'Male'),
+            ('F', 'Female')
+        )
+    gender = models.CharField(max_length=1, choices=GENDER)
     nick_name = models.CharField(max_length=100)
     birthday = models.CharField(max_length=100)
     houdini = models.BooleanField(default=True)
