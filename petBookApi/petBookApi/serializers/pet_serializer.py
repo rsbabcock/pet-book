@@ -2,6 +2,7 @@ from petBookApi.models import *
 
 from .allergy_serializer import *
 from .command_serializer import *
+from .note_serializer import *
 from rest_framework import serializers
 
 class PetSerializer(serializers.HyperlinkedModelSerializer):
@@ -14,7 +15,8 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
   #This will display all of the fields from the product model in the order model
   allergies = AllergySerializer(many=True, read_only=True)
   commands = CommandSerializer(many=True, read_only=True)
+  notes = NoteSerializer(many=True, read_only=True)
 
   class Meta:
     model = Pet
-    fields = ('__all__, allergies, commands')
+    fields = ('__all__')
