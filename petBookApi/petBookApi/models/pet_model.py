@@ -11,9 +11,9 @@ class Pet(models.Model):
     image = models.ImageField(upload_to='%m/%d')
     nick_name = models.CharField(max_length=100)
     birthday = models.CharField(max_length=100)
-    houdini = models.BooleanField(initial=True)
+    houdini = models.BooleanField(default=True)
     food_quirks = models.CharField(max_length=300)
-    crate_trained = models.BooleanField(initial=True)
+    crate_trained = models.BooleanField(default=True)
     crate_quirks = models.CharField(max_length=300)
     walking_quirks = models.CharField(max_length=300)
     potty_needs = models.CharField(max_length=300)
@@ -21,11 +21,11 @@ class Pet(models.Model):
     eating_times = models.CharField(max_length=300)
     bed_time = models.CharField(max_length=300)
     fav_toy = models.CharField(max_length=300)
-    deceased = models.BooleanField(initial=False)
+    deceased = models.BooleanField(default=False)
 
 
     def __str__(self):
-    return "{} {}".format(self.name, self.image)
+        return "{} {}".format(self.name, self.image)
 
 
 
