@@ -8,5 +8,5 @@ from .allergy_model import *
 from .pet_allergy_model import *
 from .command_model import *
 from .pet_command_model import *
-from .note_model import *
 from .pet_note_model import *
+from .note_model import *
