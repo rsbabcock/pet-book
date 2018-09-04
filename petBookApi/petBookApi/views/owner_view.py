@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from django.core import serializers
 
-from api.models import *
-from api.serializers import *
+from petBookApi.models import *
+from petBookApi.serializers import *
 
 class OwnerViewSet(viewsets.ModelViewSet):
   """

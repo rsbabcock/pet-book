@@ -1,7 +1,7 @@
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from api.models import Owner
+from petBookApi.models import Owner
 
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
