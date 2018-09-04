@@ -61,7 +61,7 @@ class Auth extends Component {
     this.postAuth("register", user)
     .then( () => {
       console.log("new user created")
-      this.props.setAuthState({showUserForm: false})
+      this.props.setAuthState({showUserForm: false, isAuth: true})
     })
   }
 
@@ -76,6 +76,7 @@ class Auth extends Component {
       city,
       state,
       zip,
+      phone,
       register
     } = this.props.authState
     return (
@@ -129,6 +130,13 @@ class Auth extends Component {
             placeholder="zipcode"
             name="zip"
             value={zip}
+            onChange={e => this.onChange(e)}
+          />
+          <input
+            type="text"
+            placeholder="phone"
+            name="phone"
+            value={phone}
             onChange={e => this.onChange(e)}
           />
         </div>
