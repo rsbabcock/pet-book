@@ -23,7 +23,10 @@ nav h3{
     font-style: italic;
 }
 .brand {
-    align-items: flex-start;
+    align-self: auto;
+    position: absolute;
+    left: 0;
+    margin-left: 8px;
     height: 3.5em;
     width: 25%;
     display: flex;
@@ -37,13 +40,16 @@ nav h3{
     height: 100%;
 }  
 .nav__links{
-    margin-left: -10%;
+    /* margin-left: 10%; */
     display: flex;
     align-items: center;
     flex-direction: row;
 }
 .container__login{
-    /* margin-left: -10%; */
+    margin-right: 8px;
+    align-self: auto;
+    position: absolute;
+    right: 0;
     display: flex;
     align-items: center;
     flex-direction: row;

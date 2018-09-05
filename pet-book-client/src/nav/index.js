@@ -42,12 +42,12 @@ class Nav extends Component {
                     </div>
                 }
                 <div className="container__login">
-                    <button onClick={() => isAuth ? this.logOut() : this.displayLogin()}>
-                        Log {isAuth ? "out" : "in"} </button>
-                    <button onClick={() => this.displayRegister()}>Register</button>
                     {isAuth &&
                         <h3>Welcome, {this.props.user}</h3>
                 }
+                    <button onClick={() => isAuth ? this.logOut() : this.displayLogin()}>
+                        Log {isAuth ? "out" : "in"} </button>
+                    <button onClick={() => this.displayRegister()}>Register</button>
                 </div>
             </nav >
         )
