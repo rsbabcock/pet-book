@@ -66,8 +66,6 @@ class App extends Component {
     .then((response) => {
       return response.json();
     })
-    .then((response) => {
-      return fetch(`http://127.0.0.1:8000/owners`})
     .then((pets) => {
       // if
       console.log('pets', pets);
