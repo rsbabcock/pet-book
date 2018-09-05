@@ -36,6 +36,7 @@ class App extends Component {
         user: user
       });
     }
+    this.getMyPets()
   }
 
   
@@ -65,9 +66,12 @@ class App extends Component {
     .then((response) => {
       return response.json();
     })
-    .then((product_types) => {
-      console.log('types', product_types);
-      this.setState({product_types})
+    .then((response) => {
+      return fetch(`http://127.0.0.1:8000/owners`})
+    .then((pets) => {
+      // if
+      console.log('pets', pets);
+      this.setState({myPets: pets})
     })
     .catch((err) => {
       console.log("fetch no like you, brah", err);
@@ -78,7 +82,7 @@ class App extends Component {
     return (
       <div className="App">
         <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={ (obj) => this.setAuthState(obj)} displaySell={ () => this.displaySell()} logOut={ () => this.logOut()}/>
-        <DashBoard/>
+        <DashBoard pets={this.state.myPets}/>
         
 
         {this.state.showUserForm ? <Auth authState={this.state} setAuthState={ (obj) => this.setAuthState(obj)} /> : null}
