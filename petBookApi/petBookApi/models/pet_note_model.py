@@ -9,5 +9,5 @@ class PetNote(models.Model):
     This model is needed to have a join table, but you do not need to reference it anywhere else in this project
     """
 
-    pets = models.ForeignKey('Pet', on_delete=models.CASCADE)
-    notes = models.ForeignKey('Note', on_delete=models.CASCADE)
+    pet = models.ForeignKey('Pet', on_delete=models.CASCADE)
+    note = models.ForeignKey('Note', on_delete=models.CASCADE)

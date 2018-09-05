@@ -15,7 +15,7 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
   #This will display all of the fields from the product model in the order model
   allergy = AllergySerializer(many=True, read_only=True)
   command = CommandSerializer(many=True, read_only=True)
-  notes = NoteSerializer(many=True, read_only=True)
+  note = NoteSerializer(many=True, read_only=True)
 
   class Meta:
     model = Pet
@@ -25,4 +25,4 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
     'walking_quirks', 'potty_needs', 'aggression_notes', 
     'eating_times', 'bed_time', 'fav_toy',
     'deceased', 'owner', 'pet_type', 'breed', 
-    'allergy', 'command', 'notes')
+    'allergy', 'command', 'note')

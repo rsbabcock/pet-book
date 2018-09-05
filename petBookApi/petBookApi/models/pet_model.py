@@ -35,7 +35,7 @@ class Pet(models.Model):
     #This line is needed to embed the allergies information in the Orders table
     allergy = models.ManyToManyField('Allergy', through='PetAllergy')
     command = models.ManyToManyField('Command', through='PetCommand')
-    notes = models.ManyToManyField('Note', through='PetNote')
+    note = models.ManyToManyField('Note', through='PetNote')
 
 
     def __str__(self):
