@@ -39,6 +39,7 @@ class Nav extends Component {
                     <div class="nav__links">
                         <button>Add Pet</button>
                         <button>Follow</button>
+                        <button>Settings</button>
                     </div>
                 }
                 <div className="container__login">

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './auth'
 import Nav from './nav'
 import './App.css';
+import DashBoard from './dashboard/board';
 
 
 class App extends Component {
@@ -20,7 +21,9 @@ class App extends Component {
     register: false,
     showUserForm: false,
     user: "",
-    showSellForm: false
+    showSellForm: false,
+    myPets: [],
+    followedPets: []
   }
 
   componentDidMount() {
@@ -34,6 +37,8 @@ class App extends Component {
       });
     }
   }
+
+  
 
   setAuthState(authObj) {
     this.setState(authObj)
@@ -55,16 +60,32 @@ class App extends Component {
     console.log(localStorage.getItem("token"));
   }
 
+  getMyPets(){
+    fetch(`http://127.0.0.1:8000/pets/`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((product_types) => {
+      console.log('types', product_types);
+      this.setState({product_types})
+    })
+    .catch((err) => {
+      console.log("fetch no like you, brah", err);
+    })
+}
+
   render() {
     return (
       <div className="App">
         <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={ (obj) => this.setAuthState(obj)} displaySell={ () => this.displaySell()} logOut={ () => this.logOut()}/>
-        <h1>Welcome to PetBook</h1>
+        <DashBoard/>
+        
 
         {this.state.showUserForm ? <Auth authState={this.state} setAuthState={ (obj) => this.setAuthState(obj)} /> : null}
-
+        {/* { isAuth && 
+        
+        } */}
         {/* {this.state.showSellForm ? <ProductForm token={localStorage.getItem("token")}/> : null} */}
-
       </div>
     );
   }
