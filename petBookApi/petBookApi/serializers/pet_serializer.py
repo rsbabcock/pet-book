@@ -13,10 +13,16 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
 
   #In order to embed products information, you need to define the field as the serializer.
   #This will display all of the fields from the product model in the order model
-  allergies = AllergySerializer(many=True, read_only=True)
-  commands = CommandSerializer(many=True, read_only=True)
+  allergy = AllergySerializer(many=True, read_only=True)
+  command = CommandSerializer(many=True, read_only=True)
   notes = NoteSerializer(many=True, read_only=True)
 
   class Meta:
     model = Pet
-    fields = ('__all__')
+    fields = ('url', 'name', 'image', 
+    'gender', 'nick_name', 'birthday', 'houdini',
+    'food_quirks', 'crate_trained', 'crate_quirks',
+    'walking_quirks', 'potty_needs', 'aggression_notes', 
+    'eating_times', 'bed_time', 'fav_toy',
+    'deceased', 'owner', 'pet_type', 'breed', 
+    'allergy', 'command', 'notes')

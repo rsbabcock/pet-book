@@ -26,6 +26,8 @@ router.register(r'owners', owner_view.OwnerViewSet),
 router.register(r'pet-types', pet_type_view.PetTypeViewSet),
 router.register(r'breeds', breed_view.BreedViewSet),
 router.register(r'pets', pet_view.PetViewSet),
+router.register(r'allergies', allergy_view.AllergyViewSet),
+router.register(r'commands', command_view.CommandViewSet),
 
 urlpatterns = [
     path('admin/', admin.site.urls),

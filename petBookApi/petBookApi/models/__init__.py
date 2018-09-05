@@ -10,3 +10,4 @@ from .command_model import *
 from .pet_command_model import *
 from .pet_note_model import *
 from .note_model import *
+from .follow_model import *
