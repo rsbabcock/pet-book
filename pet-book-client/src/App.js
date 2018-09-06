@@ -22,7 +22,7 @@ class App extends Component {
     showUserForm: false,
     user: "",
     showSellForm: false,
-    myPets: [],
+    userPets: [],
     followedPets: []
   }
 
@@ -36,7 +36,7 @@ class App extends Component {
         user: user
       });
     }
-    this.getMyPets()
+    this.getuserPets()
   }
 
   
@@ -53,6 +53,7 @@ class App extends Component {
     console.log("log OUT", localStorage.getItem("token"));
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("id");
     // Set everything to false again?
     this.setAuthState({
       isAuth: false,
@@ -61,32 +62,56 @@ class App extends Component {
     console.log(localStorage.getItem("token"));
   }
 
-  getMyPets(){
-    fetch(`http://127.0.0.1:8000/pets/`)
+  getuserPets(){
+    let token = localStorage.getItem("token")
+    fetch(`http://127.0.0.1:8000/user-pets/`, {
+      method: 'GET',
+      headers: {
+        "Authorization" : `Token ${token}`
+      }
+    })
     .then((response) => {
       return response.json();
     })
     .then((pets) => {
-      // if
-      console.log('pets', pets);
-      this.setState({myPets: pets})
+      console.log('userPets', pets);
+      this.setState({userPets: pets})
     })
     .catch((err) => {
       console.log("fetch no like you, brah", err);
     })
 }
 
+getFollowedPets(){
+  let token = localStorage.getItem("token")
+  fetch(`http://127.0.0.1:8000/owners/`, {
+    method: 'GET',
+    headers: {
+      "Authorization" : `Token ${token}`
+    }
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((pets) => {
+    console.log('userPets', pets);
+    this.setState({userPets: pets})
+  })
+  .catch((err) => {
+    console.log("fetch no like you, brah", err);
+  })
+}
   render() {
     return (
       <div className="App">
         <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={ (obj) => this.setAuthState(obj)} displaySell={ () => this.displaySell()} logOut={ () => this.logOut()}/>
-        <DashBoard pets={this.state.myPets}/>
         
 
         {this.state.showUserForm ? <Auth authState={this.state} setAuthState={ (obj) => this.setAuthState(obj)} /> : null}
-        {/* { isAuth && 
+         { this.state.isAuth && 
+        <DashBoard userPets={this.state.userPets}/>
         
-        } */}
+        }
         {/* {this.state.showSellForm ? <ProductForm token={localStorage.getItem("token")}/> : null} */}
       </div>
     );

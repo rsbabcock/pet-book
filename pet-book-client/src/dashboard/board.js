@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
-import { Hero, Box, Title, HeroFooter,HeroHeader } from 'bloomer';
+import { Hero, Box, Columns,Title, HeroFooter,HeroHeader } from 'bloomer';
 import 'bulma/css/bulma.css';
+import './dashboard.css'
+import CustomCard from "./petCard";
 
 
 
@@ -10,17 +12,19 @@ import 'bulma/css/bulma.css';
 class DashBoard extends Component {
 
 
-
     render() {
         const isAuth = this.props.isAuth
         console.log("isAuth?", isAuth)
         return (
             <div>
             <Hero isSize='medium' isColor="light">
-                <HeroHeader>
+                <HeroHeader isCentered>
                     <Box hasTextAlign='centered'>
                         <Title>My Pets</Title>
                     </Box>
+                    <Columns isCentered >
+                        <CustomCard resource={this.props.userPets} />
+                    </Columns>
                 </HeroHeader>                    
                 <HeroHeader >
                     <Box hasTextAlign='centered'>
