@@ -23,7 +23,8 @@ class App extends Component {
     user: "",
     showSellForm: false,
     userPets: [],
-    followedPets: []
+    followedPets: [],
+    id: null
   }
 
   componentDidMount() {
@@ -37,6 +38,7 @@ class App extends Component {
       });
     }
     this.getuserPets()
+    this.getFollowedPets()
   }
 
   
@@ -74,7 +76,7 @@ class App extends Component {
       return response.json();
     })
     .then((pets) => {
-      console.log('userPets', pets);
+      // console.log('userPets', pets);
       this.setState({userPets: pets})
     })
     .catch((err) => {
@@ -84,7 +86,7 @@ class App extends Component {
 
 getFollowedPets(){
   let token = localStorage.getItem("token")
-  fetch(`http://127.0.0.1:8000/owners/`, {
+  fetch(`http://127.0.0.1:8000/followed-pets/`, {
     method: 'GET',
     headers: {
       "Authorization" : `Token ${token}`
@@ -93,9 +95,9 @@ getFollowedPets(){
   .then((response) => {
     return response.json();
   })
-  .then((pets) => {
-    console.log('userPets', pets);
-    this.setState({userPets: pets})
+  .then((owner) => {
+    const follows = owner[0].follows
+    this.setState({followedPets : follows})
   })
   .catch((err) => {
     console.log("fetch no like you, brah", err);

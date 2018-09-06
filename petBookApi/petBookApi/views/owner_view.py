@@ -12,6 +12,9 @@ class OwnerViewSet(viewsets.ModelViewSet):
   queryset = Owner.objects.all()
   serializer_class = OwnerSerializer
 
+
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
+
+  

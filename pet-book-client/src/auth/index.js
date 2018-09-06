@@ -63,6 +63,7 @@ class Auth extends Component {
       console.log("new user created")
       this.props.setAuthState({showUserForm: false, isAuth: true})
     })
+    .then( )
   }
 
   render() {
