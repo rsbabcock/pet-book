@@ -7,7 +7,7 @@ class Pet(models.Model):
     Model to represents pets and their information through join tables
     '''
     
-    owner = models.ForeignKey('Owner', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     pet_type = models.ForeignKey('PetType', on_delete=models.CASCADE)
     breed = models.ForeignKey('Breed', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)

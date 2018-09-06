@@ -24,5 +24,5 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
     'food_quirks', 'crate_trained', 'crate_quirks',
     'walking_quirks', 'potty_needs', 'aggression_notes', 
     'eating_times', 'bed_time', 'fav_toy',
-    'deceased', 'owner', 'pet_type', 'breed', 
+    'deceased', 'user', 'pet_type', 'breed', 
     'allergy', 'command', 'note')
