@@ -18,7 +18,7 @@ class DashBoard extends Component {
         return (
             <div>
             <Hero isSize='medium' isColor="light">
-                <HeroHeader isCentered>
+                <HeroHeader>
                     <Box hasTextAlign='centered'>
                         <Title>My Pets</Title>
                     </Box>
@@ -30,10 +30,13 @@ class DashBoard extends Component {
                     <Box hasTextAlign='centered'>
                         <Title>Followed</Title>
                     </Box>
+                    <Columns isCentered>
+                        <CustomCard resource={this.props.followedPets} />
+                    </Columns>
                 </HeroHeader>
                 <HeroFooter>
                     <Box hasTextAlign='centered'>
-                        <Title>Follow</Title>
+                        <a><Title>Follow</Title></a>
                     </Box>
                 </HeroFooter>
             </Hero>

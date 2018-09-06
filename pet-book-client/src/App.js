@@ -111,7 +111,7 @@ getFollowedPets(){
 
         {this.state.showUserForm ? <Auth authState={this.state} setAuthState={ (obj) => this.setAuthState(obj)} /> : null}
          { this.state.isAuth && 
-        <DashBoard userPets={this.state.userPets}/>
+        <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets}/>
         
         }
         {/* {this.state.showSellForm ? <ProductForm token={localStorage.getItem("token")}/> : null} */}

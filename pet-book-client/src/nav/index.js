@@ -31,12 +31,12 @@ class Nav extends Component {
         console.log("isAuth?", isAuth)
         return (
             <nav>
-                <div class="brand">
+                <div className="brand">
                     <img id="home" src={logo} alt="logo" />
                     <h3>PetBook</h3>
                 </div>
                 {isAuth &&
-                    <div class="nav__links">
+                    <div className="nav__links">
                         <button>Add Pet</button>
                         <button>Follow</button>
                         <button>Settings</button>
