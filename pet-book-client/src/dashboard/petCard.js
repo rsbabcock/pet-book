@@ -14,17 +14,9 @@ class CustomCard extends Component {
             <div className="container_dashboard"> 
             {this.props.resource.map(c => (
                 <div>
-                <Box key={c.url}> 
-                    <CardImage>
-                        {c.image === "" ? <Image isSize="16x16" src={c.image}/> : <Image isSize="16x16" src={avatar}/>}
-                    </CardImage>
-                    <CardContent>
-                        <Media>
-                            <MediaContent>
-                                <Title isSize={4}>{c.name}</Title>
-                            </MediaContent>
-                        </Media>
-                    </CardContent>
+                <Box key={c.url} > 
+                    {c.image === "" ? <img src={c.image} /> : <img isSize="16x16" src={avatar}/>}
+                    <Title isSize={4}>{c.name}</Title>
                 </Box>
                 </div>
                 ))}
