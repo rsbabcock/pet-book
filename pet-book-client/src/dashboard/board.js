@@ -13,8 +13,6 @@ class DashBoard extends Component {
 
 
     render() {
-        const isAuth = this.props.isAuth
-        console.log("isAuth?", isAuth)
         return (
             <div>
             <Hero isSize='medium' isColor="light">
