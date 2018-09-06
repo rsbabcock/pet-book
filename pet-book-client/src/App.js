@@ -100,6 +100,15 @@ class App extends Component {
       })
   }
 
+  // passProfileProps(data){
+  //   if (view === "profile") {
+  //       this.setState({
+  //         //   resets score and counter at welcome page
+  //         userScore: 0,
+  //         counter: 0
+  //       })
+  //     }
+  // }
   showView = function (e) {
     let view = null
 
@@ -110,16 +119,16 @@ class App extends Component {
       // View switch manually triggered by passing in string
     } else {
       view = e
+      console.log("view changed brah!")
     }
     // If user clicked logout in nav, empty local storage and update activeUser state
-    if (view === "welcome") {
-      this.setState({
-        //   resets score and counter at welcome page
-        userScore: 0,
-        counter: 0
-      })
-
-    }
+    // if (view === "profile") {
+    //   this.setState({
+    //     //   resets score and counter at welcome page
+    //     userScore: 0,
+    //     counter: 0
+    //   })
+    // }
     // Update state to correct view will be rendered
     this.setState({
       currentView: view,
@@ -134,9 +143,9 @@ class App extends Component {
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
         case 'home':
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} />
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>
         default:
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} />  
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>  
       }
     }
   }
@@ -144,7 +153,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} displaySell={() => this.displaySell()} logOut={() => this.logOut()} />
+        <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} displaySell={() => this.displaySell()} logOut={() => this.logOut()} viewHandler={this.showView}/>
           {this.View()}
       </div>
     );
