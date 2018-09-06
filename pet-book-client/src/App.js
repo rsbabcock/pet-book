@@ -103,44 +103,44 @@ getFollowedPets(){
     console.log("fetch no like you, brah", err);
   })
 }
-showView = function (e) {
-  let view = null
+// showView = function (e) {
+//   let view = null
 
-  // Click event triggered switching view
-  if (e.hasOwnProperty("target")) {
-      view = e.target.id.split("__")[1]
+//   // Click event triggered switching view
+//   if (e.hasOwnProperty("target")) {
+//       view = e.target.id.split("__")[1]
 
-      // View switch manually triggered by passing in string
-  } else {
-      view = e
-  }
-  // If user clicked logout in nav, empty local storage and update activeUser state
-  if (view === "welcome") {
-      this.setState({
-          //   resets score and counter at welcome page
-          userScore: 0,
-          counter: 0
-      })
+//       // View switch manually triggered by passing in string
+//   } else {
+//       view = e
+//   }
+//   // If user clicked logout in nav, empty local storage and update activeUser state
+//   if (view === "welcome") {
+//       this.setState({
+//           //   resets score and counter at welcome page
+//           userScore: 0,
+//           counter: 0
+//       })
 
-  }
-  // Update state to correct view will be rendered
-  this.setState({
-      currentView: view,
-  })
+//   }
+//   // Update state to correct view will be rendered
+//   this.setState({
+//       currentView: view,
+//   })
 
-}.bind(this)
+// }.bind(this)
 
-View = () => {
-  if (localStorage.getItem("geoId") === null && this.state.currentView !== "register") {
-      return <Login showView={this.showView} setActiveUser={this.setActiveUser} />
-  }
-  else {
-      switch (this.state.currentView) {
-          case "logout":
-              return <Login showView={this.showView} setActiveUser={this.setActiveUser} />
-      }
-  }
-}
+// View = () => {
+//   if (localStorage.getItem("geoId") === null && this.state.currentView !== "register") {
+//       return <Login showView={this.showView} setActiveUser={this.setActiveUser} />
+//   }
+//   else {
+//       switch (this.state.currentView) {
+//           case "logout":
+//               return <Login showView={this.showView} setActiveUser={this.setActiveUser} />
+//       }
+//   }
+// }
   render() {
     return (
       <div className="App">
