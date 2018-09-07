@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Box, Title } from 'bloomer';
+import { Box, Title, Button } from 'bloomer';
 import 'bulma/css/bulma.css';
 import avatar from "../img/petBookLogo_white.png"
 import "./dashboard.css"
@@ -16,9 +16,8 @@ class CustomCard extends Component {
                 <div key={this.uniqueKey+=1}>
                 <Box> 
                     {c.image === "" ? <img src={c.image} alt={c.name} /> : <img src={avatar} alt="default avatar"/>}
-                    <Title isSize={4} id="pet_profile" onClick={()=>
-                        this.props.viewHandler("profile")}
-                        >{c.name}</Title>
+                    <Button isSize={4} id="pet__profile" 
+                    onClick={this.props.viewHandler}>{c.name}</Button>
                 </Box>
                 </div>
                 ))}

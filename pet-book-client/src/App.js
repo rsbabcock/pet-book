@@ -3,6 +3,7 @@ import Auth from './auth'
 import Nav from './nav'
 import './App.css';
 import DashBoard from './dashboard/board';
+import Profile from './profile/profile';
 
 
 class App extends Component {
@@ -24,7 +25,8 @@ class App extends Component {
     showSellForm: false,
     userPets: [],
     followedPets: [],
-    currentView: 'home'
+    currentView: 'home',
+    profileData: []
   }
 
   componentDidMount() {
@@ -72,7 +74,7 @@ class App extends Component {
         return response.json();
       })
       .then((pets) => {
-        // console.log('userPets', pets);
+        console.log('userPets', pets);
         this.setState({ userPets: pets })
       })
       .catch((err) => {
@@ -100,15 +102,6 @@ class App extends Component {
       })
   }
 
-  // passProfileProps(data){
-  //   if (view === "profile") {
-  //       this.setState({
-  //         //   resets score and counter at welcome page
-  //         userScore: 0,
-  //         counter: 0
-  //       })
-  //     }
-  // }
   showView = function (e) {
     let view = null
 
@@ -124,9 +117,8 @@ class App extends Component {
     // If user clicked logout in nav, empty local storage and update activeUser state
     // if (view === "profile") {
     //   this.setState({
-    //     //   resets score and counter at welcome page
-    //     userScore: 0,
-    //     counter: 0
+    //     //   makes data dynamic for profile view, you can pass whatever you want to it
+    //     profileData: data
     //   })
     // }
     // Update state to correct view will be rendered
@@ -144,8 +136,11 @@ class App extends Component {
       switch (this.state.currentView) {
         case 'home':
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>
+        case 'profile':
+          return <Profile resource={this.state.followedPets}/>
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>  
+
       }
     }
   }
