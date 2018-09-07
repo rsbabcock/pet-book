@@ -37,6 +37,23 @@ class AddPetForm extends Component {
   getPetBreeds(){
     //   a fetch to get all pet breeds and store them in the breeds state
   }
+  getUserAllergies(){
+    //   a fetch to get user created pet allergies that will be added to state for drop down menu, or to post to API
+    //  Will need to add a view for this in api, that filters based on user
+  }
+  getUserCommands(){
+    //   a fetch to get user created pet commands that will be added to state for drop down menu, or to post to API
+    //  Will need to add a view for this in api, that filters based on user
+  }
+  postPet(){
+    //   a fetch to post pet data
+  }
+  postAllergies(){
+    //   a ftch to post user created allergy data
+  }
+  postCommands(){
+    //   a fetch to poser user created pet commands
+  }
 //   componentDidMount() {
 //     fetch(`http://127.0.0.1:8000/product_types/`)
 //     .then((response) => {
