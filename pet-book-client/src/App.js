@@ -29,26 +29,13 @@ class App extends Component {
     profileData: []
   }
 
-  componentDidMount() {
-    let token = localStorage.getItem("token")
-    let user = localStorage.getItem("user")
-    if (token) {
-      console.log("User still logged in", user)
-      this.setState({
-        isAuth: true,
-        user: user
-      });
-    }
-    this.getuserPets()
-    this.getFollowedPets()
-  }
-
-
-
+  
+  
+  
   setAuthState(authObj) {
     this.setState(authObj)
   }
-
+  
   logOut() {
     console.log("log OUT", localStorage.getItem("token"));
     localStorage.removeItem("token");
@@ -61,7 +48,7 @@ class App extends Component {
     })
     console.log(localStorage.getItem("token"));
   }
-
+  
   getuserPets() {
     let token = localStorage.getItem("token")
     fetch(`http://127.0.0.1:8000/user-pets/`, {
@@ -70,18 +57,18 @@ class App extends Component {
         "Authorization": `Token ${token}`
       }
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((pets) => {
-        console.log('userPets', pets);
-        this.setState({ userPets: pets })
-      })
-      .catch((err) => {
-        console.log("fetch no like you, brah", err);
-      })
+    .then((response) => {
+      return response.json();
+    })
+    .then((pets) => {
+      console.log('userPets', pets);
+      this.setState({ userPets: pets })
+    })
+    .catch((err) => {
+      console.log("fetch no like you, brah", err);
+    })
   }
-
+  
   getFollowedPets() {
     let token = localStorage.getItem("token")
     fetch(`http://127.0.0.1:8000/followed-pets/`, {
@@ -90,19 +77,64 @@ class App extends Component {
         "Authorization": `Token ${token}`
       }
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((owner) => {
-        const follows = owner[0].follows
-        this.setState({ followedPets: follows })
+    .then((response) => {
+      return response.json();
+    })
+    .then((owner) => {
+      const follows = owner[0].follows
+      this.setState({ followedPets: follows })
+    })
+    .catch((err) => {
+      console.log("fetch no like you, brah", err);
+    })
+  }
+  
+  ProfileHandler = function(url) {
+    let token = localStorage.getItem("token")
+    fetch(`${url}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((pet) => {
+        const petData = []
+        petData.push(pet)
+        console.log("petdata", petData)
+        debugger
+        this.setState({ 
+          currentView: 'profile',
+          profileData: petData
+        })
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
       })
-  }
+    }.bind(this)
 
-  showView = function (e) {
+    
+componentDidMount() {
+      let token = localStorage.getItem("token")
+      let user = localStorage.getItem("user")
+      if (token) {
+        console.log("User still logged in", user)
+        this.setState({
+          isAuth: true,
+          user: user
+        });
+      }
+      this.getuserPets()
+      this.getFollowedPets()
+      // this.ProfileHandler()
+  
+      // }
+    }
+  
+
+  showView = function (e, data) {
     let view = null
 
     // Click event triggered switching view
@@ -115,10 +147,8 @@ class App extends Component {
       console.log("view changed brah!")
     }
     // if (view === "profile") {
-    //   this.setState({
-    //     //   makes data dynamic for profile view, you can pass whatever you want to it
-    //     profileData: data
-    //   })
+    //   this.setState({ currentView: "profile"})
+
     // }
     // Update state to correct view will be rendered
     this.setState({
@@ -134,11 +164,11 @@ class App extends Component {
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
         case 'home':
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={this.ProfileHandler}/>
         case 'profile':
-          return <Profile resource={this.state.followedPets}/>
+          return <Profile resource={this.state.profileData}/>
         default:
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView}/>  
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={this.ProfileHandler}/>  
 
       }
     }

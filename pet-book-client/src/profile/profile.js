@@ -9,6 +9,7 @@ import "./profile.css"
 class Profile extends Component {
     uniqueKey = 1
 
+
     render() {
         return (
             <div className="container_profile">
@@ -33,7 +34,7 @@ class Profile extends Component {
                                         <strong>Nick Name:</strong> <br/> {data.nick_name}
                                         </Box>
                                         <Box>
-                                        <strong>Breed:</strong> <br/> {data.breed.breed_name}
+                                        <strong>Breed:</strong> <br/> {data.breed}
                                         </Box>
                                         <Box>
                                         <strong>Birthday:</strong> <br/> {data.birthday}
@@ -131,7 +132,7 @@ class Profile extends Component {
                         ))}
                     </div>
                 </div>
-                ))}
+                ))} 
             </div>
         )
     }
