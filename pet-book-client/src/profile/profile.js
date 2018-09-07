@@ -105,9 +105,10 @@ class Profile extends Component {
                                     </Container>
                                 </HeroBody>
                             </div>
-                        </Hero>
-                    <div>
+                            </Hero>
+                        <div>
                         {data.note.map(note => (
+                            <Container>
                             <Card>
                                 <CardHeader>
                                     <CardHeaderTitle>
@@ -130,6 +131,7 @@ class Profile extends Component {
                                     </CardFooterItem>
                                 </CardFooter>
                             </Card>
+                            </Container>
                         ))}
                     </div>
                 </div>

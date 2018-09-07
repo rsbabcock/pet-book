@@ -8,39 +8,48 @@ class AddPetForm extends Component {
 // commands notes will be created later, in profile view
     
   state = {
-    name: "",
-    image: "",
-    nick_name: "",
-    birthday: "",
-    gender: "",
-    houdini: false,
-    crate_quirks: "",
-    crate_trained: true,
-    food_quirks: "",
-    aggression_notes: "",
-    bed_time: "",
-    eating_times: "",
-    fav_toy: "",
-    potty_needs: "",
-    walking_quirks: "",
-    deceased: false,
+    pet: {  
+        name: "",
+        image: "",
+        nick_name: "",
+        birthday: "",
+        gender: "",
+        houdini: false,
+        crate_quirks: "",
+        crate_trained: true,
+        food_quirks: "",
+        aggression_notes: "",
+        bed_time: "",
+        eating_times: "",
+        fav_toy: "",
+        potty_needs: "",
+        walking_quirks: "",
+        deceased: false,
+        },
+    petType: [],
+    breeds: [],        
     allergy: [],
     command: []
   }
-
-  componentDidMount() {
-    fetch(`http://127.0.0.1:8000/product_types/`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((product_types) => {
-      console.log('types', product_types);
-      this.setState({product_types})
-    })
-    .catch((err) => {
-      console.log("fetch no like you, brah", err);
-    })
+  getPetTypes(){
+    //   a fetch to get all pet types and store them in the petType state
   }
+  getPetBreeds(){
+    //   a fetch to get all pet breeds and store them in the breeds state
+  }
+//   componentDidMount() {
+//     fetch(`http://127.0.0.1:8000/product_types/`)
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((product_types) => {
+//       console.log('types', product_types);
+//       this.setState({product_types})
+//     })
+//     .catch((err) => {
+//       console.log("fetch no like you, brah", err);
+//     })
+//   }
 
   onChange(e) {
     const productState = Object.assign({}, this.state);
