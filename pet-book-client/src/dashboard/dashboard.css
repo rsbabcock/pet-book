@@ -1,8 +1,21 @@
 .container_dashboard {
     display: flex;
     flex-direction: row;
+    margin-bottom: 3%;
+    padding: 0% 4% 0% 4%;
 }
 
 .container_dashboard img{
     width: 8vw;
+}
+
+.card_pet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+}
+
+.card_pet img{
+    margin-bottom: 6%;
 }

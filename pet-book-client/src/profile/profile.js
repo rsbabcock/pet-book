@@ -49,7 +49,7 @@ class Profile extends Component {
                                         <strong>Crate Quirks:</strong> <br/> {data.crate_quirks}
                                         </Box>
                                         <Box>
-                                        <strong>Crate Trained:</strong> <br/> {data.crate_trained}
+                                        <strong>Crate Trained:</strong> <br/> {data.crate_trained === true ? "No" : "Yes"}
                                         </Box>
                                         <Box>
                                         <strong>Food Quirks:</strong> <br/> {data.food_quirks}
@@ -74,10 +74,10 @@ class Profile extends Component {
                                         </Box>
                                             { data.deceased === false ? null : <Box>
                                             <strong>Deceased:</strong> <br/> Sadly, yes
-                                            </Box>}
+                                        </Box>}
                                             <Container>
                                                 <Title>Allergies</Title>
-                                                {data.allergy.map(allergy => (
+                                                    {data.allergy.map(allergy => (
                                                 <div>
                                                     <Box>
                                                     <strong>Name:</strong> <br/> {allergy.allergy_name}
@@ -90,6 +90,7 @@ class Profile extends Component {
                                             </Container>
                                     </Container>
                                     <Container>
+                                        <div></div>   
                                         <Title>Commands</Title>
                                         {data.command.map(command => (
                                         <div>

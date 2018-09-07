@@ -14,7 +14,7 @@ class CustomCard extends Component {
             <div className="container_dashboard"> 
             {this.props.resource.map(c => (
                 <div key={this.uniqueKey+=1}>
-                <Box> 
+                <Box className="card_pet"> 
                     {c.image === "" ? <img src={c.image} alt={c.name} /> : <img src={avatar} alt="default avatar"/>}
                     <Button isSize={4} id="pet__profile" 
                     onClick={()=>{
