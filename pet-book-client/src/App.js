@@ -104,9 +104,8 @@ class App extends Component {
         const petData = []
         petData.push(pet)
         console.log("petdata", petData)
-        debugger
+        // debugger
         this.setState({ 
-          currentView: 'profile',
           profileData: petData
         })
       })
@@ -164,11 +163,11 @@ componentDidMount() {
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
         case 'home':
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={this.ProfileHandler}/>
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url)=>{this.ProfileHandler(url)}}/>
         case 'profile':
           return <Profile resource={this.state.profileData}/>
         default:
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={this.ProfileHandler}/>  
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url)=>{this.ProfileHandler(url)}}/>  
 
       }
     }

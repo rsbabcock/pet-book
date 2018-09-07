@@ -34,7 +34,7 @@ class Profile extends Component {
                                         <strong>Nick Name:</strong> <br/> {data.nick_name}
                                         </Box>
                                         <Box>
-                                        <strong>Breed:</strong> <br/> {data.breed}
+                                        <strong>Breed:</strong> <br/> {data.breed.breed_name}
                                         </Box>
                                         <Box>
                                         <strong>Birthday:</strong> <br/> {data.birthday}

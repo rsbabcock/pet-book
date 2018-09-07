@@ -21,7 +21,7 @@ class DashBoard extends Component {
                         <Title>My Pets</Title>
                     </Box>
                     <Columns isCentered >
-                        <CustomCard resource={this.props.userPets} ProfileHandler={this.props.ProfileHandler}/>
+                        <CustomCard resource={this.props.userPets} viewHandler={this.props.viewHandler} ProfileHandler={this.props.ProfileHandler}/>
                     </Columns>
                 </HeroHeader>                    
                 <HeroHeader >
@@ -29,7 +29,7 @@ class DashBoard extends Component {
                         <Title>Followed</Title>
                     </Box>
                     <Columns isCentered>
-                        <CustomCard resource={this.props.followedPets} ProfileHandler={this.props.ProfileHandler}/>
+                        <CustomCard resource={this.props.followedPets} viewHandler={this.props.viewHandler} ProfileHandler={this.props.ProfileHandler}/>
                     </Columns>
                 </HeroHeader>
                 <HeroFooter>
