@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Box, Title, Button } from 'bloomer';
+import { Box, Button } from 'bloomer';
 import 'bulma/css/bulma.css';
 import avatar from "../img/petBookLogo_white.png"
 import "./dashboard.css"

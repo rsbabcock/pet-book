@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Hero, HeroHeader, HeroBody, Box, Title, Container, CardFooterItem, CardFooter, Card, CardContent, CardHeader, Icon, Content, CardHeaderTitle, CardHeaderIcon, } from 'bloomer';
+import { Hero, HeroHeader, HeroBody, Box, Title, Container, CardFooterItem, CardFooter, Card, CardContent, CardHeader, Content, CardHeaderTitle, CardHeaderIcon, } from 'bloomer';
 import 'bulma/css/bulma.css';
 import avatar from "../img/petBookLogo_white.png"
 import "./profile.css"
@@ -30,52 +30,76 @@ class Profile extends Component {
                                 <HeroBody>
                                     <Container hasTextAlign="centered">
                                         <Box>
-                                            Nick Name: {data.nick_name}
+                                        <strong>Nick Name:</strong> <br/> {data.nick_name}
                                         </Box>
                                         <Box>
-                                            Breed: {data.breed.breed_name}
+                                        <strong>Breed:</strong> <br/> {data.breed.breed_name}
                                         </Box>
                                         <Box>
-                                            Birthday: {data.birthday}
+                                        <strong>Birthday:</strong> <br/> {data.birthday}
                                         </Box>
                                         <Box>
-                                            Gender: {data.gender}
+                                        <strong>Gender:</strong> <br/> {data.gender}
                                         </Box>
                                         <Box>
-                                            Houdini: {data.houdini === false ? "No" : "Yes"}
+                                        <strong>Houdini:</strong> <br/> {data.houdini === false ? "No" : "Yes"}
                                         </Box>
                                         <Box>
-                                            Crate Quirks: {data.crate_quirks}
+                                        <strong>Crate Quirks:</strong> <br/> {data.crate_quirks}
                                         </Box>
                                         <Box>
-                                            Crate Trained: {data.crate_trained}
+                                        <strong>Crate Trained:</strong> <br/> {data.crate_trained}
                                         </Box>
                                         <Box>
-                                            Food Quirks: {data.food_quirks}
+                                        <strong>Food Quirks:</strong> <br/> {data.food_quirks}
                                         </Box>
                                         <Box>
-                                            Aggression: {data.aggression_notes}
+                                        <strong>Aggression:</strong> <br/> {data.aggression_notes}
                                         </Box>
                                         <Box>
-                                            Bed Time: {data.bed_time}
+                                        <strong>Bed Time:</strong> <br/> {data.bed_time}
                                         </Box>
                                         <Box>
-                                            Eating Time: {data.eating_times}
+                                        <strong>Eating Times:</strong> <br/> {data.eating_times}
                                         </Box>
                                         <Box>
-                                            Favorite Toy: {data.fav_toy}
+                                        <strong>Favorite Toy:</strong> <br/> {data.fav_toy}
                                         </Box>
                                         <Box>
-                                            Potty Needs: {data.potty_needs}
+                                        <strong>Potty Needs:</strong> <br/> {data.potty_needs}
                                         </Box>
                                         <Box>
-                                            Walking Quirks: {data.walking_quirks}
+                                        <strong>Walking Quirks:</strong> <br/> {data.walking_quirks}
                                         </Box>
-                                        <Box>
-                                            Potty Needs: {data.potty_needs}
-                                        </Box><Box>
-                                            Potty Needs: {data.potty_needs}
-                                        </Box>
+                                            { data.deceased === false ? null : <Box>
+                                            <strong>Deceased:</strong> <br/> Sadly, yes
+                                            </Box>}
+                                            <Container>
+                                                <Title>Allergies</Title>
+                                                {data.allergy.map(allergy => (
+                                                <div>
+                                                    <Box>
+                                                    <strong>Name:</strong> <br/> {allergy.allergy_name}
+                                                    </Box>
+                                                    <Box>
+                                                    <strong>Side Effects:</strong> <br/> {allergy.side_effects}
+                                                    </Box>
+                                                </div>
+                                                ))}
+                                            </Container>
+                                    </Container>
+                                    <Container>
+                                        <Title>Commands</Title>
+                                        {data.command.map(command => (
+                                        <div>
+                                            <Box>
+                                            <strong>Command:</strong> <br/> {command.command_name}
+                                            </Box>
+                                            <Box>
+                                                <strong>Instructions:</strong> <br/> {command.instructions}
+                                            </Box>
+                                        </div>
+                                        ))}
                                     </Container>
                                 </HeroBody>
                             </div>
@@ -86,9 +110,9 @@ class Profile extends Component {
                                 <CardHeader>
                                     <CardHeaderTitle>
                                         Note
-                        </CardHeaderTitle>
+                                    </CardHeaderTitle>
                                     <CardHeaderIcon>
-                                        <Icon className="fa fa-angle-down" />
+                                        {/* <Icon className="fa fa-angle-down" {this.render}/> */}
                                     </CardHeaderIcon>
                                 </CardHeader>
                                 <CardContent>
@@ -116,69 +140,6 @@ class Profile extends Component {
 export default Profile
                 
                 /* 
-                allergy
-                :
-                    Array(1)
-                    0
-                    :
-                    allergy_name
-                    :
-                    "Chicken"
-                    owner
-                    :
-                    "http://127.0.0.1:8000/owners/1/"
-                    side_effects
-                    :
-                    "Itchy and coughing"
-                    url
-                    :
-                    "http://127.0.0.1:8000/allergies/1/"
-                
-                
-                command
-                :
-                    Array(1)
-                    0
-                    :
-                    command_name
-                    :
-                    "Sit"
-                    instructions
-                    :
-                    "Make a fist and say sit"
-                    owner
-                    :
-                    "http://127.0.0.1:8000/owners/1/"
-                    url
-                    :
-                    "http://127.0.0.1:8000/commands/1/"
-                
-                
-                
-                
-                
-                note
-                :
-                
-                    Array(1)
-                    0
-                    :
-                    archive
-                    :
-                    false
-                    content
-                    :
-                    "Scout turned one today"
-                    date_posted
-                    :
-                    null
-                    url
-                    :
-                    "http://127.0.0.1:8000/notes/1/"
-                
-                
-                
-                
                 deceased
                 :
                 false
