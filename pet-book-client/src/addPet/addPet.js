@@ -45,7 +45,7 @@ class AddPetForm extends Component {
     //   a fetch to get user created pet commands that will be added to state for drop down menu, or to post to API
     //  Will need to add a view for this in api, that filters based on user
   }
-  postPet(){
+  createPet(){
     //   a fetch to post pet data
   }
   postAllergies(){
@@ -79,34 +79,34 @@ class AddPetForm extends Component {
     console.log("New Product Added!", data)
   }
 
-  createProduct() {
-    const {title, description, price, quantity, product_type} = this.state
-    const authKey = this.props.token
+//   createProduct() {
+//     const {title, description, price, quantity, product_type} = this.state
+//     const authKey = this.props.token
 
-    return fetch(`http://127.0.0.1:8000/products/`, {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        description,
-        price,
-        quantity,
-        product_type
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${authKey}`
-      }
-    })
-    .then((response) => {
-      return response.json()
-    })
-    .then((response) => {
-      return this.displaySuccess(response)
-    })
-    .catch((err) => {
-      console.log("auth no like you, brah", err);
-    });
-  }
+//     return fetch(`http://127.0.0.1:8000/products/`, {
+//       method: "POST",
+//       body: JSON.stringify({
+//         title,
+//         description,
+//         price,
+//         quantity,
+//         product_type
+//       }),
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Authorization": `Token ${authKey}`
+//       }
+//     })
+//     .then((response) => {
+//       return response.json()
+//     })
+//     .then((response) => {
+//       return this.displaySuccess(response)
+//     })
+//     .catch((err) => {
+//       console.log("auth no like you, brah", err);
+//     });
+//   }
 
   render() {
     let optionItems = this.state.product_types.map((type) => {
