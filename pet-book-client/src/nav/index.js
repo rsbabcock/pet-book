@@ -31,8 +31,8 @@ class Nav extends Component {
         console.log("isAuth?", isAuth)
         return (
             <nav>
-                <div className="brand">
-                    <img src={logo} alt="logo" id="nav_home" onClick={()=>this.props.viewHandler("home")}/>
+                <div className="brand" id="nav_home" onClick={()=>this.props.viewHandler("home")}>
+                    <img src={logo} alt="logo" />
                     <h3>PetBook</h3>
                 </div>
                 {isAuth &&
