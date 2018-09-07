@@ -3,6 +3,7 @@ from petBookApi.models import *
 from .allergy_serializer import *
 from .command_serializer import *
 from .note_serializer import *
+from .breed_serializer import *
 from rest_framework import serializers
 
 class PetSerializer(serializers.HyperlinkedModelSerializer):
@@ -16,6 +17,7 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
   allergy = AllergySerializer(many=True, read_only=True)
   command = CommandSerializer(many=True, read_only=True)
   note = NoteSerializer(many=True, read_only=True)
+  breed = BreedSerializer(read_only=True)
 
   class Meta:
     model = Pet

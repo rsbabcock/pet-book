@@ -13,8 +13,6 @@ class DashBoard extends Component {
 
 
     render() {
-        const isAuth = this.props.isAuth
-        console.log("isAuth?", isAuth)
         return (
             <div>
             <Hero isSize='medium' isColor="light">
@@ -23,7 +21,7 @@ class DashBoard extends Component {
                         <Title>My Pets</Title>
                     </Box>
                     <Columns isCentered >
-                        <CustomCard resource={this.props.userPets} />
+                        <CustomCard resource={this.props.userPets} viewHandler={this.props.viewHandler}/>
                     </Columns>
                 </HeroHeader>                    
                 <HeroHeader >
@@ -31,7 +29,7 @@ class DashBoard extends Component {
                         <Title>Followed</Title>
                     </Box>
                     <Columns isCentered>
-                        <CustomCard resource={this.props.followedPets} />
+                        <CustomCard resource={this.props.followedPets} viewHandler={this.props.viewHandler}/>
                     </Columns>
                 </HeroHeader>
                 <HeroFooter>
