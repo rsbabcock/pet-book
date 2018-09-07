@@ -114,7 +114,6 @@ class App extends Component {
       view = e
       console.log("view changed brah!")
     }
-    // If user clicked logout in nav, empty local storage and update activeUser state
     // if (view === "profile") {
     //   this.setState({
     //     //   makes data dynamic for profile view, you can pass whatever you want to it

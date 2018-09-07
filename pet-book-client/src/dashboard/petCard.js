@@ -17,7 +17,7 @@ class CustomCard extends Component {
                 <Box> 
                     {c.image === "" ? <img src={c.image} alt={c.name} /> : <img src={avatar} alt="default avatar"/>}
                     <Button isSize={4} id="pet__profile" 
-                    onClick={this.props.viewHandler}>{c.name}</Button>
+                    onClick={this.props.viewHandler("profile", c)}>{c.name}</Button>
                 </Box>
                 </div>
                 ))}
