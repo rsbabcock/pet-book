@@ -37,7 +37,7 @@ class Nav extends Component {
                 </div>
                 {isAuth &&
                     <div className="nav__links">
-                        <button>Add Pet</button>
+                        <button onClick={this.props.viewHandler} id="nav__addPet">Add Pet</button>
                         <button>Follow</button>
                         <button>Settings</button>
                     </div>

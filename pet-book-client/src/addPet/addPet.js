@@ -2,151 +2,251 @@ import React, { Component } from "react";
 import "./addPet.css";
 
 class AddPetForm extends Component {
-// a component to add data for pet, 
-// will also need to get data for breed, petType and user.
-//  Will need to post/creat to allergy, 
-// commands notes will be created later, in profile view
-    
+  // a component to add data for pet, 
+  // will also need to get data for breed and petType
+
+
   state = {
-    pet: {  
-        name: "",
-        image: "",
-        nick_name: "",
-        birthday: "",
-        gender: "",
-        houdini: false,
-        crate_quirks: "",
-        crate_trained: true,
-        food_quirks: "",
-        aggression_notes: "",
-        bed_time: "",
-        eating_times: "",
-        fav_toy: "",
-        potty_needs: "",
-        walking_quirks: "",
-        deceased: false,
-        },
+    pet_type: "",
+    breed_id: "",
+    name: "",
+    // image: "",
+    nick_name: "",
+    birthday: "",
+    gender: "",
+    houdini: false,
+    crate_quirks: "",
+    crate_trained: true,
+    food_quirks: "",
+    aggression_notes: "",
+    bed_time: "",
+    eating_times: "",
+    fav_toy: "",
+    potty_needs: "",
+    walking_quirks: "",
+    deceased: false,
+    breeds: [],
     petType: [],
-    breeds: [],        
-    allergy: [],
-    command: []
   }
-  getPetTypes(){
-    //   a fetch to get all pet types and store them in the petType state
-  }
-  getPetBreeds(){
+
+  getPetTypes() {
     //   a fetch to get all pet breeds and store them in the breeds state
+    fetch(`http://127.0.0.1:8000/pet-types/`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((types) => {
+        console.log('types', types);
+        this.setState({ petType: types })
+      })
+      .catch((err) => {
+        console.log("fetch no like you, brah", err);
+      })
   }
-  getUserAllergies(){
-    //   a fetch to get user created pet allergies that will be added to state for drop down menu, or to post to API
-    //  Will need to add a view for this in api, that filters based on user
+
+  getPetBreeds() {
+    //   a fetch to get all breeds and store them in the breed state
+    fetch(`http://127.0.0.1:8000/breeds/`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((breeds) => {
+        console.log('breeds', breeds);
+        this.setState({ breeds: breeds })
+      })
+      .catch((err) => {
+        console.log("fetch no like you, brah", err);
+      })
+
   }
-  getUserCommands(){
-    //   a fetch to get user created pet commands that will be added to state for drop down menu, or to post to API
-    //  Will need to add a view for this in api, that filters based on user
-  }
-  createPet(){
+
+  createPet() {
     //   a fetch to post pet data
+    let token = localStorage.getItem("token")
+    const {pet_type,
+    breed_id,
+    name,
+    image,
+    nick_name,
+    birthday,
+    gender,
+    houdini,
+    crate_quirks,
+    crate_trained,
+    food_quirks,
+    aggression_notes,
+    bed_time,
+    eating_times,
+    fav_toy,
+    potty_needs,
+    walking_quirks,
+    deceased} = this.state
+    console.log(this.state.pet)
+    return fetch(`http://127.0.0.1:8000/create-pet/`, {
+      method: "POST",
+      body: JSON.stringify({pet_type,
+          breed_id,
+          name,
+          image,
+          nick_name,
+          birthday,
+          gender,
+          houdini,
+          crate_quirks,
+          crate_trained,
+          food_quirks,
+          aggression_notes,
+          bed_time,
+          eating_times,
+          fav_toy,
+          potty_needs,
+          walking_quirks,
+          deceased
+        }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
   }
-  postAllergies(){
-    //   a ftch to post user created allergy data
+
+
+  componentDidMount() {
+    this.getPetTypes()
+    this.getPetBreeds()
   }
-  postCommands(){
-    //   a fetch to poser user created pet commands
-  }
-//   componentDidMount() {
-//     fetch(`http://127.0.0.1:8000/product_types/`)
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((product_types) => {
-//       console.log('types', product_types);
-//       this.setState({product_types})
-//     })
-//     .catch((err) => {
-//       console.log("fetch no like you, brah", err);
-//     })
-//   }
 
   onChange(e) {
-    const productState = Object.assign({}, this.state);
-    console.log("dropdown ", e.target.name)
-    productState[e.target.name] = e.target.value;
-    this.setState(productState);
+    // const petState = Object.assign({}, this.state);
+    // petState[e.target.name] = e.target.value;
+    // console.log("input", e.target.value)
+    this.setState({ [e.target.name] : e.target.value });
+    console.log(this.state)
   }
 
   displaySuccess(data) {
-    console.log("New Product Added!", data)
+    console.log("New Pet Added!", data)
   }
 
-//   createProduct() {
-//     const {title, description, price, quantity, product_type} = this.state
-//     const authKey = this.props.token
-
-//     return fetch(`http://127.0.0.1:8000/products/`, {
-//       method: "POST",
-//       body: JSON.stringify({
-//         title,
-//         description,
-//         price,
-//         quantity,
-//         product_type
-//       }),
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Authorization": `Token ${authKey}`
-//       }
-//     })
-//     .then((response) => {
-//       return response.json()
-//     })
-//     .then((response) => {
-//       return this.displaySuccess(response)
-//     })
-//     .catch((err) => {
-//       console.log("auth no like you, brah", err);
-//     });
-//   }
 
   render() {
-    let optionItems = this.state.product_types.map((type) => {
-      return <option key={type.title} value={type.url}>{type.title}</option>
+    let optionPetType = this.state.petType.map((type) => {
+      return <option key={type.pet_type_name} value={type.url}>{type.pet_type_name}</option>
     });
-    optionItems.unshift(<option key='blank' value={this.state.defaultValue}>select a product category</option>)
+    optionPetType.unshift(<option key='blank' value={this.state.defaultValue}>Select a Pet Type</option>)
+
+    let optionBreed = this.state.breeds.map((breed) => {
+      // debugger
+      return <option key={breed.breed_name} value={breed.url}>{breed.breed_name}</option>
+    });
+    optionBreed.unshift(<option key='blank' value={this.state.defaultValue}>Select a Breed</option>)
+
+    let optionGender = [<option key={"M"} value={"M"}>{"M"}</option>, <option key={"F"} value={"F"}>{"F"}</option>]
+    optionGender.unshift(<option key='blank' value={this.state.defaultValue}>Select a Gender</option>)
+
+    let optionHoudini = [<option key={"Yes"} value={true}>{"Yes"}</option>, <option key={"No"} value={false}>{"No"}</option>]
+    optionHoudini.unshift(<option key='blank' value={this.state.defaultValue}>Is this pet a Houdini?</option>)
+
+    // optionCrateTrained
+    let optionCrateTrained = [<option key={"Yes"} value={true}>{"Yes"}</option>, <option key={"No"} value={false}>{"No"}</option>]
+    optionCrateTrained.unshift(<option key='blank' value={this.state.defaultValue}>Crate Trained?</option>)
     return (
       <div>
-        <h1>Sell yer stuff, make some cash</h1>
-        <div>
-            <input
-              type="text"
-              placeholder="title"
-              name="title"
-              onBlur={e => this.onChange(e)}
-            />
-            <select onChange={e => this.onChange(e)} name="product_type">
-              {optionItems}
-            </select>
-            <input
-              type="text"
-              placeholder="description"
-              name = "description"
-              onBlur={e => this.onChange(e)}
-            />
-            <input
-              type="number"
-              step="0.01"
-              placeholder="price"
-              name="price"
-              onBlur={e => this.onChange(e)}
-            />
-            <input
-              type="number"
-              placeholder="quantity"
-              name="quantity"
-              onBlur={e => this.onChange(e)}
-            />
-          </div>
-          <button onClick={() => this.createProduct()}>Submit</button>
+        <h1>Add a Pet!</h1>
+        <div className="form__container">
+          <select onChange={e => this.onChange(e)} name="pet_type">
+            {optionPetType}
+          </select>
+          <select onChange={e => this.onChange(e)} name="breed_id">
+            {optionBreed}
+          </select>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            onKeyPress={e => this.onChange(e)}
+          />
+          <input
+            type="file"
+            placeholder="Image"
+            name="image"
+            onBlur={e => this.onChange(e)}
+          />
+          <input
+            type="text"
+            placeholder="Nickname"
+            name="nick_name"
+            onBlur={e => this.onChange(e)}
+          />
+          <input
+            type="text"
+            placeholder="Birthday"
+            name="birthday"
+            onBlur={e => this.onChange(e)}
+          />
+          <select onChange={e => this.onChange(e)} name="gender">
+            {optionGender}
+          </select>
+          <select onChange={e => this.onChange(e)} name="houdini">
+            {optionHoudini}
+          </select>
+          <textarea
+            placeholder="Crate Quirks"
+            name="crate_quirks"
+            onBlur={e => this.onChange(e)}>
+            {this.state.crate_quirks}
+          </textarea>
+          <textarea
+            placeholder="Food Quirks"
+            name="food_quirks"
+            onBlur={e => this.onChange(e)}>
+            {this.state.food_quirks}
+          </textarea>
+          <select onChange={e => this.onChange(e)} name="crate_trained">
+            {optionCrateTrained}
+          </select>
+          <textarea
+            placeholder="Aggression Notes"
+            name="aggression_notes"
+            onBlur={e => this.onChange(e)}>
+          </textarea>
+          <input
+            type="text"
+            placeholder="Bed Time"
+            name="bed_time"
+            onBlur={e => this.onChange(e)}
+          />
+          <textarea
+            placeholder="Eating Times"
+            name="eating_times"
+            onBlur={e => this.onChange(e)}>
+          </textarea>
+          <textarea
+            placeholder="Favorite Toy"
+            name="fav_toy"
+            onBlur={e => this.onChange(e)}>
+          </textarea>
+          <textarea
+            placeholder="Potty Needs"
+            name="potty_needs"
+            onBlur={e => this.onChange(e)}>
+          </textarea>
+          <textarea
+            placeholder="Walking Quirks"
+            name="walking_quirks"
+            onBlur={e => this.onChange(e)}>
+          </textarea>
+        </div>
+        <button onClick={() => this.createPet()}>Submit</button>
       </div>
     )
   }

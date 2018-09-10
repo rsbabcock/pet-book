@@ -4,6 +4,7 @@ import Nav from './nav'
 import './App.css';
 import DashBoard from './dashboard/board';
 import Profile from './profile/profile';
+import AddPetForm from './addPet/addPet';
 
 
 class App extends Component {
@@ -166,6 +167,8 @@ componentDidMount() {
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url)=>{this.ProfileHandler(url)}}/>
         case 'profile':
           return <Profile resource={this.state.profileData}/>
+        case 'addPet':
+          return <AddPetForm viewHandler={this.showView}/>
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url)=>{this.ProfileHandler(url)}}/>  
 
