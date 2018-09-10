@@ -8,7 +8,7 @@ class AddPetForm extends Component {
 
   state = {
     pet_type: "",
-    breed_id: "",
+    breed: "",
     name: "",
     image: "",
     nick_name: "",
@@ -64,7 +64,7 @@ class AddPetForm extends Component {
     //   a fetch to post pet data
     let token = localStorage.getItem("token")
     const {pet_type,
-    breed_id,
+    breed,
     name,
     image,
     nick_name,
@@ -82,10 +82,11 @@ class AddPetForm extends Component {
     walking_quirks,
     deceased} = this.state
     console.log(this.state.pet)
-    return fetch(`http://127.0.0.1:8000/create-pet/`, {
+    fetch(`http://127.0.0.1:8000/create-pet/`, {
       method: "POST",
-      body: JSON.stringify({pet_type,
-          breed_id,
+      body: JSON.stringify({
+          pet_type,
+          breed,
           name,
           image,
           nick_name,
@@ -182,7 +183,7 @@ class AddPetForm extends Component {
           <select onChange={e => this.onChange(e)} name="pet_type">
             {optionPetType}
           </select>
-          <select onChange={e => this.onChange(e)} name="breed_id">
+          <select onChange={e => this.onChange(e)} name="breed">
             {optionBreed}
           </select>
           <input
@@ -200,7 +201,7 @@ class AddPetForm extends Component {
             onChange={e => this.handleChangeImage(e)}
             encType="multipart/form-data" 
           />
-          <img src={this.state.image} alt="uploaded image"/>
+          <img src={this.state.image} alt="upload"/>
           <input
             type="text"
             placeholder="Nickname"

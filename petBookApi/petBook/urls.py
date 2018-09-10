@@ -19,6 +19,8 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from petBookApi.views import *
+from petBookApi.views import *
+from petBookApi.serializers import *
 
 router = routers.DefaultRouter()
 router.register(r'users', owner_view.UserViewSet),
@@ -28,7 +30,7 @@ router.register(r'breeds', breed_view.BreedViewSet),
 router.register(r'pets', pet_view.PetViewSet),
 router.register(r'user-pets', UserPetList, base_name='user-pets'),
 router.register(r'followed-pets', FollowedViewSet, base_name='followed-pets'),
-router.register(r'create-pet', CreatePetView, base_name='create-pet'),
+router.register(r'create-pet', add_pet, name='create-pet', base_name='create-pet'),
 router.register(r'allergies', allergy_view.AllergyViewSet),
 router.register(r'commands', command_view.CommandViewSet),
 router.register(r'notes', note_view.NoteViewSet),
