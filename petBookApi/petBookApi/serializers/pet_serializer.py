@@ -1,3 +1,4 @@
+from drf_extra_fields.fields import Base64ImageField
 from petBookApi.models import *
 
 from .allergy_serializer import *
@@ -18,6 +19,9 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
   command = CommandSerializer(many=True, read_only=True)
   note = NoteSerializer(many=True, read_only=True)
   breed = BreedSerializer(read_only=True)
+  image = Base64ImageField(
+        max_length=None, use_url=True,
+    )
 
   class Meta:
     model = Pet

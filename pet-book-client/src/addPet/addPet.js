@@ -10,7 +10,7 @@ class AddPetForm extends Component {
     pet_type: "",
     breed_id: "",
     name: "",
-    // image: "",
+    image: "",
     nick_name: "",
     birthday: "",
     gender: "",
@@ -137,6 +137,22 @@ class AddPetForm extends Component {
     console.log("New Pet Added!", data)
   }
 
+  handleChangeImage(evt) {
+    console.log("Uploading");
+    let self = this
+    const reader = new FileReader();
+    let file = evt.target.files[0];
+
+    reader.onload = function(upload) {
+        self.setState({
+            image: upload.target.result
+        });
+        console.log(self.state.image);
+    };
+    reader.readAsDataURL(file);
+    console.log("Uploaded");
+}
+
 
   render() {
     let optionPetType = this.state.petType.map((type) => {
@@ -176,11 +192,15 @@ class AddPetForm extends Component {
             onKeyPress={e => this.onChange(e)}
           />
           <input
+          ref="file"
             type="file"
             placeholder="Image"
             name="image"
-            onBlur={e => this.onChange(e)}
+            id="file"
+            onChange={e => this.handleChangeImage(e)}
+            encType="multipart/form-data" 
           />
+          <img src={this.state.image} alt="uploaded image"/>
           <input
             type="text"
             placeholder="Nickname"

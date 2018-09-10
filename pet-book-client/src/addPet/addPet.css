@@ -8,3 +8,6 @@
 .form__container input, select, textarea {
     margin: 4px;
 }
+.form__container img{
+    width: 10%;
+}
