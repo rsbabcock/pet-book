@@ -31,26 +31,34 @@ class Nav extends Component {
         console.log("isAuth?", isAuth)
         return (
             <nav>
-                <div className="brand" id="nav_home" onClick={()=>this.props.viewHandler("home")}>
+                <div className="brand" id="nav_home" onClick={() => this.props.viewHandler("home")}>
                     <img src={logo} alt="logo" />
                     <h3>PetBook</h3>
                 </div>
                 {isAuth &&
-                    <div className="nav__links">
-                        <button onClick={this.props.viewHandler} id="nav__addPet">Add Pet</button>
-                        <button onClick={this.props.viewHandler} id="nav__addAllergy">Add Allergy</button>
-                        <button onClick={this.props.viewHandler} id="nav__addCommand">Add Command</button>
-                        <button>Follow</button>
-                        <button>Settings</button>
-                    </div>
+                    <h3 id="welcome">Welcome, {this.props.user}</h3>
                 }
                 <div className="container__login">
-                    {isAuth &&
-                        <h3>Welcome, {this.props.user}</h3>
-                }
-                    <button onClick={() => isAuth ? this.logOut() : this.displayLogin()}>
-                        Log {isAuth ? "out" : "in"} </button>
-                    <button onClick={() => this.displayRegister()}>Register</button>
+                    <div className="dropdown">
+                        <button className="dropbtn">Menu</button>
+                        <div className="dropdown-content">
+                            {isAuth &&
+                                <div>
+                                    <button id="nav__addPet" onClick={this.props.viewHandler} >Add Pet</button>
+                                    <button onClick={this.props.viewHandler} id="nav__addAllergy">Add Allergy</button>
+                                    <button onClick={this.props.viewHandler} id="nav__addCommand">Add Command</button>
+                                    <button>Follow</button>
+                                    <button>Settings</button>
+                                </div>
+                            }
+                            <div>
+                                <button onClick={() => isAuth ? this.logOut() : this.displayLogin()}>
+                                    Log {isAuth ? "out" : "in"} </button>
+                                <button onClick={() => this.displayRegister()}>Register</button>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </nav >
         )

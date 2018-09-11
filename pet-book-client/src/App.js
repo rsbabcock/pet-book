@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from './auth'
-import Nav from './nav'
+import NavComponent from './nav'
 import './App.css';
 import DashBoard from './dashboard/board';
 import Profile from './profile/profile';
@@ -186,7 +186,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} displaySell={() => this.displaySell()} logOut={() => this.logOut()} viewHandler={this.showView} />
+        <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} displaySell={() => this.displaySell()} logOut={() => this.logOut()} viewHandler={this.showView} />
         {this.View()}
       </div>
     );
