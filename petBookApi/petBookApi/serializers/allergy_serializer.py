@@ -5,7 +5,8 @@ class AllergySerializer(serializers.HyperlinkedModelSerializer):
     """
     Serializer to represent json for allergy data
     """
+    user = serializers.ReadOnlyField(source='user.url')
 
     class Meta:
         model = Allergy
-        fields = '__all__'
+        fields = ('url', 'allergy_name', 'side_effects', 'user')

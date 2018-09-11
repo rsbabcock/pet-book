@@ -128,9 +128,6 @@ class AddPetForm extends Component {
   
 
   onChange(e) {
-    // const petState = Object.assign({}, this.state);
-    // petState[e.target.name] = e.target.value;
-    // console.log("input", e.target.value)
     this.setState({ [e.target.name] : e.target.value });
     console.log(this.state)
   }

@@ -5,4 +5,4 @@ class PetAllergySerializer(serializers.HyperlinkedModelSerializer):
     
   class Meta:
     model = PetAllergy
-    fields = '__all__'
+    fields = ('url','pet', 'allergy')

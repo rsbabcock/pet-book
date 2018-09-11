@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 
 class AllergiesForm extends Component {
-    state = {
-        allergy_name: "",
-        side_effects: "",
-        userAllergies: [],
-        pet: "",
-        allergy: ""
-    }
+  state = {
+    allergy_name: "",
+    side_effects: "",
+    pet: "",
+    allergy: "",
+    userAllergies: []
+  }
 
-getUserAllergies(){
+  displaySuccess(data) {
+    console.log("Response!", data)
+  }
+  getUserAllergies() {
     //   a fetch to get user created pet allergies that will be added to state for drop down menu
     let token = localStorage.getItem("token")
     fetch(`http://127.0.0.1:8000/user-allergies/`, {
@@ -29,68 +32,78 @@ getUserAllergies(){
         console.log("fetch no like you, brah", err);
       })
   }
-  postAllergies(){
-    //   a fetch to post user created allergy data
-      let token = localStorage.getItem("token")
-      const {
-      crate_quirks,
-      crate_trained,
-      food_quirks,
-      aggression_notes,
-      bed_time,
-      eating_times,
-      fav_toy,
+  postPreMadeAllergies() {
+    let token = localStorage.getItem("token")
+    const {
+      pet,
+      allergy,
     } = this.state
-      console.log(this.state.pet)
-      fetch(`http://127.0.0.1:8000/create-pet/`, {
-        method: "POST",
-        body: JSON.stringify({
-            pet_type,
-            breed,
-            name,
-            image,
-            nick_name,
-            birthday,
-            gender,
-            houdini,
-            crate_quirks,
-            crate_trained,
-            food_quirks,
-            aggression_notes,
-            bed_time,
-            eating_times,
-            fav_toy,
-            potty_needs,
-            walking_quirks,
-            deceased
-          }),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        }
+    console.log(`${this.state.pet} ${this.state.allergy}`)
+    fetch(`http://127.0.0.1:8000/create-pet-allergy/`, {
+      method: "POST",
+      body: JSON.stringify({
+        pet,
+        allergy,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+        // return response.text()
       })
-        .then((response) => {
-          return response.json()
-        })
-        .then((response) => {
-          return this.displaySuccess(response)
-        })
-        .catch((err) => {
-          console.log("auth no like you, brah", err);
-        });
-    }
+      .then((response) => {
+        // console.log(text)
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
+  }
+  postNewAllergy() {
+    //   a fetch to post user created allergy data
+    let token = localStorage.getItem("token")
+    const {
+      allergy_name,
+      side_effects,
+    } = this.state
+    console.log(this.state)
+    fetch(`http://127.0.0.1:8000/create-allergy/`, {
+      method: "POST",
+      body: JSON.stringify({
+        allergy_name,
+        side_effects,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        this.getUserAllergies()
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
+  }
 
-onChange(e) {
-  this.setState({ [e.target.name] : e.target.value });
-  console.log(this.state)
-}
- 
-componentDidMount(){
-  this.getUserAllergies()
-}
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state)
+  }
+
+  componentDidMount() {
+    this.getUserAllergies()
+  }
 
 
-render() {
+  render() {
     let optionAllergy = this.state.userAllergies.map((type) => {
       return <option key={type.allergy_name} value={type.url}>{type.allergy_name}</option>
     });
@@ -102,14 +115,8 @@ render() {
     optionPet.unshift(<option key='blank' value={this.state.defaultValue}>Your Pets</option>)
     return (
       <div>
-        <h1>Add a Pre-existing Allergy or create one!</h1>
         <div className="form__container">
-          <select onChange={e => this.onChange(e)} name="allergy">
-            {optionAllergy}
-          </select>
-          <select onChange={e => this.onChange(e)} name="pet">
-            {optionPet}
-          </select>
+          <h1>Add a New Allergy</h1>
           <input
             type="text"
             placeholder="Allergy Name"
@@ -122,8 +129,16 @@ render() {
             onBlur={e => this.onChange(e)}>
             {this.state.side_effects}
           </textarea>
+          <button onClick={() => this.postNewAllergy()}>Create New Allergy</button>
+          <h1>Add Allergy to Pet</h1>
+          <select onChange={e => this.onChange(e)} name="allergy">
+            {optionAllergy}
+          </select>
+          <select onChange={e => this.onChange(e)} name="pet">
+            {optionPet}
+          </select>
+          <button onClick={() => this.postPreMadeAllergies()}>Add Allergy to Pet</button>
         </div>
-        <button onClick={() => this.createPet()}>Submit</button>
       </div>
     )
   }

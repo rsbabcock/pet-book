@@ -9,9 +9,9 @@ from petBookApi.models import *
 from petBookApi.serializers import *
 
 
-class CreatePetViewSet(viewsets.ModelViewSet):
-    serializer_class = PetSerializer
-    queryset = Pet.objects.all()    
+class CreateAllergyViewSet(viewsets.ModelViewSet):
+    serializer_class = AllergySerializer
+    queryset = Allergy.objects.all()    
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
