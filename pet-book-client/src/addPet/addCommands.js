@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Title, Select, Input, TextArea, Field } from "bloomer";
+import { Button, Title, Select, Input, TextArea, Field, Container, Box } from "bloomer";
 
 class CommandsForm extends Component {
   state = {
@@ -120,36 +120,42 @@ class CommandsForm extends Component {
     return (
       <div>
         <div className="form__container">
-          <Title>Add a New Command</Title>
-          <Field>
-            <Input
-              type="text"
-              placeholder="Command Name"
-              name="command_name"
-              onKeyPress={e => this.onChange(e)}
-            />
-            <TextArea
-              placeholder="Instructions"
-              name="instructions"
-              onBlur={e => this.onChange(e)}>
-              {this.state.instructions}
-            </TextArea>
-          </Field>
-          <Button isColor="info" isOutlined onClick={() => this.postNewCommand()}>Create New Command</Button>
-          <Title>Add command to Pet</Title>
-          <Field>
-            <Select onChange={e => this.onChange(e)} name="command">
-              {optionCommand}
-            </Select>
-            <Select onChange={e => this.onChange(e)} name="pet">
-              {optionPet}
-            </Select>
-          </Field>
-          <Button isColor="info" isOutlined onClick={() => this.postPreMadeCommands()}>Add Command to Pet</Button>
+          <Container>
+            <Box>
+              <Title>Add a New Command</Title>
+              <Field>
+                <Input
+                  type="text"
+                  placeholder="Command Name"
+                  name="command_name"
+                  onKeyPress={e => this.onChange(e)}
+                />
+                <TextArea
+                  placeholder="Instructions"
+                  name="instructions"
+                  onBlur={e => this.onChange(e)}>
+                  {this.state.instructions}
+                </TextArea>
+              </Field>
+              <Button isColor="info" isOutlined onClick={() => this.postNewCommand()}>Create New Command</Button>
+              </Box>
+              <Box>
+                <Title>Add command to Pet</Title>
+                <Field>
+                  <Select onChange={e => this.onChange(e)} name="command">
+                    {optionCommand}
+                  </Select>
+                  <Select onChange={e => this.onChange(e)} name="pet">
+                    {optionPet}
+                  </Select>
+                </Field>
+                <Button isColor="info" isOutlined onClick={() => this.postPreMadeCommands()}>Add Command to Pet</Button>
+              </Box>
+          </Container>
         </div>
-      </div>
-    )
-  }
-}
-
-export default CommandsForm
+        </div>
+        )
+      }
+    }
+    
+    export default CommandsForm
