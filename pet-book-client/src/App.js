@@ -5,6 +5,7 @@ import './App.css';
 import DashBoard from './dashboard/board';
 import Profile from './profile/profile';
 import AddPetForm from './addPet/addPet';
+import AllergiesForm from './addPet/addAllergies';
 
 
 class App extends Component {
@@ -169,6 +170,9 @@ componentDidMount() {
           return <Profile resource={this.state.profileData}/>
         case 'addPet':
           return <AddPetForm viewHandler={this.showView}/>
+          // addAllergy
+        case 'addAllergy':
+          return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets}/>
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url)=>{this.ProfileHandler(url)}}/>  
 
