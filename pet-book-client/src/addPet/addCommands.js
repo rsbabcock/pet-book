@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button, Title, Select, Input, TextArea, Field } from "bloomer";
 
 class CommandsForm extends Component {
   state = {
@@ -119,28 +120,32 @@ class CommandsForm extends Component {
     return (
       <div>
         <div className="form__container">
-          <h1>Add a New Command</h1>
-          <input
-            type="text"
-            placeholder="Command Name"
-            name="command_name"
-            onKeyPress={e => this.onChange(e)}
-          />
-          <textarea
-            placeholder="Instructions"
-            name="instructions"
-            onBlur={e => this.onChange(e)}>
-            {this.state.instructions}
-          </textarea>
-          <button onClick={() => this.postNewCommand()}>Create New Command</button>
-          <h1>Add command to Pet</h1>
-          <select onChange={e => this.onChange(e)} name="command">
-            {optionCommand}
-          </select>
-          <select onChange={e => this.onChange(e)} name="pet">
-            {optionPet}
-          </select>
-          <button onClick={() => this.postPreMadeCommands()}>Add Command to Pet</button>
+          <Title>Add a New Command</Title>
+          <Field>
+            <Input
+              type="text"
+              placeholder="Command Name"
+              name="command_name"
+              onKeyPress={e => this.onChange(e)}
+            />
+            <TextArea
+              placeholder="Instructions"
+              name="instructions"
+              onBlur={e => this.onChange(e)}>
+              {this.state.instructions}
+            </TextArea>
+          </Field>
+          <Button isColor="info" isOutlined onClick={() => this.postNewCommand()}>Create New Command</Button>
+          <Title>Add command to Pet</Title>
+          <Field>
+            <Select onChange={e => this.onChange(e)} name="command">
+              {optionCommand}
+            </Select>
+            <Select onChange={e => this.onChange(e)} name="pet">
+              {optionPet}
+            </Select>
+          </Field>
+          <Button isColor="info" isOutlined onClick={() => this.postPreMadeCommands()}>Add Command to Pet</Button>
         </div>
       </div>
     )

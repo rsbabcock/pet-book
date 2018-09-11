@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./addPet.css";
-
+import { Button, Title, Select, Input, TextArea, Field } from "bloomer";
+import avatar from '../img/petBookLogo_white.png'
 class AddPetForm extends Component {
   // a component to add data for pet, 
   // will also need to get data for breed and petType
@@ -63,47 +64,47 @@ class AddPetForm extends Component {
   createPet() {
     //   a fetch to post pet data
     let token = localStorage.getItem("token")
-    const {pet_type,
-    breed,
-    name,
-    image,
-    nick_name,
-    birthday,
-    gender,
-    houdini,
-    crate_quirks,
-    crate_trained,
-    food_quirks,
-    aggression_notes,
-    bed_time,
-    eating_times,
-    fav_toy,
-    potty_needs,
-    walking_quirks,
-    deceased} = this.state
+    const { pet_type,
+      breed,
+      name,
+      image,
+      nick_name,
+      birthday,
+      gender,
+      houdini,
+      crate_quirks,
+      crate_trained,
+      food_quirks,
+      aggression_notes,
+      bed_time,
+      eating_times,
+      fav_toy,
+      potty_needs,
+      walking_quirks,
+      deceased } = this.state
     console.log(this.state.pet)
     fetch(`http://127.0.0.1:8000/create-pet/`, {
       method: "POST",
       body: JSON.stringify({
-          pet_type,
-          breed,
-          name,
-          image,
-          nick_name,
-          birthday,
-          gender,
-          houdini,
-          crate_quirks,
-          crate_trained,
-          food_quirks,
-          aggression_notes,
-          bed_time,
-          eating_times,
-          fav_toy,
-          potty_needs,
-          walking_quirks,
-          deceased
-        }),
+        pet_type,
+        breed,
+        name,
+        image,
+        nick_name,
+        birthday,
+        gender,
+        houdini,
+        crate_quirks,
+        crate_trained,
+        food_quirks,
+        aggression_notes,
+        bed_time,
+        eating_times,
+        fav_toy,
+        potty_needs,
+        walking_quirks,
+        deceased
+      }),
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`
@@ -125,10 +126,10 @@ class AddPetForm extends Component {
     this.getPetTypes()
     this.getPetBreeds()
   }
-  
+
 
   onChange(e) {
-    this.setState({ [e.target.name] : e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
     console.log(this.state)
   }
 
@@ -142,15 +143,15 @@ class AddPetForm extends Component {
     const reader = new FileReader();
     let file = evt.target.files[0];
 
-    reader.onload = function(upload) {
-        self.setState({
-            image: upload.target.result
-        });
-        console.log(self.state.image);
+    reader.onload = function (upload) {
+      self.setState({
+        image: upload.target.result
+      });
+      console.log(self.state.image);
     };
     reader.readAsDataURL(file);
     console.log("Uploaded");
-}
+  }
 
 
   render() {
@@ -176,96 +177,106 @@ class AddPetForm extends Component {
     optionCrateTrained.unshift(<option key='blank' value={this.state.defaultValue}>Crate Trained?</option>)
     return (
       <div>
-        <h1>Add a Pet!</h1>
+        <Title>Add a Pet!</Title>
         <div className="form__container">
-          <select onChange={e => this.onChange(e)} name="pet_type">
-            {optionPetType}
-          </select>
-          <select onChange={e => this.onChange(e)} name="breed">
-            {optionBreed}
-          </select>
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            onKeyPress={e => this.onChange(e)}
-          />
-          <input
-          ref="file"
-            type="file"
-            placeholder="Image"
-            name="image"
-            id="file"
-            onChange={e => this.handleChangeImage(e)}
-            encType="multipart/form-data" 
-          />
-          <img src={this.state.image} alt="upload"/>
-          <input
-            type="text"
-            placeholder="Nickname"
-            name="nick_name"
-            onBlur={e => this.onChange(e)}
-          />
-          <input
-            type="text"
-            placeholder="Birthday"
-            name="birthday"
-            onBlur={e => this.onChange(e)}
-          />
-          <select onChange={e => this.onChange(e)} name="gender">
-            {optionGender}
-          </select>
-          <select onChange={e => this.onChange(e)} name="houdini">
-            {optionHoudini}
-          </select>
-          <textarea
-            placeholder="Crate Quirks"
-            name="crate_quirks"
-            onBlur={e => this.onChange(e)}>
-            {this.state.crate_quirks}
-          </textarea>
-          <textarea
-            placeholder="Food Quirks"
-            name="food_quirks"
-            onBlur={e => this.onChange(e)}>
-            {this.state.food_quirks}
-          </textarea>
-          <select onChange={e => this.onChange(e)} name="crate_trained">
-            {optionCrateTrained}
-          </select>
-          <textarea
-            placeholder="Aggression Notes"
-            name="aggression_notes"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <input
-            type="text"
-            placeholder="Bed Time"
-            name="bed_time"
-            onBlur={e => this.onChange(e)}
-          />
-          <textarea
-            placeholder="Eating Times"
-            name="eating_times"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Favorite Toy"
-            name="fav_toy"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Potty Needs"
-            name="potty_needs"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Walking Quirks"
-            name="walking_quirks"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
+          <Field>
+            <Select onChange={e => this.onChange(e)} name="pet_type">
+              {optionPetType}
+            </Select>
+            <Select onChange={e => this.onChange(e)} name="breed">
+              {optionBreed}
+            </Select>
+          </Field>
+          <Field>
+            <Input
+              type="text"
+              placeholder="Name"
+              name="name"
+              onKeyPress={e => this.onChange(e)}
+            />
+            <Input
+              ref="file"
+              type="file"
+              placeholder="Image"
+              name="image"
+              id="file"
+              onChange={e => this.handleChangeImage(e)}
+              encType="multipart/form-data"
+            />
+            <img src={this.state.image === "" ? avatar : this.state.image} alt="upload" />
+          </Field>
+          <Field>
+            <Input
+              type="text"
+              placeholder="Nickname"
+              name="nick_name"
+              onBlur={e => this.onChange(e)}
+            />
+            <Input
+              type="text"
+              placeholder="Birthday"
+              name="birthday"
+              onBlur={e => this.onChange(e)}
+            />
+            <Select onChange={e => this.onChange(e)} name="gender">
+              {optionGender}
+            </Select>
+            <Select onChange={e => this.onChange(e)} name="houdini">
+              {optionHoudini}
+            </Select>
+          </Field>
+          <Field>
+            <Select onChange={e => this.onChange(e)} name="crate_trained">
+              {optionCrateTrained}
+            </Select>
+            <TextArea
+              placeholder="Crate Quirks"
+              name="crate_quirks"
+              onBlur={e => this.onChange(e)}>
+              {this.state.crate_quirks}
+            </TextArea>
+          </Field>
+          <Field>
+            <TextArea
+              placeholder="Food Quirks"
+              name="food_quirks"
+              onBlur={e => this.onChange(e)}>
+              {this.state.food_quirks}
+            </TextArea>
+            <TextArea
+              placeholder="Aggression Notes"
+              name="aggression_notes"
+              onBlur={e => this.onChange(e)}>
+            </TextArea>
+            <Input
+              type="text"
+              placeholder="Bed Time"
+              name="bed_time"
+              onBlur={e => this.onChange(e)}
+            />
+            <TextArea
+              placeholder="Eating Times"
+              name="eating_times"
+              onBlur={e => this.onChange(e)}>
+            </TextArea>
+            <TextArea
+              placeholder="Favorite Toy"
+              name="fav_toy"
+              onBlur={e => this.onChange(e)}>
+            </TextArea>
+            <TextArea
+              placeholder="Potty Needs"
+              name="potty_needs"
+              onBlur={e => this.onChange(e)}>
+            </TextArea>
+            <TextArea
+              placeholder="Walking Quirks"
+              name="walking_quirks"
+              onBlur={e => this.onChange(e)}>
+            </TextArea>
+          </Field>
         </div>
-        <button onClick={() => this.createPet()}>Submit</button>
+        <Button isColor="info" isOutlined onClick={() => this.createPet()}>Add Pet</Button>
       </div>
     )
   }

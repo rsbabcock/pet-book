@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Button, Title, Select, Input, TextArea, Field } from "bloomer";
+
+
 
 class AllergiesForm extends Component {
   state = {
@@ -116,28 +119,32 @@ class AllergiesForm extends Component {
     return (
       <div>
         <div className="form__container">
-          <h1>Add a New Allergy</h1>
-          <input
-            type="text"
-            placeholder="Allergy Name"
-            name="allergy_name"
-            onKeyPress={e => this.onChange(e)}
-          />
-          <textarea
-            placeholder="Side Effects"
-            name="side_effects"
-            onBlur={e => this.onChange(e)}>
-            {this.state.side_effects}
-          </textarea>
-          <button onClick={() => this.postNewAllergy()}>Create New Allergy</button>
-          <h1>Add Allergy to Pet</h1>
-          <select onChange={e => this.onChange(e)} name="allergy">
-            {optionAllergy}
-          </select>
-          <select onChange={e => this.onChange(e)} name="pet">
-            {optionPet}
-          </select>
-          <button onClick={() => this.postPreMadeAllergies()}>Add Allergy to Pet</button>
+          <Title>Add a New Allergy</Title>
+          <Field>
+            <Input
+              type="text"
+              placeholder="Allergy Name"
+              name="allergy_name"
+              onKeyPress={e => this.onChange(e)}
+            />
+            <TextArea
+              placeholder="Side Effects"
+              name="side_effects"
+              onBlur={e => this.onChange(e)}>
+              {this.state.side_effects}
+            </TextArea>
+          </Field>
+          <Button isColor="info" isOutlined onClick={() => this.postNewAllergy()}>Create New Allergy</Button>
+          <Title>Add Allergy to Pet</Title>
+          <Field>
+            <Select onChange={e => this.onChange(e)} name="allergy">
+              {optionAllergy}
+            </Select>
+            <Select onChange={e => this.onChange(e)} name="pet">
+              {optionPet}
+            </Select>
+          </Field>
+          <Button isColor="info" isOutlined onClick={() => this.postPreMadeAllergies()}>Add Allergy to Pet</Button>
         </div>
       </div>
     )
