@@ -5,7 +5,8 @@ class CommandSerializer(serializers.HyperlinkedModelSerializer):
     '''
     Serializer to represent JSON data for pet commands 
     '''
+    user = serializers.ReadOnlyField(source='user.url')
 
     class Meta:
         model = Command
-        fields = '__all__'
+        fields = ('url', 'command_name', 'instructions', 'user')

@@ -17,3 +17,5 @@ from .pet_allergies_view import *
 from .pet_commands_view import *
 from .create_allergy_view import *
 from .create_pet_allergy_view import *
+from .create_command_view import *
+from .create_pet_command_view import *

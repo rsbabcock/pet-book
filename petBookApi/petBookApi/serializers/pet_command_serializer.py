@@ -5,4 +5,4 @@ class PetCommandSerializer(serializers.HyperlinkedModelSerializer):
     
   class Meta:
     model = PetCommand
-    fields = '__all__'
+    fields = ('url', 'pet', 'command')

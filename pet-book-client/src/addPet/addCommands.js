@@ -1,132 +1,150 @@
 import React, { Component } from "react";
 
-    state = {
-        "command_name": "Sit",
-        "instructions": "Make a fist and say sit"
-    }
-// getUserAllergies(){
-//     //   a fetch to get user created pet allergies that will be added to state for drop down menu, or to post to API
-//     //  Will need to add a view for this in api, that filters based on user
-//   }
-//   getUserCommands(){
-//     //   a fetch to get user created pet commands that will be added to state for drop down menu, or to post to API
-//     //  Will need to add a view for this in api, that filters based on user
-//   }
-//   postAllergies(){
-//     //   a ftch to post user created allergy data
-//   }
-//   postCommands(){
-//     //   a fetch to poser user created pet commands
-//   }
+class CommandsForm extends Component {
+  state = {
 
-class addAllergiesCommands extends Component {
+    // "command_name": "Sit",
+    // "instructions": "Make a fist and say sit" 
+    command_name: "",
+    instructions: "",
+    pet: "",
+    command: "",
+    userCommands: []
+  }
 
-render() {
-    let optionPetType = this.state.petType.map((type) => {
-      return <option key={type.pet_type_name} value={type.url}>{type.pet_type_name}</option>
+  displaySuccess(data) {
+    console.log("Response!", data)
+  }
+  getUserCommands() {
+    //   a fetch to get user created pet allergies that will be added to state for drop down menu
+    let token = localStorage.getItem("token")
+    fetch(`http://127.0.0.1:8000/user-commands/`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((commands) => {
+        console.log('commands', commands);
+        this.setState({ userCommands: commands })
+      })
+      .catch((err) => {
+        console.log("fetch no like you, brah", err);
+      })
+  }
+  postPreMadeCommands() {
+    let token = localStorage.getItem("token")
+    const {
+      pet,
+      command,
+    } = this.state
+    console.log(`${this.state.pet} ${this.state.command}`)
+    fetch(`http://127.0.0.1:8000/create-pet-command/`, {
+      method: "POST",
+      body: JSON.stringify({
+        pet,
+        command,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+        // return response.text()
+      })
+      .then((response) => {
+        // console.log(text)
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
+  }
+  postNewCommand() {
+    //   a fetch to post user created command data
+    let token = localStorage.getItem("token")
+    const {
+      command_name,
+      instructions,
+    } = this.state
+    console.log(this.state)
+    fetch(`http://127.0.0.1:8000/create-command/`, {
+      method: "POST",
+      body: JSON.stringify({
+        command_name,
+        instructions,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        this.getUserCommands()
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state)
+  }
+
+  componentDidMount() {
+    this.getUserCommands()
+  }
+
+
+  render() {
+    let optionCommand = this.state.userCommands.map((type) => {
+      return <option key={type.command_name} value={type.url}>{type.command_name}</option>
     });
-    optionPetType.unshift(<option key='blank' value={this.state.defaultValue}>Select a Pet Type</option>)
+    optionCommand.unshift(<option key='blank' value={this.state.defaultValue}>Pre-Created Commands</option>)
 
-    let optionBreed = this.state.breeds.map((breed) => {
-      // debugger
-      return <option key={breed.breed_name} value={breed.url}>{breed.breed_name}</option>
+    let optionPet = this.props.userPets.map((type) => {
+      return <option key={type.name} value={type.url}>{type.name}</option>
     });
-    optionBreed.unshift(<option key='blank' value={this.state.defaultValue}>Select a Breed</option>)
-
-    let optionGender = [<option key={"M"} value={"M"}>{"M"}</option>, <option key={"F"} value={"F"}>{"F"}</option>]
-    optionGender.unshift(<option key='blank' value={this.state.defaultValue}>Select a Gender</option>)
-
-    let optionHoudini = [<option key={"Yes"} value={true}>{"Yes"}</option>, <option key={"No"} value={false}>{"No"}</option>]
-    optionHoudini.unshift(<option key='blank' value={this.state.defaultValue}>Is this pet a Houdini?</option>)
-
-    // optionCrateTrained
-    let optionCrateTrained = [<option key={"Yes"} value={true}>{"Yes"}</option>, <option key={"No"} value={false}>{"No"}</option>]
-    optionCrateTrained.unshift(<option key='blank' value={this.state.defaultValue}>Crate Trained?</option>)
+    optionPet.unshift(<option key='blank' value={this.state.defaultValue}>Your Pets</option>)
     return (
       <div>
-        <h1>Add a Pet!</h1>
         <div className="form__container">
-          <select onChange={e => this.onChange(e)} name="pet_type">
-            {optionPetType}
-          </select>
-          <select onChange={e => this.onChange(e)} name="breed">
-            {optionBreed}
-          </select>
+          <h1>Add a New Command</h1>
           <input
             type="text"
-            placeholder="Name"
-            name="name"
+            placeholder="Command Name"
+            name="command_name"
             onKeyPress={e => this.onChange(e)}
           />
-          <input
-            type="text"
-            placeholder="Nickname"
-            name="nick_name"
-            onBlur={e => this.onChange(e)}
-          />
-          <input
-            type="text"
-            placeholder="Birthday"
-            name="birthday"
-            onBlur={e => this.onChange(e)}
-          />
-          <select onChange={e => this.onChange(e)} name="gender">
-            {optionGender}
+          <textarea
+            placeholder="Instructions"
+            name="instructions"
+            onBlur={e => this.onChange(e)}>
+            {this.state.instructions}
+          </textarea>
+          <button onClick={() => this.postNewCommand()}>Create New Command</button>
+          <h1>Add command to Pet</h1>
+          <select onChange={e => this.onChange(e)} name="command">
+            {optionCommand}
           </select>
-          <select onChange={e => this.onChange(e)} name="houdini">
-            {optionHoudini}
+          <select onChange={e => this.onChange(e)} name="pet">
+            {optionPet}
           </select>
-          <textarea
-            placeholder="Crate Quirks"
-            name="crate_quirks"
-            onBlur={e => this.onChange(e)}>
-            {this.state.crate_quirks}
-          </textarea>
-          <textarea
-            placeholder="Food Quirks"
-            name="food_quirks"
-            onBlur={e => this.onChange(e)}>
-            {this.state.food_quirks}
-          </textarea>
-          <select onChange={e => this.onChange(e)} name="crate_trained">
-            {optionCrateTrained}
-          </select>
-          <textarea
-            placeholder="Aggression Notes"
-            name="aggression_notes"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <input
-            type="text"
-            placeholder="Bed Time"
-            name="bed_time"
-            onBlur={e => this.onChange(e)}
-          />
-          <textarea
-            placeholder="Eating Times"
-            name="eating_times"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Favorite Toy"
-            name="fav_toy"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Potty Needs"
-            name="potty_needs"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
-          <textarea
-            placeholder="Walking Quirks"
-            name="walking_quirks"
-            onBlur={e => this.onChange(e)}>
-          </textarea>
+          <button onClick={() => this.postPreMadeCommands()}>Add Command to Pet</button>
         </div>
-        <button onClick={() => this.createPet()}>Submit</button>
       </div>
     )
   }
 }
 
-export default addAllergiesCommands
+export default CommandsForm

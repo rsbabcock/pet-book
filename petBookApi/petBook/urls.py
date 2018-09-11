@@ -40,6 +40,8 @@ router.register(r'pet-commands', pet_commands_view.PetCommandViewSet),
 router.register(r'create-pet', CreatePetViewSet, base_name='create-pet'),
 router.register(r'create-allergy', CreateAllergyViewSet, base_name='create-allergy'),
 router.register(r'create-pet-allergy', CreatePetAllergyViewSet, base_name='create-pet-allergy'),
+router.register(r'create-command', CreateCommandViewSet, base_name='create-command'),
+router.register(r'create-pet-command', CreatePetCommandViewSet, base_name='create-pet-command'),
 
 urlpatterns = [
     path('admin/', admin.site.urls),
