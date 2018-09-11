@@ -13,3 +13,5 @@ from .followed_pets_view import *
 from .create_pet_view import *
 from .user_allergy_view import *
 from .user_command_view import *
+from .pet_allergies_view import *
+from .pet_commands_view import *

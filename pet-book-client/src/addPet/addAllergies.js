@@ -4,7 +4,9 @@ class AllergiesForm extends Component {
     state = {
         allergy_name: "",
         side_effects: "",
-        userAllergies: []
+        userAllergies: [],
+        pet: "",
+        allergy: ""
     }
 
 getUserAllergies(){
@@ -26,11 +28,57 @@ getUserAllergies(){
       .catch((err) => {
         console.log("fetch no like you, brah", err);
       })
-    //  Will need to add a view for this in api, that filters based on user
   }
-//   postAllergies(){
-//     //   a ftch to post user created allergy data
-//   }
+  postAllergies(){
+    //   a fetch to post user created allergy data
+      let token = localStorage.getItem("token")
+      const {
+      crate_quirks,
+      crate_trained,
+      food_quirks,
+      aggression_notes,
+      bed_time,
+      eating_times,
+      fav_toy,
+    } = this.state
+      console.log(this.state.pet)
+      fetch(`http://127.0.0.1:8000/create-pet/`, {
+        method: "POST",
+        body: JSON.stringify({
+            pet_type,
+            breed,
+            name,
+            image,
+            nick_name,
+            birthday,
+            gender,
+            houdini,
+            crate_quirks,
+            crate_trained,
+            food_quirks,
+            aggression_notes,
+            bed_time,
+            eating_times,
+            fav_toy,
+            potty_needs,
+            walking_quirks,
+            deceased
+          }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        }
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((response) => {
+          return this.displaySuccess(response)
+        })
+        .catch((err) => {
+          console.log("auth no like you, brah", err);
+        });
+    }
 
 onChange(e) {
   this.setState({ [e.target.name] : e.target.value });
