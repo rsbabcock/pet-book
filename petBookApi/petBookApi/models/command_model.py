@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Command(models.Model):
     '''
     Model to represent pet Commands
     '''
-    owner = models.ForeignKey('Owner', on_delete=models.CASCADE)
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
     command_name = models.CharField(max_length=200)
     instructions = models.CharField(max_length=200)
 

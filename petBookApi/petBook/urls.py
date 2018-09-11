@@ -32,6 +32,8 @@ router.register(r'user-pets', UserPetList, base_name='user-pets'),
 router.register(r'followed-pets', FollowedViewSet, base_name='followed-pets'),
 router.register(r'create-pet', CreatePetViewSet, base_name='create-pet'),
 router.register(r'allergies', allergy_view.AllergyViewSet),
+router.register(r'user-allergies',UserAllergyViewSet, base_name='user-allergies'),
+router.register(r'user-commands',UserCommandViewSet, base_name='user-commands'),
 router.register(r'commands', command_view.CommandViewSet),
 router.register(r'notes', note_view.NoteViewSet),
 

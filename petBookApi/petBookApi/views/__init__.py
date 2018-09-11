@@ -11,3 +11,5 @@ from .command_view import *
 from .note_view import *
 from .followed_pets_view import *
 from .create_pet_view import *
+from .user_allergy_view import *
+from .user_command_view import *
