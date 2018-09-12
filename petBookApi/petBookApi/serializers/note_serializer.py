@@ -4,4 +4,5 @@ from rest_framework import serializers
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Note
-    fields = '__all__'
+    fields = ('url', 'date_posted', 'content', 'archive' )
+

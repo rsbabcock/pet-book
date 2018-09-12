@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Hero, HeroHeader, HeroBody, Box, Title, Container, CardFooterItem, CardFooter, Card, CardContent, CardHeader, Content, CardHeaderTitle, CardHeaderIcon, } from 'bloomer';
+import { Hero, HeroHeader, HeroBody, Box, Title, Container, CardFooterItem, CardFooter, Card, CardContent, CardHeader, Content, CardHeaderTitle, CardHeaderIcon, TextArea, Field, Button } from 'bloomer';
 import 'bulma/css/bulma.css';
 import avatar from "../img/petBookLogo_white.png"
 import "./profile.css"
@@ -8,23 +8,98 @@ import "./profile.css"
 
 class Profile extends Component {
     uniqueKey = 1
-    // state = {
-    //     showEdit: false
-    // }
+    state = {
+        // pet: this.props.resource[0].url,
+        date_posted: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(Date.now()),
+        content: "",
+        archive: false,
+        pet: '',
+        note: ''
+    }
+    archiveNote = (e) =>{
+        this.setState({
+            archive: !this.state.archive
+        })
+    }
+    postPetNote() {
+        //   a fetch to post user created allergy data
+        this.props.resource.map(pet => {
+            console.log(pet.url)
+            this.setState({ pet: pet.url })
+        })
+        let token = localStorage.getItem("token")
+        const {
+            pet,
+            note,
+        } = this.state
+        console.log(this.state)
+        fetch(`http://127.0.0.1:8000/pet-notes/`, {
+            method: "POST",
+            body: JSON.stringify({
+                pet,
+                note,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((response) => {
+                return this.displaySuccess(response)
+            })
+            .catch((err) => {
+                console.log("auth no like you, brah", err);
+            });
+    }
 
-    // showEditButton(url){ 
-    //     this.props.userPets.filter((petUrl) => {
-    //             if(petUrl.url === url){
-    //                 this.setState({showEdit : true})
-    //             }
-    //         })
-    //         return console.log("Your pet!")
-    // }
+    postNote() {
+        //   a fetch to post user created allergy data
+        let token = localStorage.getItem("token")
+        const {
+            date_posted,
+            content,
+            archive,
+        } = this.state
+        console.log(this.state)
+        fetch(`http://127.0.0.1:8000/notes/`, {
+            method: "POST",
+            body: JSON.stringify({
+                date_posted,
+                content,
+                archive
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((response) => {
+                return this.setState({ note: response.url })
+            })
+            .then((response) => {
+                this.postPetNote()
+                return this.displaySuccess(response)
+            })
+            .catch((err) => {
+                console.log("auth no like you, brah", err);
+            });
+    }
 
-    // componentDidMount(){
-    //     console.log(this.props.resource)
-    //     this.showEditButton(this.props.resource.url)
-    // }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+        console.log(this.state)
+    }
+
+    displaySuccess(data) {
+        console.log("New Pet Added!", data)
+    }
+
     render() {
         return (
             <div className="container_profile">
@@ -128,30 +203,46 @@ class Profile extends Component {
                             </div>
                         </Hero>
                         <div>
+                            <Container>
+                                <Box>
+                                    <Field>
+                                        <TextArea
+                                            placeholder="Note"
+                                            name="content"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                    </Field>
+                                </Box>
+                                <Button isColor="info" isSize="medium" isOutlined onClick={() => this.postNote()}>Add Note</Button>
+                            </Container>
+                        </div>
+                        <div>
                             {data.note.map(note => (
                                 <Container>
-                                    <Card>
-                                        <CardHeader>
-                                            <CardHeaderTitle>
-                                                Note
+                                    <Box>
+                                        <Card>
+                                            <CardHeader>
+                                                <CardHeaderTitle>
+                                                    Note
                                     </CardHeaderTitle>
-                                            <CardHeaderIcon>
-                                                {/* <Icon className="fa fa-angle-down" {this.render}/> */}
-                                            </CardHeaderIcon>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <Content>
-                                                {note.content}
-                                                <br />
-                                                <small>{note.date_posted}</small>
-                                            </Content>
-                                        </CardContent>
-                                        <CardFooter>
-                                            <CardFooterItem href="#/">
-                                                archive
+                                                <CardHeaderIcon>
+                                                    {/* <Icon className="fa fa-angle-down" {this.render}/> */}
+                                                </CardHeaderIcon>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <Content>
+                                                    {note.content}
+                                                    <br />
+                                                    <small>{note.date_posted}</small>
+                                                </Content>
+                                            </CardContent>
+                                            <CardFooter>
+                                                <CardFooterItem href="#/">
+                                                    archive
                                     </CardFooterItem>
-                                        </CardFooter>
-                                    </Card>
+                                            </CardFooter>
+                                        </Card>
+                                    </Box>
                                 </Container>
                             ))}
                         </div>
@@ -163,9 +254,3 @@ class Profile extends Component {
 }
 
 export default Profile
-
-                /* 
-                deceased
-                :
-                false
-*/

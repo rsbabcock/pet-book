@@ -37,6 +37,7 @@ router.register(r'user-allergies',UserAllergyViewSet, base_name='user-allergies'
 router.register(r'user-commands',UserCommandViewSet, base_name='user-commands'),
 router.register(r'pet-allergies', pet_allergies_view.PetAllergiesViewSet),
 router.register(r'pet-commands', pet_commands_view.PetCommandViewSet),
+router.register(r'pet-notes', pet_note_view.PetNoteViewSet),
 router.register(r'create-pet', CreatePetViewSet, base_name='create-pet'),
 router.register(r'create-allergy', CreateAllergyViewSet, base_name='create-allergy'),
 router.register(r'create-pet-allergy', CreatePetAllergyViewSet, base_name='create-pet-allergy'),
