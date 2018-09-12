@@ -110,8 +110,7 @@ class App extends Component {
         petData.push(pet)
         console.log("petdata", petData)
         this.state.userPets.filter(userPet => {
-          console.log(userPet.url)
-          console.log(url)
+          // this checks the current profile url against the user's pets
           if (userPet.url === url) {
             this.setState({ showEdit: true })
           }
@@ -197,7 +196,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} displaySell={() => this.displaySell()} logOut={() => this.logOut()} viewHandler={this.showView} />
+        <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} />
         {this.View()}
       </div>
     );
