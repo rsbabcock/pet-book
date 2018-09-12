@@ -37,130 +37,133 @@ class Profile extends Component {
                                     <Box>
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
                                         {data.image === "" ? <img src={data.image} alt={data.name} /> : <img src={avatar} alt="default avatar" />}
-                                    <Box>
-                                        <a href="#/"><Title isSize={6}>Follow</Title></a>
-                                    </Box>
-                                    {this.props.showEdit === false ?  null : <Box>
-                                        <a href="#/"><Title isSize={6}>Edit</Title></a>
-                                    </Box> }
+                                        <Box>
+                                            <a href="#/"><Title isSize={6}>Follow</Title></a>
+                                        </Box>
+                                        {this.props.showEdit === false ? null : <Box>
+                                            <a id="pet__edit" href="#/" onClick={() => {
+                                                // this.props.ProfileHandler(c.url)
+                                                this.props.viewHandler('edit')
+                                            }}><Title isSize={6}>Edit</Title></a>
+                                        </Box>}
                                     </Box>
 
                                 </HeroHeader>
                                 <HeroBody>
                                     <Container hasTextAlign="centered">
                                         <Box>
-                                        <strong>Nick Name:</strong> <br/> {data.nick_name}
+                                            <strong>Nick Name:</strong> <br /> {data.nick_name}
                                         </Box>
                                         <Box>
-                                        <strong>Breed:</strong> <br/> {data.breed.breed_name}
+                                            <strong>Breed:</strong> <br /> {data.breed.breed_name}
                                         </Box>
                                         <Box>
-                                        <strong>Birthday:</strong> <br/> {data.birthday}
+                                            <strong>Birthday:</strong> <br /> {data.birthday}
                                         </Box>
                                         <Box>
-                                        <strong>Gender:</strong> <br/> {data.gender}
+                                            <strong>Gender:</strong> <br /> {data.gender}
                                         </Box>
                                         <Box>
-                                        <strong>Houdini:</strong> <br/> {data.houdini === false ? "No" : "Yes"}
+                                            <strong>Houdini:</strong> <br /> {data.houdini === false ? "No" : "Yes"}
                                         </Box>
                                         <Box>
-                                        <strong>Crate Quirks:</strong> <br/> {data.crate_quirks}
+                                            <strong>Crate Quirks:</strong> <br /> {data.crate_quirks}
                                         </Box>
                                         <Box>
-                                        <strong>Crate Trained:</strong> <br/> {data.crate_trained === true ? "No" : "Yes"}
+                                            <strong>Crate Trained:</strong> <br /> {data.crate_trained === true ? "No" : "Yes"}
                                         </Box>
                                         <Box>
-                                        <strong>Food Quirks:</strong> <br/> {data.food_quirks}
+                                            <strong>Food Quirks:</strong> <br /> {data.food_quirks}
                                         </Box>
                                         <Box>
-                                        <strong>Aggression:</strong> <br/> {data.aggression_notes}
+                                            <strong>Aggression:</strong> <br /> {data.aggression_notes}
                                         </Box>
                                         <Box>
-                                        <strong>Bed Time:</strong> <br/> {data.bed_time}
+                                            <strong>Bed Time:</strong> <br /> {data.bed_time}
                                         </Box>
                                         <Box>
-                                        <strong>Eating Times:</strong> <br/> {data.eating_times}
+                                            <strong>Eating Times:</strong> <br /> {data.eating_times}
                                         </Box>
                                         <Box>
-                                        <strong>Favorite Toy:</strong> <br/> {data.fav_toy}
+                                            <strong>Favorite Toy:</strong> <br /> {data.fav_toy}
                                         </Box>
                                         <Box>
-                                        <strong>Potty Needs:</strong> <br/> {data.potty_needs}
+                                            <strong>Potty Needs:</strong> <br /> {data.potty_needs}
                                         </Box>
                                         <Box>
-                                        <strong>Walking Quirks:</strong> <br/> {data.walking_quirks}
+                                            <strong>Walking Quirks:</strong> <br /> {data.walking_quirks}
                                         </Box>
-                                            { data.deceased === false ? null : <Box>
-                                            <strong>Deceased:</strong> <br/> Sadly, yes
+                                        {data.deceased === false ? null : <Box>
+                                            <strong>Deceased:</strong> <br /> Sadly, yes
                                         </Box>}
-                                            <Container>
-                                                <Title>Allergies</Title>
-                                                    {data.allergy.map(allergy => (
+                                        <Container>
+                                            <Title>Allergies</Title>
+                                            {data.allergy.map(allergy => (
                                                 <div>
                                                     <Box>
-                                                    <strong>Name:</strong> <br/> {allergy.allergy_name}
+                                                        <strong>Name:</strong> <br /> {allergy.allergy_name}
                                                     </Box>
                                                     <Box>
-                                                    <strong>Side Effects:</strong> <br/> {allergy.side_effects}
+                                                        <strong>Side Effects:</strong> <br /> {allergy.side_effects}
                                                     </Box>
                                                 </div>
-                                                ))}
-                                            </Container>
+                                            ))}
+                                        </Container>
                                     </Container>
                                     <Container>
-                                        <div></div>   
+                                        <div></div>
                                         <Title>Commands</Title>
                                         {data.command.map(command => (
-                                        <div>
-                                            <Box>
-                                            <strong>Command:</strong> <br/> {command.command_name}
-                                            </Box>
-                                            <Box>
-                                                <strong>Instructions:</strong> <br/> {command.instructions}
-                                            </Box>
-                                        </div>
+                                            <div>
+                                                <Box>
+                                                    <strong>Command:</strong> <br /> {command.command_name}
+                                                </Box>
+                                                <Box>
+                                                    <strong>Instructions:</strong> <br /> {command.instructions}
+                                                </Box>
+                                            </div>
                                         ))}
                                     </Container>
                                 </HeroBody>
                             </div>
-                            </Hero>
+                        </Hero>
                         <div>
-                        {data.note.map(note => (
-                            <Container>
-                            <Card>
-                                <CardHeader>
-                                    <CardHeaderTitle>
-                                        Note
+                            {data.note.map(note => (
+                                <Container>
+                                    <Card>
+                                        <CardHeader>
+                                            <CardHeaderTitle>
+                                                Note
                                     </CardHeaderTitle>
-                                    <CardHeaderIcon>
-                                        {/* <Icon className="fa fa-angle-down" {this.render}/> */}
-                                    </CardHeaderIcon>
-                                </CardHeader>
-                                <CardContent>
-                                    <Content>
-                                        {note.content}
-                                        <br />
-                                        <small>{note.date_posted}</small>
-                                    </Content>
-                                </CardContent>
-                                <CardFooter>
-                                    <CardFooterItem href="#/">
-                                        archive
+                                            <CardHeaderIcon>
+                                                {/* <Icon className="fa fa-angle-down" {this.render}/> */}
+                                            </CardHeaderIcon>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <Content>
+                                                {note.content}
+                                                <br />
+                                                <small>{note.date_posted}</small>
+                                            </Content>
+                                        </CardContent>
+                                        <CardFooter>
+                                            <CardFooterItem href="#/">
+                                                archive
                                     </CardFooterItem>
-                                </CardFooter>
-                            </Card>
-                            </Container>
-                        ))}
+                                        </CardFooter>
+                                    </Card>
+                                </Container>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                ))} 
+                ))}
             </div>
         )
     }
 }
 
 export default Profile
-                
+
                 /* 
                 deceased
                 :

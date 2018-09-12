@@ -7,6 +7,7 @@ import Profile from './profile/profile';
 import AddPetForm from './addPet/addPet';
 import AllergiesForm from './addPet/addAllergies';
 import CommandsForm from './addPet/addCommands';
+import EditPetForm from './editPet/editPet';
 
 
 class App extends Component {
@@ -111,8 +112,8 @@ class App extends Component {
         this.state.userPets.filter(userPet => {
           console.log(userPet.url)
           console.log(url)
-          if(userPet.url === url){
-            this.setState({ showEdit : true})
+          if (userPet.url === url) {
+            this.setState({ showEdit: true })
           }
         })
         // debugger
@@ -157,7 +158,7 @@ class App extends Component {
       console.log("view changed brah!")
     }
     if (view === "home") {
-      this.setState({ showEdit: false})
+      this.setState({ showEdit: false })
 
     }
     // Update state to correct view will be rendered
@@ -176,7 +177,7 @@ class App extends Component {
         case 'home':
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'profile':
-          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit}/>
+          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} viewHandler={this.showView} />
         case 'addPet':
           return <AddPetForm viewHandler={this.showView} />
         case 'addAllergy':
@@ -184,6 +185,8 @@ class App extends Component {
         // addCommand
         case 'addCommand':
           return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} />
+        case 'edit':
+          return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} />
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
 
