@@ -8,8 +8,23 @@ import "./profile.css"
 
 class Profile extends Component {
     uniqueKey = 1
+    // state = {
+    //     showEdit: false
+    // }
 
+    // showEditButton(url){ 
+    //     this.props.userPets.filter((petUrl) => {
+    //             if(petUrl.url === url){
+    //                 this.setState({showEdit : true})
+    //             }
+    //         })
+    //         return console.log("Your pet!")
+    // }
 
+    // componentDidMount(){
+    //     console.log(this.props.resource)
+    //     this.showEditButton(this.props.resource.url)
+    // }
     render() {
         return (
             <div className="container_profile">
@@ -25,6 +40,9 @@ class Profile extends Component {
                                     <Box>
                                         <a href="#/"><Title isSize={6}>Follow</Title></a>
                                     </Box>
+                                    {this.props.showEdit === false ?  null : <Box>
+                                        <a href="#/"><Title isSize={6}>Edit</Title></a>
+                                    </Box> }
                                     </Box>
 
                                 </HeroHeader>

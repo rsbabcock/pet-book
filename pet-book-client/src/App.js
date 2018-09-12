@@ -29,7 +29,8 @@ class App extends Component {
     userPets: [],
     followedPets: [],
     currentView: 'home',
-    profileData: []
+    profileData: [],
+    showEdit: false
   }
 
 
@@ -107,6 +108,13 @@ class App extends Component {
         const petData = []
         petData.push(pet)
         console.log("petdata", petData)
+        this.state.userPets.filter(userPet => {
+          console.log(userPet.url)
+          console.log(url)
+          if(userPet.url === url){
+            this.setState({ showEdit : true})
+          }
+        })
         // debugger
         this.setState({
           profileData: petData
@@ -148,10 +156,10 @@ class App extends Component {
       view = e
       console.log("view changed brah!")
     }
-    // if (view === "profile") {
-    //   this.setState({ currentView: "profile"})
+    if (view === "home") {
+      this.setState({ showEdit: false})
 
-    // }
+    }
     // Update state to correct view will be rendered
     this.setState({
       currentView: view,
@@ -168,7 +176,7 @@ class App extends Component {
         case 'home':
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'profile':
-          return <Profile resource={this.state.profileData} />
+          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit}/>
         case 'addPet':
           return <AddPetForm viewHandler={this.showView} />
         case 'addAllergy':
