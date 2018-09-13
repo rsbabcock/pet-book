@@ -22,3 +22,4 @@ from .create_pet_command_view import *
 from .create_follow_view import *
 from .pet_note_view import *
 from .follow_view import *
+from .get_owner_view import *

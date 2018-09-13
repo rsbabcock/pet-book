@@ -8,6 +8,7 @@ import AddPetForm from './addPet/addPet';
 import AllergiesForm from './addPet/addAllergies';
 import CommandsForm from './addPet/addCommands';
 import EditPetForm from './editPet/editPet';
+import Follow from './follow/follow';
 
 
 class App extends Component {
@@ -31,7 +32,8 @@ class App extends Component {
     followedPets: [],
     currentView: 'home',
     profileData: [],
-    showEdit: false
+    showEdit: false,
+    showFollow: true,
   }
 
 
@@ -112,8 +114,9 @@ class App extends Component {
         this.state.userPets.filter(userPet => {
           // this checks the current profile url against the user's pets
           if (userPet.url === url) {
-            this.setState({ showEdit: true })
+            this.setState({ showEdit: true, showFollow: false })
           }
+
         })
         // debugger
         this.setState({
@@ -125,8 +128,61 @@ class App extends Component {
       })
   }.bind(this)
 
-  startFollowing = (petUrl, followerUrl) => {
-    // http://127.0.0.1:8000/create-follow/
+  displaySuccess(data) {
+    console.log("Following!", data)
+}
+
+ postFollowing =(pets, follower) => {
+  let token = localStorage.getItem("token")
+  fetch(` http://127.0.0.1:8000/create-follow/`, {
+    method: "POST",
+    body: JSON.stringify({
+        pets, 
+        follower
+    }),
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+    }
+})
+    .then((response) => {
+        return response.json()
+    })
+    .then((response) => {
+        return this.displaySuccess(response)
+    })
+    .catch((err) => {
+        console.log("auth no like you, brah", err);
+    });
+ }
+
+  startFollowing = (petUrl) => {
+    let token = localStorage.getItem("token")
+    let pets = petUrl 
+    let follower = ""
+
+    fetch(` http://127.0.0.1:8000/get-owner/`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Token ${token}`
+        }
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((response) => {
+            let ownerUrl = ""
+            response.map(owner => ownerUrl = owner.url)
+            this.displaySuccess(response)
+            console.log(petUrl)
+            console.log(ownerUrl)
+            this.postFollowing(petUrl, ownerUrl)
+              })
+        .catch((err) => {
+            console.log("auth no like you, brah", err);
+        });
+     
+
   }
 
   componentDidMount() {
@@ -160,7 +216,10 @@ class App extends Component {
       console.log("view changed brah!")
     }
     if (view === "home") {
-      this.setState({ showEdit: false })
+      this.setState({
+        showEdit: false,
+        showFollow: true
+      })
 
     }
     // Update state to correct view will be rendered
@@ -179,7 +238,7 @@ class App extends Component {
         case 'home':
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'profile':
-          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} viewHandler={this.showView} />
+          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }}/>
         case 'addPet':
           return <AddPetForm viewHandler={this.showView} />
         case 'addAllergy':
@@ -189,6 +248,8 @@ class App extends Component {
           return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} />
         case 'edit':
           return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} />
+        case 'follow':
+          return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
 

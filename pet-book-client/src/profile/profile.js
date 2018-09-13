@@ -112,9 +112,9 @@ class Profile extends Component {
                                     <Box>
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
                                         {data.image === "" ? <img src={data.image} alt={data.name} /> : <img src={avatar} alt="default avatar" />}
-                                        <Box>
-                                            <a href="#/"><Title isSize={6}>Follow</Title></a>
-                                        </Box>
+                                        {this.props.showFollow === false ? null : <Box>
+                                            <a href="#/" onClick={()=> {this.props.startFollowing(data.url)}}><Title isSize={6}>Follow</Title></a>
+                                        </Box> }
                                         {this.props.showEdit === false ? null : <Box>
                                             <a id="pet__edit" href="#/" onClick={() => {
                                                 // this.props.ProfileHandler(c.url)

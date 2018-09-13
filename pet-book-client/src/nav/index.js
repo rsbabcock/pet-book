@@ -47,7 +47,7 @@ class Nav extends Component {
                                     <button id="nav__addPet" onClick={this.props.viewHandler} >Add Pet</button>
                                     <button onClick={this.props.viewHandler} id="nav__addAllergy">Add Allergy</button>
                                     <button onClick={this.props.viewHandler} id="nav__addCommand">Add Command</button>
-                                    <button>Follow</button>
+                                    <button onClick={this.props.viewHandler} id="nav__follow">Follow</button>
                                     <button>Settings</button>
                                 </div>
                             }

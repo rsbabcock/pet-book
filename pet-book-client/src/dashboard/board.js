@@ -34,7 +34,10 @@ class DashBoard extends Component {
                 </HeroHeader>
                 <HeroFooter>
                     <Box hasTextAlign='centered'>
-                        <a><Title>Follow</Title></a>
+                        <a id="button__follow"
+                        onClick={()=>{
+                        this.props.viewHandler('follow')
+                    }}><Title>Follow</Title></a>
                     </Box>
                 </HeroFooter>
             </Hero>
