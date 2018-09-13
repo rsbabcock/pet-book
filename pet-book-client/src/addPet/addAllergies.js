@@ -153,8 +153,8 @@ class AllergiesForm extends Component {
               onClick={() => {
                 this.postPreMadeAllergies()
                 // (console.log(this.state.pet))
-                this.props.profileHandler(this.state.pet)
-                // this.props.viewHandler('profile')
+                this.props.ProfileHandler(this.state.pet)
+                this.props.viewHandler('profile')
                 }}>Add Allergy to Pet</Button>
             </Box>
           </Container>

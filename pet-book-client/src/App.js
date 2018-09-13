@@ -61,6 +61,7 @@ class App extends Component {
     fetch(`http://127.0.0.1:8000/user-pets/`, {
       method: 'GET',
       headers: {
+        "Content-Type": "multipart/form-data",
         "Authorization": `Token ${token}`
       }
     })
@@ -101,6 +102,7 @@ class App extends Component {
     fetch(`${url}`, {
       method: 'GET',
       headers: {
+        "Content-Type": "multipart/form-data",
         "Authorization": `Token ${token}`
       }
     })

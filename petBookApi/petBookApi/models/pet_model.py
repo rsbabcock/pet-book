@@ -11,7 +11,7 @@ class Pet(models.Model):
     pet_type = models.ForeignKey('PetType', on_delete=models.CASCADE)
     breed = models.ForeignKey('Breed', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='%m/%d')
+    image = models.ImageField(upload_to='static/')
     GENDER = (
             ('M', 'Male'),
             ('F', 'Female')

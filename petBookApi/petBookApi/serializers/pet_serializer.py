@@ -20,7 +20,7 @@ class PetSerializer(serializers.HyperlinkedModelSerializer):
   note = NoteSerializer(many=True, read_only=True)
   # breed = BreedSerializer(read_only=True)
   image = Base64ImageField(
-        max_length=None, use_url=True,
+        max_length=None, use_url=True
     )
   user = serializers.ReadOnlyField(source='user.url')
 

@@ -15,6 +15,7 @@ class UserPetList(viewsets.ModelViewSet):
         This view should return a list of all the pets
         for the currently authenticated user.
         """
+
         user = self.request.user
         queryset = Pet.objects.filter(user=user)
         return queryset
