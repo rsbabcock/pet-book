@@ -19,4 +19,6 @@ from .create_allergy_view import *
 from .create_pet_allergy_view import *
 from .create_command_view import *
 from .create_pet_command_view import *
+from .create_follow_view import *
 from .pet_note_view import *
+from .follow_view import *

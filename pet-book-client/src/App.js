@@ -125,6 +125,9 @@ class App extends Component {
       })
   }.bind(this)
 
+  startFollowing = (petUrl, followerUrl) => {
+    // http://127.0.0.1:8000/create-follow/
+  }
 
   componentDidMount() {
     let token = localStorage.getItem("token")

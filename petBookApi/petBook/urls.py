@@ -32,6 +32,7 @@ router.register(r'commands', command_view.CommandViewSet),
 router.register(r'notes', note_view.NoteViewSet),
 router.register(r'user-pets', UserPetList, base_name='user-pets'),
 router.register(r'followed-pets', FollowedViewSet, base_name='followed-pets'),
+router.register(r'follow', follow_view.FollowViewSet),
 router.register(r'allergies', allergy_view.AllergyViewSet),
 router.register(r'user-allergies',UserAllergyViewSet, base_name='user-allergies'),
 router.register(r'user-commands',UserCommandViewSet, base_name='user-commands'),
@@ -43,6 +44,7 @@ router.register(r'create-allergy', CreateAllergyViewSet, base_name='create-aller
 router.register(r'create-pet-allergy', CreatePetAllergyViewSet, base_name='create-pet-allergy'),
 router.register(r'create-command', CreateCommandViewSet, base_name='create-command'),
 router.register(r'create-pet-command', CreatePetCommandViewSet, base_name='create-pet-command'),
+router.register(r'create-follow', CreateFollowViewSet, base_name='create-follow'),
 
 urlpatterns = [
     path('admin/', admin.site.urls),
