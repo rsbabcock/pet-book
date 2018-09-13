@@ -46,6 +46,7 @@ router.register(r'create-pet-allergy', CreatePetAllergyViewSet, base_name='creat
 router.register(r'create-command', CreateCommandViewSet, base_name='create-command'),
 router.register(r'create-pet-command', CreatePetCommandViewSet, base_name='create-pet-command'),
 router.register(r'create-follow', CreateFollowViewSet, base_name='create-follow'),
+router.register(r'edit-note', EditNoteViewSet, base_name='edit-note'),
 
 urlpatterns = [
     path('admin/', admin.site.urls),

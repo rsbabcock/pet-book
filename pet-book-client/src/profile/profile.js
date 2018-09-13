@@ -16,18 +16,12 @@ class Profile extends Component {
         pet: '',
         note: ''
     }
-    archiveNote = (e) =>{
-        this.setState({
-            archive: !this.state.archive
-        })
+    archiveNote = ( content, date_posted, url) =>{
         let token = localStorage.getItem("token")
-        const {
-            date_posted,
-            content,
-            archive,
-        } = this.state
-        console.log(this.state)
-        fetch(`http://127.0.0.1:8000/notes/`, {
+        const archive = true
+        console.log( archive, this.state)
+        console.log(url)
+        fetch(`${url}`, {
             method: "PUT",
             body: JSON.stringify({
                 date_posted,
@@ -246,9 +240,10 @@ class Profile extends Component {
                             </Container>
                         </div>
                         <div>
-                            {data.note.map(note => (
                                 <Container>
-                                    <Box>
+                            {data.note.map(note => (
+                                <Box>
+                                { note.archive == true ? null :
                                         <Card>
                                             <CardHeader>
                                                 <CardHeaderTitle>
@@ -266,14 +261,15 @@ class Profile extends Component {
                                                 </Content>
                                             </CardContent>
                                             <CardFooter>
-                                                <CardFooterItem href="#/">
+                                                <CardFooterItem href="#/" onClick={()=>{this.archiveNote(note.content, note.date_posted, note.url)}}>
                                                     archive
                                     </CardFooterItem>
                                             </CardFooter>
                                         </Card>
-                                    </Box>
-                                </Container>
+                                }
+                                </Box>
                             ))}
+                            </Container>
                         </div>
                     </div>
                 ))}
