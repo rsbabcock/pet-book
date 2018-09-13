@@ -20,6 +20,35 @@ class Profile extends Component {
         this.setState({
             archive: !this.state.archive
         })
+        let token = localStorage.getItem("token")
+        const {
+            date_posted,
+            content,
+            archive,
+        } = this.state
+        console.log(this.state)
+        fetch(`http://127.0.0.1:8000/notes/`, {
+            method: "PUT",
+            body: JSON.stringify({
+                date_posted,
+                content,
+                archive
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then((response) => {
+                return response.json()
+            })
+            .then((response) => {
+                // return this.setState({ note: response.url })
+                return this.displaySuccess(response)
+            })
+            .catch((err) => {
+                console.log("auth no like you, brah", err);
+            });
     }
     postPetNote() {
         //   a fetch to post user created allergy data
