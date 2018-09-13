@@ -19,8 +19,8 @@ class Profile extends Component {
     archiveNote = ( content, date_posted, url) =>{
         let token = localStorage.getItem("token")
         const archive = true
-        console.log( archive, this.state)
-        console.log(url)
+        // console.log( archive, this.state)
+        // console.log(url)
         fetch(`${url}`, {
             method: "PUT",
             body: JSON.stringify({
