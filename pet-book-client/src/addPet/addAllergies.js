@@ -90,6 +90,7 @@ class AllergiesForm extends Component {
       .then((response) => {
         this.getUserAllergies()
         return this.displaySuccess(response)
+      
       })
       .catch((err) => {
         console.log("auth no like you, brah", err);
@@ -132,7 +133,7 @@ class AllergiesForm extends Component {
                 <TextArea
                   placeholder="Side Effects"
                   name="side_effects"
-                  onBlur={e => this.onChange(e)}>
+                  onKeyPress={e => this.onChange(e)}>
                   {this.state.side_effects}
                 </TextArea>
               </Field>
@@ -148,7 +149,13 @@ class AllergiesForm extends Component {
                   {optionPet}
                 </Select>
               </Field>
-              <Button isColor="info" isOutlined onClick={() => this.postPreMadeAllergies()}>Add Allergy to Pet</Button>
+              <Button id="home"isColor="info" isOutlined 
+              onClick={() => {
+                this.postPreMadeAllergies()
+                // (console.log(this.state.pet))
+                this.props.profileHandler(this.state.pet)
+                // this.props.viewHandler('profile')
+                }}>Add Allergy to Pet</Button>
             </Box>
           </Container>
         </div>

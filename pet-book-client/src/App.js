@@ -240,14 +240,14 @@ class App extends Component {
         case 'profile':
           return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }}/>
         case 'addPet':
-          return <AddPetForm viewHandler={this.showView} />
+          return <AddPetForm viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }}/>
         case 'addAllergy':
-          return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} />
+          return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }}/>
         // addCommand
         case 'addCommand':
-          return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} />
+          return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }}/>
         case 'edit':
-          return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} />
+          return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }}/>
         case 'follow':
           return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         default:
