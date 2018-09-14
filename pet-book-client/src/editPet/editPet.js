@@ -95,7 +95,7 @@ class EditPetForm extends Component {
                 pet_type,
                 breed,
                 name,
-                image,
+                // image,
                 nick_name,
                 birthday,
                 gender,
@@ -218,7 +218,7 @@ class EditPetForm extends Component {
                                 <Input
                                     ref="file"
                                     type="file"
-                                    placeholder={pet.image}
+                                    placeholder={this.state.image}
                                     name="image"
                                     id="file"
                                     onChange={e => this.handleChangeImage(e)}

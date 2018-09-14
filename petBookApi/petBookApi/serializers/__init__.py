@@ -11,4 +11,5 @@ from .pet_allergy_serializer import *
 from .pet_command_serializer import *
 from .pet_note_serializer import *
 from .follow_serializer import *
+from .pet_image_serializer import *
 

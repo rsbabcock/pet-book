@@ -18,8 +18,10 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
+from django.conf import settings
+from django.conf.urls.static import static
 from petBookApi.views import *
-from petBookApi.views import *
+from petBookApi.views import PetImageViewSet
 from petBookApi.serializers import *
 
 router = routers.DefaultRouter()
@@ -28,6 +30,7 @@ router.register(r'owners', owner_view.OwnerViewSet),
 router.register(r'pet-types', pet_type_view.PetTypeViewSet),
 router.register(r'breeds', breed_view.BreedViewSet),
 router.register(r'pets', pet_view.PetViewSet),
+router.register(r'pet-image', PetImageViewSet, base_name='pet-image'),
 router.register(r'commands', command_view.CommandViewSet),
 router.register(r'notes', note_view.NoteViewSet),
 router.register(r'follow', follow_view.FollowViewSet),
@@ -56,3 +59,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
+if settings.DEBUG:
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
