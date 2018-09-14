@@ -47,8 +47,8 @@ class Profile extends Component {
     postPetNote() {
         //   a fetch to post user created allergy data
         this.props.resource.map(pet => {
-            console.log(pet.url)
             this.setState({ pet: pet.url })
+            return console.log(pet.url)
         })
         let token = localStorage.getItem("token")
         const {
@@ -134,7 +134,7 @@ class Profile extends Component {
                                 <HeroHeader>
                                     <Box>
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
-                                        {this.props.image === null ? <img src={avatar} alt="default avatar" /> : <img src={this.props.image} alt={data.name} />}
+                                        <img src={avatar} alt="default avatar" /> 
                                         {this.props.showFollow === false ? null : <Box>
                                             <a href="#/" onClick={()=> {this.props.startFollowing(data.url)}}><Title isSize={6}>Follow</Title></a>
                                         </Box> }

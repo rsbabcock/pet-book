@@ -12,7 +12,7 @@ class EditPetForm extends Component {
         pet_type: this.props.resource[0].pet_type,
         breed: this.props.resource[0].breed,
         name: this.props.resource[0].name,
-        image: null,
+        // image: null,
         nick_name: this.props.resource[0].nick_name,
         birthday: this.props.resource[0].birthday,
         gender: this.props.resource[0].gender,
@@ -66,14 +66,14 @@ class EditPetForm extends Component {
         //   a fetch to post pet data
         let putUrl = ""
         this.props.resource.map(pet => {
-            console.log(pet.url)
             putUrl = pet.url
+            return console.log(pet.url)
         })
         let token = localStorage.getItem("token")
         const { pet_type,
             breed,
             name,
-            image,
+            // image,
             nick_name,
             birthday,
             gender,
@@ -121,27 +121,6 @@ class EditPetForm extends Component {
             .then((response) => {
                 return this.displaySuccess(response)
             })
-            .then(() => {
-                // url for pet
-                // putUrl
-                let pet = putUrl
-                fetch(`http://127.0.0.1:8000/pet-image/`, {
-                    method: "POST",
-                    body:
-                        pet,
-                        image,
-                    headers: {
-                        "Content-Type": "image/jpg",
-                        "Authorization": `Token ${token}`
-                    }
-                })
-            })
-            .then((response) => {
-                return response
-            })
-            .then((response) => {
-                return this.displaySuccess(response)
-            })
             .catch((err) => {
                 return console.log("auth no like you, brah", err);
             })
@@ -162,22 +141,22 @@ class EditPetForm extends Component {
         console.log("Pet Edited!", data)
     }
 
-    handleChangeImage(evt) {
-        console.log("Uploading");
-        let self = this
-        const reader = new FileReader();
-        let file = evt.target.files[0];
+    // handleChangeImage(evt) {
+    //     console.log("Uploading");
+    //     let self = this
+    //     const reader = new FileReader();
+    //     let file = evt.target.files[0];
 
-        reader.onload = function (upload) {
-            self.setState({
-                image: upload.target.result
-            });
-            console.log(self.state.image);
-        };
-        debugger
-        reader.readAsDataURL(file);
-        console.log("Uploaded");
-    }
+    //     reader.onload = function (upload) {
+    //         self.setState({
+    //             image: upload.target.result
+    //         });
+    //         console.log(self.state.image);
+    //     };
+    //     debugger
+    //     reader.readAsDataURL(file);
+    //     console.log("Uploaded");
+    // }
 
 
     render() {
@@ -236,7 +215,7 @@ class EditPetForm extends Component {
                                             name="birthday"
                                             onKeyPress={e => this.onChange(e)}
                                         />
-                                        <Input
+                                        {/* <Input
                                             ref="file"
                                             type="file"
                                             placeholder={this.props.image}
@@ -244,9 +223,9 @@ class EditPetForm extends Component {
                                             id="file"
                                             onChange={e => this.handleChangeImage(e)}
                                             encType="multipart/form-data"
-                                        />
+                                        /> */}
                                     </Field>
-                                    <img src={this.props.image === null ? avatar : this.state.image} alt="upload" />
+                                    <img src={avatar} alt="avatar" />
                                 </Box>
                                 <Box>
                                     <Field>

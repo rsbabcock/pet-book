@@ -113,44 +113,19 @@ class App extends Component {
       .then((pet) => {
         const petData = []
         petData.push(pet)
-        console.log("petdata", petData)
         this.state.userPets.filter(userPet => {
           // this checks the current profile url against the user's pets
           if (userPet.url === url) {
             this.setState({ showEdit: true, showFollow: false })
           }
-
+          
+          return console.log("Your pet!")
         })
         // debugger
         this.setState({
           profileData: petData
         })
       })
-      .then(() => {
-        // get pet images
-        let token = localStorage.getItem("token")
-        fetch(`http://127.0.0.1:8000/get-pet-image/`, {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
-          }
-        })
-        .then((response) => {
-            return response.json();
-          })
-          .then((petImages) => {
-            // console.log(petImages)
-            petImages.filter(image => {
-              // this checks the current image url against the user's pets
-              if (image.pet === url) {
-                this.setState({ petImage : image.image })
-                console.log("petImage", image.image)
-              }
-            })
-    
-          })
-        })
           .catch((err) => {
             console.log("fetch no like you, brah", err);
           })
@@ -186,8 +161,7 @@ class App extends Component {
 
   startFollowing = (petUrl) => {
           let token = localStorage.getItem("token")
-          let pets = petUrl
-          let follower = ""
+
 
           fetch(` http://127.0.0.1:8000/get-owner/`, {
             method: "GET",

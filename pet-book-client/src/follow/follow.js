@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Hero, Box, Columns,Title, HeroFooter,HeroHeader } from 'bloomer';
+import { Hero, Box, Columns,Title, HeroHeader } from 'bloomer';
 import 'bulma/css/bulma.css';
 // import './dashboard.css'
 import CustomCard from "../dashboard/petCard";

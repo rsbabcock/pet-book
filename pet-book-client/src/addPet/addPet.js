@@ -208,7 +208,7 @@ class AddPetForm extends Component {
                   name="birthday"
                   onBlur={e => this.onChange(e)}
                 />
-                <Input
+                {/* <Input
                   ref="file"
                   type="file"
                   placeholder="Image"
@@ -216,9 +216,9 @@ class AddPetForm extends Component {
                   id="file"
                   onChange={e => this.handleChangeImage(e)}
                   encType="multipart/form-data"
-                />
+                /> */}
               </Field>
-              <img src={this.state.image === "" ? avatar : this.state.image} alt="upload" />
+              <img src={avatar} alt="upload" />
             </Box>
             <Box>
               <Field>
