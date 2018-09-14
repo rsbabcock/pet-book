@@ -8,7 +8,7 @@ class PetImage(models.Model):
     '''
     
     pet = models.ForeignKey('Pet', on_delete=models.CASCADE)
-    image = models.FileField(blank=False, null=False)
+    image = models.FileField(blank=False, null=False, upload_to='media/')
 
     def __str__(self):
         return "{} {}".format(self.image)

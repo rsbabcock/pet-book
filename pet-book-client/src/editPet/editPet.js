@@ -126,11 +126,10 @@ class EditPetForm extends Component {
                 // putUrl
                 let pet = putUrl
                 fetch(`http://127.0.0.1:8000/pet-image/`, {
-                    method: "PUT",
-                    body: JSON.stringify({
+                    method: "POST",
+                    body:
                         pet,
-                        image
-                    }),
+                        image,
                     headers: {
                         "Content-Type": "image/jpg",
                         "Authorization": `Token ${token}`
