@@ -25,3 +25,4 @@ from .follow_view import *
 from .get_owner_view import *
 from .edit_note_view import *
 from .pet_image_view import *
+from .get_pet_image_view import *
