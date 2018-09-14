@@ -8,11 +8,11 @@ class EditPetForm extends Component {
 
 
     state = {
-        petData : this.props.resource[0],
+        petData: this.props.resource[0],
         pet_type: this.props.resource[0].pet_type,
         breed: this.props.resource[0].breed,
         name: this.props.resource[0].name,
-        image: this.props.resource[0].image,
+        image: null,
         nick_name: this.props.resource[0].nick_name,
         birthday: this.props.resource[0].birthday,
         gender: this.props.resource[0].gender,
@@ -95,7 +95,6 @@ class EditPetForm extends Component {
                 pet_type,
                 breed,
                 name,
-                // image,
                 nick_name,
                 birthday,
                 gender,
@@ -122,11 +121,32 @@ class EditPetForm extends Component {
             .then((response) => {
                 return this.displaySuccess(response)
             })
+            .then(() => {
+                // url for pet
+                // putUrl
+                let pet = putUrl
+                fetch(`http://127.0.0.1:8000/pet-image/`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        pet,
+                        image
+                    }),
+                    headers: {
+                        "Content-Type": "image/jpg",
+                        "Authorization": `Token ${token}`
+                    }
+                })
+            })
+            .then((response) => {
+                return response
+            })
+            .then((response) => {
+                return this.displaySuccess(response)
+            })
             .catch((err) => {
-                console.log("auth no like you, brah", err);
-            });
+                return console.log("auth no like you, brah", err);
+            })
     }
-
 
     componentDidMount() {
         this.getPetTypes()
@@ -155,6 +175,7 @@ class EditPetForm extends Component {
             });
             console.log(self.state.image);
         };
+        debugger
         reader.readAsDataURL(file);
         console.log("Uploaded");
     }
@@ -183,123 +204,125 @@ class EditPetForm extends Component {
         optionCrateTrained.unshift(<option key='blank' value={this.state.defaultValue}>Crate Trained?</option>)
         return (
             <div>
-                {this.props.resource.map(pet => (
-                <div className="form__container">
-                    <Container hasTextAlign="center">
-                        <Box>
-                            <Title>Edit Pet</Title>
-                            <Field isHorizontal>
-                                <Select onChange={e => this.onChange(e)} name="pet_type">
-                                    {optionPetType}
-                                </Select>
-                                <Select onChange={e => this.onChange(e)} name="breed">
-                                    {optionBreed}
-                                </Select>
-                            </Field>
-                            <Field>
-                                <Input
-                                    type="text"
-                                    placeholder={pet.name}
-                                    name="name"
-                                    onKeyPress={e => this.onChange(e)}
-                                />
-                                <Input
-                                    type="text"
-                                    placeholder={pet.nick_name}
-                                    name="nick_name"
-                                    onKeyPress={e => this.onChange(e)}
-                                />
-                                <Input
-                                    type="text"
-                                    placeholder={pet.birthday}
-                                    name="birthday"
-                                    onKeyPress={e => this.onChange(e)}
-                                />
-                                <Input
-                                    ref="file"
-                                    type="file"
-                                    placeholder={this.state.image}
-                                    name="image"
-                                    id="file"
-                                    onChange={e => this.handleChangeImage(e)}
-                                    encType="multipart/form-data"
-                                />
-                            </Field>
-                            <img src={this.state.image === "" ? avatar : this.state.image} alt="upload" />
-                        </Box>
-                        <Box>
-                            <Field>
-                                <Select onChange={e => this.onChange(e)} name="gender">
-                                    {optionGender}
-                                </Select>
-                                <Select onChange={e => this.onChange(e)} name="houdini">
-                                    {optionHoudini}
-                                </Select>
-                                <Select onChange={e => this.onChange(e)} name="crate_trained">
-                                    {optionCrateTrained}
-                                </Select>
-                            </Field>
-                        </Box>
-                        <Box>
-                            <Field>
-                                <TextArea
-                                    placeholder={pet.crate_quirks}
-                                    name="crate_quirks"
-                                    onKeyPress={e => this.onChange(e)}>
-                                    {this.state.crate_quirks}
-                                </TextArea>
-                            </Field>
-                            <Field>
-                                <TextArea
-                                    placeholder={pet.food_quirks}
-                                    name="food_quirks"
-                                    onKeyPress={e => this.onChange(e)}>
-                                    {this.state.food_quirks}
-                                </TextArea>
-                                <TextArea
-                                    placeholder={pet.aggression_notes}
-                                    name="aggression_notes"
-                                    onKeyPress={e => this.onChange(e)}>
-                                </TextArea>
-                                <Input
-                                    type="text"
-                                    placeholder={pet.bed_time}
-                                    name="bed_time"
-                                    onKeyPress={e => this.onChange(e)}
-                                />
-                                <TextArea
-                                    placeholder={pet.eating_times}
-                                    name="eating_times"
-                                    onKeyPress={e => this.onChange(e)}>
-                                </TextArea>
-                                <TextArea
-                                    placeholder={pet.fav_toy}
-                                    name="fav_toy"
-                                    onKeyPress={e => this.onChange(e)}>
-                                </TextArea>
-                                <TextArea
-                                    placeholder={pet.potty_needs}
-                                    name="potty_needs"
-                                    onKeyPress={e => this.onChange(e)}>
-                                </TextArea>
-                                <TextArea
-                                    placeholder={pet.walking_quirks}
-                                    name="walking_quirks"
-                                    onKeyPress={e => this.onChange(e)}>
-                                </TextArea>
-                            </Field>
-                        </Box>
-                        <Button isColor="info" isSize="large" isOutlined 
-                        onClick={() => {
-                            this.createPet()
-                            this.props.ProfileHandler(pet.url)
-                            this.props.viewHandler('profile')
-                        }}
-                       >Edit Pet</Button>
-                    </Container>
-                </div>
-            ))}
-            </div>
+                {
+                    this.props.resource.map(pet => (
+                        <div className="form__container">
+                            <Container hasTextAlign="center">
+                                <Box>
+                                    <Title>Edit Pet</Title>
+                                    <Field isHorizontal>
+                                        <Select onChange={e => this.onChange(e)} name="pet_type">
+                                            {optionPetType}
+                                        </Select>
+                                        <Select onChange={e => this.onChange(e)} name="breed">
+                                            {optionBreed}
+                                        </Select>
+                                    </Field>
+                                    <Field>
+                                        <Input
+                                            type="text"
+                                            placeholder={pet.name}
+                                            name="name"
+                                            onKeyPress={e => this.onChange(e)}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder={pet.nick_name}
+                                            name="nick_name"
+                                            onKeyPress={e => this.onChange(e)}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder={pet.birthday}
+                                            name="birthday"
+                                            onKeyPress={e => this.onChange(e)}
+                                        />
+                                        <Input
+                                            ref="file"
+                                            type="file"
+                                            placeholder={this.props.image}
+                                            name="image"
+                                            id="file"
+                                            onChange={e => this.handleChangeImage(e)}
+                                            encType="multipart/form-data"
+                                        />
+                                    </Field>
+                                    <img src={this.props.image === null ? avatar : this.state.image} alt="upload" />
+                                </Box>
+                                <Box>
+                                    <Field>
+                                        <Select onChange={e => this.onChange(e)} name="gender">
+                                            {optionGender}
+                                        </Select>
+                                        <Select onChange={e => this.onChange(e)} name="houdini">
+                                            {optionHoudini}
+                                        </Select>
+                                        <Select onChange={e => this.onChange(e)} name="crate_trained">
+                                            {optionCrateTrained}
+                                        </Select>
+                                    </Field>
+                                </Box>
+                                <Box>
+                                    <Field>
+                                        <TextArea
+                                            placeholder={pet.crate_quirks}
+                                            name="crate_quirks"
+                                            onKeyPress={e => this.onChange(e)}>
+                                            {this.state.crate_quirks}
+                                        </TextArea>
+                                    </Field>
+                                    <Field>
+                                        <TextArea
+                                            placeholder={pet.food_quirks}
+                                            name="food_quirks"
+                                            onKeyPress={e => this.onChange(e)}>
+                                            {this.state.food_quirks}
+                                        </TextArea>
+                                        <TextArea
+                                            placeholder={pet.aggression_notes}
+                                            name="aggression_notes"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                        <Input
+                                            type="text"
+                                            placeholder={pet.bed_time}
+                                            name="bed_time"
+                                            onKeyPress={e => this.onChange(e)}
+                                        />
+                                        <TextArea
+                                            placeholder={pet.eating_times}
+                                            name="eating_times"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                        <TextArea
+                                            placeholder={pet.fav_toy}
+                                            name="fav_toy"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                        <TextArea
+                                            placeholder={pet.potty_needs}
+                                            name="potty_needs"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                        <TextArea
+                                            placeholder={pet.walking_quirks}
+                                            name="walking_quirks"
+                                            onKeyPress={e => this.onChange(e)}>
+                                        </TextArea>
+                                    </Field>
+                                </Box>
+                                <Button isColor="info" isSize="large" isOutlined
+                                    onClick={() => {
+                                        this.createPet()
+                                        this.props.ProfileHandler(pet.url)
+                                        this.props.viewHandler('profile')
+                                    }}
+                                >Edit Pet</Button>
+                            </Container>
+                        </div>
+                    ))
+                }
+            </div >
         )
     }
 }

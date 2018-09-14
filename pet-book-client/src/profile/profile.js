@@ -134,7 +134,7 @@ class Profile extends Component {
                                 <HeroHeader>
                                     <Box>
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
-                                        {data.image === "" ? <img src={avatar} alt="default avatar" /> : <img src={data.image} alt={data.name} />}
+                                        {this.props.image === null ? <img src={avatar} alt="default avatar" /> : <img src={this.props.image} alt={data.name} />}
                                         {this.props.showFollow === false ? null : <Box>
                                             <a href="#/" onClick={()=> {this.props.startFollowing(data.url)}}><Title isSize={6}>Follow</Title></a>
                                         </Box> }
@@ -243,7 +243,7 @@ class Profile extends Component {
                                 <Container>
                             {data.note.map(note => (
                                 <Box>
-                                { note.archive == true ? null :
+                                { note.archive === true ? null :
                                         <Card>
                                             <CardHeader>
                                                 <CardHeaderTitle>
