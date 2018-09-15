@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./addPet.css";
 import { Button, Title, Select, Input, TextArea, Field, Container, Box } from "bloomer";
-import avatar from '../img/petBookLogo_white.png'
+import dog from "../img/petBookLogo_white.png"
+import cat from "../img/petBookKitty.png"
 class AddPetForm extends Component {
   // a component to add data for pet, 
   // will also need to get data for breed and petType
@@ -208,17 +209,8 @@ class AddPetForm extends Component {
                   name="birthday"
                   onBlur={e => this.onChange(e)}
                 />
-                {/* <Input
-                  ref="file"
-                  type="file"
-                  placeholder="Image"
-                  name="image"
-                  id="file"
-                  onChange={e => this.handleChangeImage(e)}
-                  encType="multipart/form-data"
-                /> */}
               </Field>
-              <img src={avatar} alt="upload" />
+              {this.state.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={this.state.name} /> : <img src={cat} alt={this.state.name}/>}
             </Box>
             <Box>
               <Field>

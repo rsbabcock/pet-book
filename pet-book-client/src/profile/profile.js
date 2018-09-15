@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 import { Hero, HeroHeader, HeroBody, Box, Title, Container, CardFooterItem, CardFooter, Card, CardContent, CardHeader, Content, CardHeaderTitle, CardHeaderIcon, TextArea, Field, Button } from 'bloomer';
 import 'bulma/css/bulma.css';
-import avatar from "../img/petBookLogo_white.png"
+import dog from "../img/petBookLogo_white.png"
+import cat from "../img/petBookKitty.png"
 import "./profile.css"
 
 
@@ -134,7 +135,7 @@ class Profile extends Component {
                                 <HeroHeader>
                                     <Box>
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
-                                        <img src={avatar} alt="default avatar" /> 
+                                        {data.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={data.name} /> : <img src={cat} alt={data.name}/>}
                                         {this.props.showFollow === false ? null : <Box>
                                             <a href="#/" onClick={()=> {this.props.startFollowing(data.url)}}><Title isSize={6}>Follow</Title></a>
                                         </Box> }

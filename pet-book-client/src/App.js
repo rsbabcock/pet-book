@@ -11,6 +11,7 @@ import EditPetForm from './editPet/editPet';
 import Follow from './follow/follow';
 
 
+
 class App extends Component {
 
   state = {
@@ -33,8 +34,7 @@ class App extends Component {
     currentView: 'home',
     profileData: [],
     showEdit: false,
-    showFollow: true,
-    petImage: ''
+    showFollow: true, 
   }
 
 
