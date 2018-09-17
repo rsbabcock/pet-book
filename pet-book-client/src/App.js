@@ -50,7 +50,7 @@ class App extends Component {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
     // Set everything to false again?
-    this.setAuthState({
+    this.setState({
       isAuth: false,
       user: "",
       userPets: [],
@@ -73,9 +73,10 @@ class App extends Component {
       })
       .then((pets) => {
         console.log('userPets', pets);
-        this.setState({ userPets: pets, currentView: 'home' }, ()=>{
-          this.getFollowedPets()
-        })
+        this.setState({ userPets: pets, currentView: 'home' })
+      })
+      .then((stuff) => {
+        this.getFollowedPets()
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -199,10 +200,10 @@ class App extends Component {
       this.setState({
         isAuth: true,
         user: user
-      });
+      })
+      this.getuserPets()
+      this.getFollowedPets()
     }
-    this.getuserPets()
-    // this.getFollowedPets()
     // this.ProfileHandler()
 
     // }
@@ -222,17 +223,19 @@ class App extends Component {
       console.log("view changed brah!")
     }
     if (view === "home") {
+      // this.getuserPets()
+      // this.getFollowedPets()
       this.setState({
         showEdit: false,
         showFollow: true
       })
     }
-    if (view === "auth") {
-      this.setState({
-        register: false,
-        showUserForm: true
-      })
-    }
+    // if (view === "auth") {
+    //   this.setState({
+    //     register: false,
+    //     showUserForm: true
+    //   })
+    // }
     // Update state to correct view will be rendered
     this.setState({
       currentView: view,
@@ -242,7 +245,7 @@ class App extends Component {
 
   View = () => {
     if (this.state.isAuth === false) {
-      return <Auth getUserPets={this.getuserPets} authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} />
+      return <Auth authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} />
     }
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
