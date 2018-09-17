@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./auth.css";
 import { Button, Title, Input, Field, Container, Box, Hero, HeroHeader } from "bloomer";
+import swal from 'sweetalert';
 import avatar from "../img/petBookLogo_white.png"
 
 class Auth extends Component {
@@ -72,7 +73,11 @@ class Auth extends Component {
       .then((response) => {
         console.log('"auth', response);
         if(response.statusText === "Bad Request"){
-          alert("Sorry! Please register")
+          swal({
+            title: "Oh no!",
+            text: "We haven't been introduced, please register",
+            icon: "warning",
+          });
           this.props.setAuthState({isAuth : false})
           return Promise.reject(response)
         }
