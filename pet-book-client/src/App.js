@@ -34,7 +34,7 @@ class App extends Component {
     currentView: 'home',
     profileData: [],
     showEdit: false,
-    showFollow: true, 
+    showFollow: true,
   }
 
 
@@ -50,9 +50,11 @@ class App extends Component {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
     // Set everything to false again?
-    this.setAuthState({
+    this.setState({
       isAuth: false,
       user: "",
+      userPets: [],
+      followedPets: []
     })
     console.log(localStorage.getItem("token"));
   }
@@ -71,7 +73,10 @@ class App extends Component {
       })
       .then((pets) => {
         console.log('userPets', pets);
-        this.setState({ userPets: pets })
+        this.setState({ userPets: pets, currentView: 'home' })
+      })
+      .then((stuff) => {
+        this.getFollowedPets()
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -91,7 +96,7 @@ class App extends Component {
       })
       .then((owner) => {
         const follows = owner[0].follows
-        this.setState({ followedPets: follows })
+        return this.setState({followedPets: follows})
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -118,7 +123,7 @@ class App extends Component {
           if (userPet.url === url) {
             this.setState({ showEdit: true, showFollow: false })
           }
-          
+
           return console.log("Your pet!")
         })
         // debugger
@@ -126,144 +131,149 @@ class App extends Component {
           profileData: petData
         })
       })
-          .catch((err) => {
-            console.log("fetch no like you, brah", err);
-          })
-      }.bind(this)
+      .catch((err) => {
+        console.log("fetch no like you, brah", err);
+      })
+  }.bind(this)
 
   displaySuccess(data) {
-          console.log("Following!", data)
-        }
+    console.log("Following!", data)
+  }
 
- postFollowing = (pets, follower) => {
-          let token = localStorage.getItem("token")
-          fetch(` http://127.0.0.1:8000/create-follow/`, {
-            method: "POST",
-            body: JSON.stringify({
-              pets,
-              follower
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Token ${token}`
-            }
-          })
-            .then((response) => {
-              return response.json()
-            })
-            .then((response) => {
-              return this.displaySuccess(response)
-            })
-            .catch((err) => {
-              console.log("auth no like you, brah", err);
-            });
-        }
+  postFollowing = (pets, follower) => {
+    let token = localStorage.getItem("token")
+    fetch(` http://127.0.0.1:8000/create-follow/`, {
+      method: "POST",
+      body: JSON.stringify({
+        pets,
+        follower
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        return this.displaySuccess(response)
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
+  }
 
   startFollowing = (petUrl) => {
-          let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token")
+    fetch(` http://127.0.0.1:8000/get-owner/`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        let ownerUrl = ""
+        response.map(owner => ownerUrl = owner.url)
+        this.displaySuccess(response)
+        this.postFollowing(petUrl, ownerUrl)
+        this.getFollowedPets()
+      })
+      .catch((err) => {
+        console.log("auth no like you, brah", err);
+      });
 
 
-          fetch(` http://127.0.0.1:8000/get-owner/`, {
-            method: "GET",
-            headers: {
-              "Authorization": `Token ${token}`
-            }
-          })
-            .then((response) => {
-              return response.json()
-            })
-            .then((response) => {
-              let ownerUrl = ""
-              response.map(owner => ownerUrl = owner.url)
-              this.displaySuccess(response)
-              console.log(petUrl)
-              console.log(ownerUrl)
-              this.postFollowing(petUrl, ownerUrl)
-            })
-            .catch((err) => {
-              console.log("auth no like you, brah", err);
-            });
-
-
-        }
+  }
 
   componentDidMount() {
-          let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token")
     let user = localStorage.getItem("user")
-    if(token) {
-            console.log("User still logged in", user)
-            this.setState({
-              isAuth: true,
-              user: user
-            });
-          }
-    this.getuserPets()
-    this.getFollowedPets()
-          // this.ProfileHandler()
+    if (token) {
+      console.log("User still logged in", user)
+      this.setState({
+        isAuth: true,
+        user: user
+      })
+      this.getuserPets()
+      this.getFollowedPets()
+    }
+    // this.ProfileHandler()
 
-          // }
-        }
+    // }
+  }
 
 
   showView = function (e, data) {
-          let view = null
+    let view = null
 
-          // Click event triggered switching view
-          if (e.hasOwnProperty("target")) {
-            view = e.target.id.split("__")[1]
+    // Click event triggered switching view
+    if (e.hasOwnProperty("target")) {
+      view = e.target.id.split("__")[1]
 
-            // View switch manually triggered by passing in string
-          } else {
-            view = e
-            console.log("view changed brah!")
-          }
-          if (view === "home") {
-            this.setState({
-              showEdit: false,
-              showFollow: true
-            })
+      // View switch manually triggered by passing in string
+    } else {
+      view = e
+      console.log("view changed brah!")
+    }
+    if (view === "home") {
+      // this.getuserPets()
+      // this.getFollowedPets()
+      this.setState({
+        showEdit: false,
+        showFollow: true
+      })
+    }
+    // if (view === "auth") {
+    //   this.setState({
+    //     register: false,
+    //     showUserForm: true
+    //   })
+    // }
+    // Update state to correct view will be rendered
+    this.setState({
+      currentView: view,
+    })
 
-          }
-          // Update state to correct view will be rendered
-          this.setState({
-            currentView: view,
-          })
-
-        }.bind(this)
+  }.bind(this)
 
   View = () => {
-          if (this.state.isAuth === false) {
-            return this.state.showUserForm ? <Auth authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} /> : null
-          }
-          else if (this.state.isAuth === true) {
-            switch (this.state.currentView) {
-              case 'home':
-                return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image}/>
-              case 'profile':
-                return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }} image={this.state.image} />
-              case 'addPet':
-                return <AddPetForm viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image}/>
-              case 'addAllergy':
-                return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
-              // addCommand
-              case 'addCommand':
-                return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
-              case 'edit':
-                return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image}/>
-              case 'follow':
-                return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
-              default:
-                return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+    if (this.state.isAuth === false) {
+      return <Auth authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} />
+    }
+    else if (this.state.isAuth === true) {
+      switch (this.state.currentView) {
+        case 'home':
+          return <DashBoard isAuth={this.state.isAuth} userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} getuserPets={()=>{this.getuserPets()}} getFollowedPets={this.getFollowedPets}/>
+        case 'profile':
+          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }} image={this.state.image} ProfileHandler={(url) => { this.ProfileHandler(url) }} getFollowedPets={this.getFollowedPets}/>
+        case 'addPet':
+          return <AddPetForm viewHandler={this.showView}  getuserPets={this.getuserPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
+        case 'addAllergy':
+          return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+        // addCommand
+        case 'addCommand':
+          return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+        case 'edit':
+          return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
+        case 'follow':
+          return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+        default:
+          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
 
-            }
-          }
-        }
+      }
+    }
+  }
 
   render() {
-          return(
-      <div className = "App" >
-              <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} />
-        { this.View()}
+    return (
+      <div className="App" >
+        <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} />
+        {/* {this.state.isAuth === false ? <Auth viewHandler={this.showView} user={this.state.user} isAuth={this.state.isAuth} ProfileHandler={(url) => { this.ProfileHandler(url) }} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} /> : null} */}
+        {this.View()}
       </div>
     );
   }

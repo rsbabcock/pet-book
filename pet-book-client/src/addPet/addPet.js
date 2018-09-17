@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./addPet.css";
 import { Button, Title, Select, Input, TextArea, Field, Container, Box } from "bloomer";
+import swal from 'sweetalert';
 import dog from "../img/petBookLogo_white.png"
 import cat from "../img/petBookKitty.png"
 class AddPetForm extends Component {
@@ -112,12 +113,23 @@ class AddPetForm extends Component {
       }
     })
       .then((response) => {
+        this.props.getuserPets()
         return response.json()
       })
       .then((response) => {
+        swal({
+          title: "Yay!",
+          text: `${response.name} Added!`,
+          icon: "success",
+        });
         return this.displaySuccess(response)
       })
       .catch((err) => {
+        swal({
+          title: "Oh no!",
+          text: `You missed a required field!`,
+          icon: "success",
+        });
         console.log("auth no like you, brah", err);
       });
   }
@@ -274,7 +286,12 @@ class AddPetForm extends Component {
                 </TextArea>
               </Field>
             </Box>
-              <Button isColor="info" isSize="large" isOutlined onClick={() => this.createPet()}>Add Pet</Button>
+              <Button isColor="info" isSize="large" isOutlined 
+              onClick={() => {
+                this.createPet()
+                this.props.viewHandler("home")
+              }
+                }>Add Pet</Button>
           </Container>
         </div>
       </div>

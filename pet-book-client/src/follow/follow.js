@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import { Hero, Box, Columns,Title, HeroHeader } from 'bloomer';
+import { Hero, Box, Columns, Title, HeroHeader } from 'bloomer';
 import 'bulma/css/bulma.css';
-// import './dashboard.css'
+import './follow.css'
 import CustomCard from "../dashboard/petCard";
 
 
@@ -11,45 +11,47 @@ import CustomCard from "../dashboard/petCard";
 
 class Follow extends Component {
     state = {
-        allPets : []
+        allPets: []
     }
 
-    getAllPets(){
+    getAllPets() {
         let token = localStorage.getItem("token")
-    fetch(`http://127.0.0.1:8000/pets/`, {
-      method: 'GET',
-      headers: {
-        "Authorization": `Token ${token}`
-      }
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((pets) => {
-        this.setState({ allPets: pets })
-      })
-      .catch((err) => {
-        console.log("fetch no like you, brah", err);
-      })
+        fetch(`http://127.0.0.1:8000/pets/`, {
+            method: 'GET',
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((pets) => {
+                this.setState({ allPets: pets })
+            })
+            .catch((err) => {
+                console.log("fetch no like you, brah", err);
+            })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getAllPets()
     }
 
     render() {
         return (
             <div>
-            <Hero isSize='medium' isColor="light">
-                <HeroHeader>
-                    <Box hasTextAlign='centered'>
-                        <Title>Follow</Title>
-                    </Box>
-                    <Columns isCentered >
-                        <CustomCard userPets={this.props.userPets} resource={this.state.allPets} viewHandler={this.props.viewHandler} ProfileHandler={this.props.ProfileHandler}/>
-                    </Columns>
-                </HeroHeader>                    
-            </Hero>
+                <Hero isSize='medium' isColor="light">
+                    <HeroHeader>
+                        <Box hasTextAlign='centered'>
+                            <Title>Follow</Title>
+                        </Box>
+                        <Box>
+                            <Columns isCentered>
+                                <CustomCard userPets={this.props.userPets} resource={this.state.allPets} viewHandler={this.props.viewHandler} ProfileHandler={this.props.ProfileHandler} />
+                            </Columns>
+                        </Box>
+                    </HeroHeader>
+                </Hero>
             </div>
 
         )

@@ -48,13 +48,16 @@ class Nav extends Component {
                                     <button onClick={this.props.viewHandler} id="nav__addAllergy">Add Allergy</button>
                                     <button onClick={this.props.viewHandler} id="nav__addCommand">Add Command</button>
                                     <button onClick={this.props.viewHandler} id="nav__follow">Follow</button>
-                                    {/* <button>Settings</button> */}
                                 </div>
                             }
                             <div>
-                                <button onClick={() => isAuth ? this.logOut() : this.displayLogin()}>
+                                <button id="nav__auth" onClick={() => {
+                                    isAuth ? this.logOut() : this.displayLogin()
+                                    this.props.viewHandler('auth')}}>
                                     Log {isAuth ? "out" : "in"} </button>
+                                    {isAuth === true ? null : 
                                 <button onClick={() => this.displayRegister()}>Register</button>
+                                    }
 
                             </div>
                         </div>

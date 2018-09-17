@@ -38,7 +38,7 @@ class Profile extends Component {
                 return response.json()
             })
             .then((response) => {
-                // return this.setState({ note: response.url })
+                this.props.ProfileHandler(this.props.resource[0].url)
                 return this.displaySuccess(response)
             })
             .catch((err) => {
@@ -108,6 +108,7 @@ class Profile extends Component {
             })
             .then((response) => {
                 this.postPetNote()
+                this.props.ProfileHandler(this.props.resource[0].url)
                 return this.displaySuccess(response)
             })
             .catch((err) => {
@@ -137,7 +138,10 @@ class Profile extends Component {
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
                                         {data.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={data.name} /> : <img src={cat} alt={data.name}/>}
                                         {this.props.showFollow === false ? null : <Box>
-                                            <a href="#/" onClick={()=> {this.props.startFollowing(data.url)}}><Title isSize={6}>Follow</Title></a>
+                                            <a href="#/" onClick={()=> {
+                                                this.props.startFollowing(data.url)
+                                                this.props.viewHandler("home")
+                                                }}><Title isSize={6}>Follow</Title></a>
                                         </Box> }
                                         {this.props.showEdit === false ? null : <Box>
                                             <a id="pet__edit" href="#/" onClick={() => {
