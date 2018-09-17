@@ -115,6 +115,7 @@ class AddPetForm extends Component {
         return response.json()
       })
       .then((response) => {
+        this.props.getuserPets()
         return this.displaySuccess(response)
       })
       .catch((err) => {

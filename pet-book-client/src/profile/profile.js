@@ -38,7 +38,7 @@ class Profile extends Component {
                 return response.json()
             })
             .then((response) => {
-                // return this.setState({ note: response.url })
+                this.props.ProfileHandler(this.props.resource[0].url)
                 return this.displaySuccess(response)
             })
             .catch((err) => {

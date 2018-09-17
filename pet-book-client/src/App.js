@@ -166,8 +166,6 @@ class App extends Component {
 
   startFollowing = (petUrl) => {
     let token = localStorage.getItem("token")
-
-
     fetch(` http://127.0.0.1:8000/get-owner/`, {
       method: "GET",
       headers: {
@@ -181,8 +179,6 @@ class App extends Component {
         let ownerUrl = ""
         response.map(owner => ownerUrl = owner.url)
         this.displaySuccess(response)
-        console.log(petUrl)
-        console.log(ownerUrl)
         this.postFollowing(petUrl, ownerUrl)
         this.getFollowedPets()
       })
@@ -255,7 +251,7 @@ class App extends Component {
         case 'profile':
           return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }} image={this.state.image} ProfileHandler={(url) => { this.ProfileHandler(url) }} getFollowedPets={this.getFollowedPets}/>
         case 'addPet':
-          return <AddPetForm viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
+          return <AddPetForm viewHandler={this.showView}  getuserPets={this.getuserPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
         case 'addAllergy':
           return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         // addCommand
