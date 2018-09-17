@@ -154,7 +154,7 @@ class AllergiesForm extends Component {
                 this.postPreMadeAllergies()
                 // (console.log(this.state.pet))
                 this.props.ProfileHandler(this.state.pet)
-                this.props.viewHandler('profile')
+                this.props.viewHandler('home')
                 }}>Add Allergy to Pet</Button>
             </Box>
           </Container>

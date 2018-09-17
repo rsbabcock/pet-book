@@ -152,7 +152,7 @@ class CommandsForm extends Component {
                 <Button isColor="info" isOutlined onClick={() => {
                   this.postPreMadeCommands()
                   this.props.ProfileHandler(this.state.pet)
-                  this.props.viewHandler('profile')
+                  this.props.viewHandler('home')
                 }}>Add Command to Pet</Button>
               </Box>
           </Container>

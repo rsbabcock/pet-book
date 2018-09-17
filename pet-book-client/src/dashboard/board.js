@@ -11,6 +11,11 @@ import avatar from "../img/petBookLogo_white.png"
 
 class DashBoard extends Component {
 
+componentDidMount(){
+    this.props.getuserPets()
+    this.props.getFollowedPets()
+}
+
     render() {
         return (
             <div>

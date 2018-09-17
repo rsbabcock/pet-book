@@ -274,7 +274,12 @@ class AddPetForm extends Component {
                 </TextArea>
               </Field>
             </Box>
-              <Button isColor="info" isSize="large" isOutlined onClick={() => this.createPet()}>Add Pet</Button>
+              <Button isColor="info" isSize="large" isOutlined 
+              onClick={() => {
+                this.props.viewHandler("home")
+                this.createPet()
+              }
+                }>Add Pet</Button>
           </Container>
         </div>
       </div>
