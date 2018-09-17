@@ -71,7 +71,14 @@ class Auth extends Component {
     })
       .then((response) => {
         console.log('"auth', response);
-        return response.json();
+        if(response.statusText === "Bad Request"){
+          alert("Sorry! Please register")
+          this.props.setAuthState({isAuth : false})
+          return Promise.reject(response)
+        }
+        if(response.statusText === "OK"){
+          return response.json();
+        }
       })
       .then((responseToken) => {
         localStorage.setItem("token", responseToken.token)
@@ -104,7 +111,6 @@ class Auth extends Component {
           })
           .then((allThings) => {
             this.getFollowedPets()
-            console.log("You've got all the thigns!")
           })
           .catch((err) => {
             console.log("auth no like you, brah", err);
