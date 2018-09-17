@@ -140,6 +140,7 @@ class Profile extends Component {
                                         {this.props.showFollow === false ? null : <Box>
                                             <a href="#/" onClick={()=> {
                                                 this.props.startFollowing(data.url)
+                                                this.props.getFollowedPets()
                                                 this.props.viewHandler("home")
                                                 }}><Title isSize={6}>Follow</Title></a>
                                         </Box> }

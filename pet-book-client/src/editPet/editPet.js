@@ -75,7 +75,6 @@ class EditPetForm extends Component {
         const { pet_type,
             breed,
             name,
-            // image,
             nick_name,
             birthday,
             gender,
@@ -121,6 +120,7 @@ class EditPetForm extends Component {
                 return response.json()
             })
             .then((response) => {
+                this.props.ProfileHandler(response.url)
                 swal({
                     title: "Yay!",
                     text: `${response.name} Edited!`,
@@ -299,7 +299,7 @@ class EditPetForm extends Component {
                                 <Button isColor="info" isSize="large" isOutlined
                                     onClick={() => {
                                         this.createPet()
-                                        this.props.ProfileHandler(pet.url)
+                                        // this.props.ProfileHandler(pet.url)
                                         this.props.viewHandler('profile')
                                     }}
                                 >Edit Pet</Button>
