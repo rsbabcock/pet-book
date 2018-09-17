@@ -28,8 +28,8 @@ class Auth extends Component {
         return response.json();
       })
       .then((pets) => {
-        console.log('userPets', pets);
-        this.setState({ userPets: pets, currentView: 'home' })
+        // console.log('userPets', pets);
+        this.props.setAuthState({userPets: pets})
       })
       .then((stuff) => {
         this.getFollowedPets()
@@ -91,7 +91,7 @@ class Auth extends Component {
         return responseToken;
       })
       .then((responseToken) => {
-        let token = responseToken
+        let token = localStorage.getItem("token")
         fetch(`http://127.0.0.1:8000/user-pets/`, {
           method: 'GET',
           headers: {
