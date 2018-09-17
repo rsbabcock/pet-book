@@ -3,3 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+#follow__color{
+    background: #E9F7FF;
+}

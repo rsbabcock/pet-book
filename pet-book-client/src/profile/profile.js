@@ -17,7 +17,7 @@ class Profile extends Component {
         pet: '',
         note: ''
     }
-    archiveNote = ( content, date_posted, url) =>{
+    archiveNote = (content, date_posted, url) => {
         let token = localStorage.getItem("token")
         const archive = true
         // console.log( archive, this.state)
@@ -131,25 +131,32 @@ class Profile extends Component {
                 <Title> Pet Profile</Title>
                 {this.props.resource.map(data => (
                     <div>
-                        <Hero isSize='medium' isColor="light">
+                        <Hero isSize='medium' id="profile__color">
                             <div key={this.uniqueKey += 1}>
                                 <HeroHeader>
-                                    <Box>
+                                    <Box className="profile__head">
                                         <Title isSize={4} id="pet_profile">{data.name}</Title>
-                                        {data.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={data.name} /> : <img src={cat} alt={data.name}/>}
-                                        {this.props.showFollow === false ? null : <Box>
-                                            <a href="#/" onClick={()=> {
+                                        {data.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={data.name} /> : <img src={cat} alt={data.name} />}
+                                        {this.props.showFollow === false ? null : <Button
+                                            isSize="large"
+                                            isColor="info"
+                                            isOutlined
+                                            onClick={() => {
                                                 this.props.startFollowing(data.url)
                                                 this.props.getFollowedPets()
                                                 this.props.viewHandler("home")
-                                                }}><Title isSize={6}>Follow</Title></a>
-                                        </Box> }
-                                        {this.props.showEdit === false ? null : <Box>
-                                            <a id="pet__edit" href="#/" onClick={() => {
+                                            }}>Follow
+                                        </Button>}
+                                        {this.props.showEdit === false ? null : <Button
+                                            isSize="large"
+                                            isColor="info"
+                                            isOutlined
+                                            id="pet__edit" 
+                                            onClick={() => {
                                                 // this.props.ProfileHandler(c.url)
                                                 this.props.viewHandler('edit')
-                                            }}><Title isSize={6}>Edit</Title></a>
-                                        </Box>}
+                                            }}>Edit
+                                        </Button>}
                                     </Box>
 
                                 </HeroHeader>
@@ -200,40 +207,44 @@ class Profile extends Component {
                                         {data.deceased === false ? null : <Box>
                                             <strong>Deceased:</strong> <br /> Sadly, yes
                                         </Box>}
-                                        <Container>
-                                            <Title>Allergies</Title>
-                                            {data.allergy.map(allergy => (
-                                                <div>
+                                    </Container>
+                                    <br />
+                                    <Title>Allergies</Title>
+                                    <Container hasTextAlign="centered">
+                                        {data.allergy.map(allergy => (
+                                            <div>
+                                                <Box>
                                                     <Box>
                                                         <strong>Name:</strong> <br /> {allergy.allergy_name}
                                                     </Box>
                                                     <Box>
                                                         <strong>Side Effects:</strong> <br /> {allergy.side_effects}
                                                     </Box>
-                                                </div>
-                                            ))}
-                                        </Container>
+                                                </Box>
+                                            </div>
+                                        ))}
                                     </Container>
-                                    <Container>
-                                        <div></div>
-                                        <Title>Commands</Title>
+                                    <br />
+                                    <Title>Commands</Title>
+
+                                    <Container hasTextAlign="centered">
                                         {data.command.map(command => (
                                             <div>
                                                 <Box>
-                                                    <strong>Command:</strong> <br /> {command.command_name}
-                                                </Box>
-                                                <Box>
-                                                    <strong>Instructions:</strong> <br /> {command.instructions}
+                                                    <Box>
+                                                        <strong>Command:</strong> <br /> {command.command_name}
+                                                    </Box>
+                                                    <Box>
+                                                        <strong>Instructions:</strong> <br /> {command.instructions}
+                                                    </Box>
                                                 </Box>
                                             </div>
                                         ))}
                                     </Container>
                                 </HeroBody>
                             </div>
-                        </Hero>
-                        <div>
-                            <Container>
-                                <Box>
+                            <div>
+                            <Container hasTextAlign="centered">
                                     <Field>
                                         <TextArea
                                             placeholder="Note"
@@ -241,42 +252,42 @@ class Profile extends Component {
                                             onKeyPress={e => this.onChange(e)}>
                                         </TextArea>
                                     </Field>
-                                </Box>
-                                <Button isColor="info" isSize="medium" isOutlined onClick={() => this.postNote()}>Add Note</Button>
-                            </Container>
-                        </div>
-                        <div>
-                                <Container>
-                            {data.note.map(note => (
-                                <Box>
-                                { note.archive === true ? null :
-                                        <Card>
-                                            <CardHeader>
-                                                <CardHeaderTitle>
-                                                    Note
+                                    <Button isColor="info" isSize="medium" isOutlined onClick={() => this.postNote()}>Add Note</Button>
+                                </Container>
+                            </div>
+                            <div>
+                            <Container hasTextAlign="centered">
+                                    {data.note.map(note => (
+                                        <Box>
+                                            {note.archive === true ? null :
+                                                <Card>
+                                                    <CardHeader>
+                                                        <CardHeaderTitle>
+                                                            Note
                                     </CardHeaderTitle>
-                                                <CardHeaderIcon>
-                                                    {/* <Icon className="fa fa-angle-down" {this.render}/> */}
-                                                </CardHeaderIcon>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <Content>
-                                                    {note.content}
-                                                    <br />
-                                                    <small>{note.date_posted}</small>
-                                                </Content>
-                                            </CardContent>
-                                            <CardFooter>
-                                                <CardFooterItem href="#/" onClick={()=>{this.archiveNote(note.content, note.date_posted, note.url)}}>
-                                                    archive
+                                                        <CardHeaderIcon>
+                                                            {/* <Icon className="fa fa-angle-down" {this.render}/> */}
+                                                        </CardHeaderIcon>
+                                                    </CardHeader>
+                                                    <CardContent>
+                                                        <Content>
+                                                            {note.content}
+                                                            <br />
+                                                            <small>{note.date_posted}</small>
+                                                        </Content>
+                                                    </CardContent>
+                                                    <CardFooter>
+                                                        <CardFooterItem href="#/" onClick={() => { this.archiveNote(note.content, note.date_posted, note.url) }}>
+                                                            archive
                                     </CardFooterItem>
-                                            </CardFooter>
-                                        </Card>
-                                }
-                                </Box>
-                            ))}
-                            </Container>
-                        </div>
+                                                    </CardFooter>
+                                                </Card>
+                                            }
+                                        </Box>
+                                    ))}
+                                </Container>
+                            </div>
+                        </Hero>
                     </div>
                 ))}
             </div>

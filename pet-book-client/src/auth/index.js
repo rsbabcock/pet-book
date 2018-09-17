@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./auth.css";
-import { Button, Title, Input, Field, Container, Box, Hero, HeroHeader } from "bloomer";
+import { Button, Title, Input, Field,Box, Hero, HeroHeader } from "bloomer";
 import swal from 'sweetalert';
 import avatar from "../img/petBookLogo_white.png"
 

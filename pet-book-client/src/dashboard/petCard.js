@@ -17,7 +17,11 @@ class CustomCard extends Component {
                 <div key={this.uniqueKey+=1}>
                 <Box className="card_pet"> 
                     {c.pet_type === "http://127.0.0.1:8000/pet-types/1/" ? <img src={dog} alt={c.name} /> : <img src={cat} alt={c.name}/>}
-                    <Button isSize={4} id="pet__profile" 
+                    <Button 
+                    isColor="info"
+                    isOutlined
+                    isSize={4} 
+                    id="pet__profile" 
                     onClick={()=>{
                         this.props.ProfileHandler(c.url)
                         this.props.viewHandler('profile')

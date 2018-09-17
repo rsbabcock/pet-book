@@ -20,7 +20,7 @@ componentDidMount(){
         return (
             <div>
                 {this.props.isAuth === true ?
-                    <Hero isSize='medium' isColor="light">
+                    <Hero isSize='medium' id="dash__color">
                         <HeroHeader>
                             <Box hasTextAlign='centered'>
                                 <Title>My Pets</Title>

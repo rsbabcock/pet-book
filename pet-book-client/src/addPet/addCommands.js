@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Title, Select, Input, TextArea, Field, Container, Box } from "bloomer";
-
+import swal from 'sweetalert';
 class CommandsForm extends Component {
   state = {
 
@@ -60,6 +60,11 @@ class CommandsForm extends Component {
       })
       .then((response) => {
         // console.log(text)
+        swal({
+          title: "Sweet!",
+          text: 'Command added',
+          icon: "success",
+        });
         return this.displaySuccess(response)
       })
       .catch((err) => {
@@ -90,6 +95,11 @@ class CommandsForm extends Component {
       })
       .then((response) => {
         this.getUserCommands()
+        swal({
+          title: "Yay!",
+          text: `${response.command_name} added!`,
+          icon: "success",
+        });
         return this.displaySuccess(response)
       })
       .catch((err) => {

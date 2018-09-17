@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './auth'
 import NavComponent from './nav'
 import './App.css';
+import 'bulma/css/bulma.css';
 import DashBoard from './dashboard/board';
 import Profile from './profile/profile';
 import AddPetForm from './addPet/addPet';
