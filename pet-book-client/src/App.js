@@ -247,7 +247,7 @@ class App extends Component {
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
         case 'home':
-          return <DashBoard isAuth={this.state.isAuth} userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} getuserPets={this.getuserPets} getFollowedPets={this.getFollowedPets}/>
+          return <DashBoard isAuth={this.state.isAuth} userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} getuserPets={()=>{this.getuserPets()}} getFollowedPets={this.getFollowedPets}/>
         case 'profile':
           return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }} image={this.state.image} ProfileHandler={(url) => { this.ProfileHandler(url) }} getFollowedPets={this.getFollowedPets}/>
         case 'addPet':

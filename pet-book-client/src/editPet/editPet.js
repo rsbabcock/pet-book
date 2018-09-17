@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./editPet.css";
 import { Button, Title, Select, Input, TextArea, Field, Container, Box } from "bloomer";
+import swal from 'sweetalert';
 import dog from "../img/petBookLogo_white.png"
 import cat from "../img/petBookKitty.png"
 class EditPetForm extends Component {
@@ -120,6 +121,11 @@ class EditPetForm extends Component {
                 return response.json()
             })
             .then((response) => {
+                swal({
+                    title: "Yay!",
+                    text: `${response.name} Edited!`,
+                    icon: "success",
+                  });
                 return this.displaySuccess(response)
             })
             .catch((err) => {

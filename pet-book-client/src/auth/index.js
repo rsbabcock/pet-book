@@ -90,8 +90,8 @@ class Auth extends Component {
         localStorage.setItem("user", this.props.authState.username)
         return responseToken;
       })
-      .then((response) => {
-        let token = localStorage.getItem("token")
+      .then((responseToken) => {
+        let token = responseToken
         fetch(`http://127.0.0.1:8000/user-pets/`, {
           method: 'GET',
           headers: {
