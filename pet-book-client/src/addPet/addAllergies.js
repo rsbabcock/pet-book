@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Title, Select, Input, TextArea, Field, Box, Container } from "bloomer";
-
+import swal from 'sweetalert';
 
 
 class AllergiesForm extends Component {
@@ -59,6 +59,11 @@ class AllergiesForm extends Component {
       })
       .then((response) => {
         // console.log(text)
+        swal({
+          title: "Sweet!",
+          text: "New Allergy Added",
+          icon: "success",
+        });
         return this.displaySuccess(response)
       })
       .catch((err) => {
@@ -89,6 +94,11 @@ class AllergiesForm extends Component {
       })
       .then((response) => {
         this.getUserAllergies()
+        swal({
+          title: "Sweet!",
+          text: "New Allergy Created",
+          icon: "success",
+        });
         return this.displaySuccess(response)
       
       })

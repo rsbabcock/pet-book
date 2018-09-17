@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from './auth'
 import NavComponent from './nav'
 import './App.css';
+import 'bulma/css/bulma.css';
 import DashBoard from './dashboard/board';
 import Profile from './profile/profile';
 import AddPetForm from './addPet/addPet';
@@ -9,6 +10,7 @@ import AllergiesForm from './addPet/addAllergies';
 import CommandsForm from './addPet/addCommands';
 import EditPetForm from './editPet/editPet';
 import Follow from './follow/follow';
+import swal from 'sweetalert';
 
 
 
@@ -157,6 +159,12 @@ class App extends Component {
         return response.json()
       })
       .then((response) => {
+        this.getFollowedPets()
+        swal({
+          title: "Yay!",
+          text: "Following!",
+          icon: "success",
+        });
         return this.displaySuccess(response)
       })
       .catch((err) => {
@@ -180,7 +188,6 @@ class App extends Component {
         response.map(owner => ownerUrl = owner.url)
         this.displaySuccess(response)
         this.postFollowing(petUrl, ownerUrl)
-        this.getFollowedPets()
       })
       .catch((err) => {
         console.log("auth no like you, brah", err);

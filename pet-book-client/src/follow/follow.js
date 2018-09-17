@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Hero, Box, Columns, Title, HeroHeader } from 'bloomer';
+import { Hero, Box, Columns, Title, HeroHeader , HeroBody} from 'bloomer';
 import 'bulma/css/bulma.css';
 import './follow.css'
 import CustomCard from "../dashboard/petCard";
@@ -40,16 +40,15 @@ class Follow extends Component {
     render() {
         return (
             <div>
-                <Hero isSize='medium' isColor="light">
+                <Hero isSize='large' id="follow__color" isFullHeight>
                     <HeroHeader>
                         <Box hasTextAlign='centered'>
                             <Title>Follow</Title>
                         </Box>
-                        <Box>
+                   
                             <Columns isCentered>
                                 <CustomCard userPets={this.props.userPets} resource={this.state.allPets} viewHandler={this.props.viewHandler} ProfileHandler={this.props.ProfileHandler} />
                             </Columns>
-                        </Box>
                     </HeroHeader>
                 </Hero>
             </div>

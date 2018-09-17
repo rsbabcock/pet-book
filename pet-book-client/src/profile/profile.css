@@ -2,3 +2,18 @@
     width: 25vw;
 
 }
+
+#profile__color{
+    background: #E9F7FF;
+}
+
+.profile__head{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__head button{
+    width: 25vw;
+}
