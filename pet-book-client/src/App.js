@@ -53,6 +53,8 @@ class App extends Component {
     this.setAuthState({
       isAuth: false,
       user: "",
+      userPets: [],
+      followedPets: []
     })
     console.log(localStorage.getItem("token"));
   }
@@ -71,7 +73,7 @@ class App extends Component {
       })
       .then((pets) => {
         console.log('userPets', pets);
-        this.setState({ userPets: pets }, ()=>{
+        this.setState({ userPets: pets, currentView: 'home' }, ()=>{
           this.getFollowedPets()
         })
       })
@@ -240,7 +242,7 @@ class App extends Component {
 
   View = () => {
     if (this.state.isAuth === false) {
-      return <Auth authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} />
+      return <Auth getUserPets={this.getuserPets} authState={this.state} setAuthState={(obj) => this.setAuthState(obj)} />
     }
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
@@ -259,8 +261,6 @@ class App extends Component {
           return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
         case 'follow':
           return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
-        // case 'auth':
-        //   return <Auth viewHandler={this.showView} user={this.state.user} isAuth={this.state.isAuth} ProfileHandler={(url) => { this.ProfileHandler(url) }} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} />
         default:
           return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
 

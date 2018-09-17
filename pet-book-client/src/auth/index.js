@@ -32,15 +32,18 @@ class Auth extends Component {
         console.log('converted token', responseToken.token);
         localStorage.setItem("token", responseToken.token)
         localStorage.setItem("user", this.props.authState.username)
+        this.props.getUserPets()
         return this.props.setAuthState({
           user: this.props.authState.username,
           token: responseToken.token,
           username: "",
           password: "",
           isAuth: true,
-          currentView: 'home' 
+          currentView: 'home'
         })
       })
+      
+      
       .catch((err) => {
         console.log("auth no like you, brah", err);
       })

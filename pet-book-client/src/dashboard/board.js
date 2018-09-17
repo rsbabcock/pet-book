@@ -11,7 +11,6 @@ import avatar from "../img/petBookLogo_white.png"
 
 class DashBoard extends Component {
 
-
     render() {
         return (
             <div>
