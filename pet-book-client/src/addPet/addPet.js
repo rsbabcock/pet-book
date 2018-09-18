@@ -113,22 +113,20 @@ class AddPetForm extends Component {
       }
     })
       .then((response) => {
-        this.props.getuserPets()
         return response.json()
       })
       .then((response) => {
         swal({
-          title: "Yay!",
-          text: `${response.name} Added!`,
+          title: `${response.name} Added!`,
           icon: "success",
         });
+        this.props.getuserPets()
         return this.displaySuccess(response)
       })
       .catch((err) => {
         swal({
-          title: "Oh no!",
-          text: `You missed a required field!`,
-          icon: "success",
+          title: `You missed a required field!`,
+          icon: "warning",
         });
         console.log("auth no like you, brah", err);
       });

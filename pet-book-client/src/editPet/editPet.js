@@ -122,8 +122,7 @@ class EditPetForm extends Component {
             .then((response) => {
                 this.props.ProfileHandler(response.url)
                 swal({
-                    title: "Yay!",
-                    text: `${response.name} Edited!`,
+                    title: `${response.name} Edited!`,
                     icon: "success",
                   });
                 return this.displaySuccess(response)

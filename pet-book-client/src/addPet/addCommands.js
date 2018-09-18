@@ -61,8 +61,7 @@ class CommandsForm extends Component {
       .then((response) => {
         // console.log(text)
         swal({
-          title: "Sweet!",
-          text: 'Command added',
+          title: 'Command added',
           icon: "success",
         });
         return this.displaySuccess(response)
@@ -96,8 +95,7 @@ class CommandsForm extends Component {
       .then((response) => {
         this.getUserCommands()
         swal({
-          title: "Yay!",
-          text: `${response.command_name} added!`,
+          title: `${response.command_name} added!`,
           icon: "success",
         });
         return this.displaySuccess(response)

@@ -11,3 +11,6 @@ h1 {
   font-family: 'Raleway', sans-serif;
 }
 
+.swal-modal img{
+  height: 64px;
+}

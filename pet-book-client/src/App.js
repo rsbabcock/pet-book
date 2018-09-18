@@ -11,6 +11,7 @@ import CommandsForm from './addPet/addCommands';
 import EditPetForm from './editPet/editPet';
 import Follow from './follow/follow';
 import swal from 'sweetalert';
+import avatar from './img/petBookLogo_white.png'
 
 
 
@@ -98,7 +99,7 @@ class App extends Component {
       })
       .then((owner) => {
         const follows = owner[0].follows
-        return this.setState({followedPets: follows})
+        return this.setState({ followedPets: follows })
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -160,9 +161,12 @@ class App extends Component {
       })
       .then((response) => {
         this.getFollowedPets()
+        // const img = document.createElement('img')
+        // img.src = avatar
+        // img.alt = "logo"
+        
         swal({
-          title: "Yay!",
-          text: "Following!",
+          title: "Following",
           icon: "success",
         });
         return this.displaySuccess(response)
@@ -208,38 +212,25 @@ class App extends Component {
       this.getuserPets()
       this.getFollowedPets()
     }
-    // this.ProfileHandler()
-
-    // }
   }
 
 
   showView = function (e, data) {
     let view = null
-
     // Click event triggered switching view
     if (e.hasOwnProperty("target")) {
       view = e.target.id.split("__")[1]
-
       // View switch manually triggered by passing in string
     } else {
       view = e
       console.log("view changed brah!")
     }
     if (view === "home") {
-      // this.getuserPets()
-      // this.getFollowedPets()
       this.setState({
         showEdit: false,
         showFollow: true
       })
     }
-    // if (view === "auth") {
-    //   this.setState({
-    //     register: false,
-    //     showUserForm: true
-    //   })
-    // }
     // Update state to correct view will be rendered
     this.setState({
       currentView: view,
@@ -254,22 +245,57 @@ class App extends Component {
     else if (this.state.isAuth === true) {
       switch (this.state.currentView) {
         case 'home':
-          return <DashBoard isAuth={this.state.isAuth} userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} getuserPets={()=>{this.getuserPets()}} getFollowedPets={this.getFollowedPets}/>
+          return <DashBoard
+            isAuth={this.state.isAuth}
+            userPets={this.state.userPets}
+            followedPets={this.state.followedPets}
+            viewHandler={this.showView}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }}
+            getuserPets={() => { this.getuserPets() }}
+            getFollowedPets={this.getFollowedPets} />
         case 'profile':
-          return <Profile resource={this.state.profileData} showEdit={this.state.showEdit} showFollow={this.state.showFollow} viewHandler={this.showView} startFollowing={(url) => { this.startFollowing(url) }} image={this.state.image} ProfileHandler={(url) => { this.ProfileHandler(url) }} getFollowedPets={this.getFollowedPets}/>
+          return <Profile
+            resource={this.state.profileData}
+            showEdit={this.state.showEdit}
+            showFollow={this.state.showFollow}
+            viewHandler={this.showView}
+            startFollowing={(url) => { this.startFollowing(url) }}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }}
+            getFollowedPets={this.getFollowedPets} />
         case 'addPet':
-          return <AddPetForm viewHandler={this.showView}  getuserPets={this.getuserPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
+          return <AddPetForm
+            viewHandler={this.showView}
+            getuserPets={this.getuserPets}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'addAllergy':
-          return <AllergiesForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
-        // addCommand
+          return <AllergiesForm
+            viewHandler={this.showView}
+            userPets={this.state.userPets}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'addCommand':
-          return <CommandsForm viewHandler={this.showView} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+          return <CommandsForm
+            viewHandler={this.showView}
+            userPets={this.state.userPets}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'edit':
-          return <EditPetForm viewHandler={this.showView} resource={this.state.profileData} userPets={this.state.userPets} ProfileHandler={(url) => { this.ProfileHandler(url) }} image={this.state.image} />
+          return <EditPetForm
+            viewHandler={this.showView}
+            resource={this.state.profileData}
+            userPets={this.state.userPets}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         case 'follow':
-          return <Follow viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+          return <Follow
+            viewHandler={this.showView}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }} />
         default:
-          return <DashBoard userPets={this.state.userPets} followedPets={this.state.followedPets} viewHandler={this.showView} ProfileHandler={(url) => { this.ProfileHandler(url) }} />
+          return <DashBoard
+            isAuth={this.state.isAuth}
+            userPets={this.state.userPets}
+            followedPets={this.state.followedPets}
+            viewHandler={this.showView}
+            ProfileHandler={(url) => { this.ProfileHandler(url) }}
+            getuserPets={() => { this.getuserPets() }}
+            getFollowedPets={this.getFollowedPets} />
 
       }
     }
@@ -278,8 +304,12 @@ class App extends Component {
   render() {
     return (
       <div className="App" >
-        <NavComponent isAuth={this.state.isAuth} user={this.state.user} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} />
-        {/* {this.state.isAuth === false ? <Auth viewHandler={this.showView} user={this.state.user} isAuth={this.state.isAuth} ProfileHandler={(url) => { this.ProfileHandler(url) }} setAuthState={(obj) => this.setAuthState(obj)} logOut={() => this.logOut()} viewHandler={this.showView} /> : null} */}
+        <NavComponent
+          isAuth={this.state.isAuth}
+          user={this.state.user}
+          setAuthState={(obj) => this.setAuthState(obj)}
+          logOut={() => this.logOut()}
+          viewHandler={this.showView} />
         {this.View()}
       </div>
     );
