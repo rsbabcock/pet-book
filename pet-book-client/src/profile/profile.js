@@ -15,7 +15,30 @@ class Profile extends Component {
         content: "",
         archive: false,
         pet: '',
-        note: ''
+        note: '',
+        petBreed: '',
+    }
+
+    getPetBreed(data) {
+        //   a fetch to get all breeds and store them in the breed state
+        fetch(`http://127.0.0.1:8000/breeds/`, {
+            method: 'GET',
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((breeds) => {
+                // console.log(breed)
+                breeds.map(x => {
+                    if (x.url === data.breed) {
+                     this.setState({ petBreed: x })
+                    }
+                    return console.log(this.state.petBreed)
+                })
+            })
+            .catch((err) => {
+                console.log("fetch no like you, brah", err);
+            })
     }
     archiveNote = (content, date_posted, url) => {
         let token = localStorage.getItem("token")
@@ -38,6 +61,7 @@ class Profile extends Component {
                 return response.json()
             })
             .then((response) => {
+                console.log(this.props.resource)
                 this.props.ProfileHandler(this.props.resource[0].url)
                 return this.displaySuccess(response)
             })
@@ -115,6 +139,9 @@ class Profile extends Component {
                 console.log("auth no like you, brah", err);
             });
     }
+    componentDidMount() {
+        this.getPetBreed(this.props.resource)
+    }
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -151,7 +178,7 @@ class Profile extends Component {
                                             isSize="large"
                                             isColor="info"
                                             isOutlined
-                                            id="pet__edit" 
+                                            id="pet__edit"
                                             onClick={() => {
                                                 // this.props.ProfileHandler(c.url)
                                                 this.props.viewHandler('edit')
@@ -166,7 +193,7 @@ class Profile extends Component {
                                             <strong>Nick Name:</strong> <br /> {data.nick_name}
                                         </Box>
                                         <Box>
-                                            <strong>Breed:</strong> <br /> {data.breed.breed_name}
+                                            <strong>Breed:</strong> <br /> {this.state.petBreed.breed_name}
                                         </Box>
                                         <Box>
                                             <strong>Birthday:</strong> <br /> {data.birthday}
@@ -244,7 +271,7 @@ class Profile extends Component {
                                 </HeroBody>
                             </div>
                             <div>
-                            <Container hasTextAlign="centered">
+                                <Container hasTextAlign="centered">
                                     <Field>
                                         <TextArea
                                             placeholder="Note"
@@ -256,7 +283,7 @@ class Profile extends Component {
                                 </Container>
                             </div>
                             <div>
-                            <Container hasTextAlign="centered">
+                                <Container hasTextAlign="centered">
                                     {data.note.map(note => (
                                         <Box>
                                             {note.archive === true ? null :

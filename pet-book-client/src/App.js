@@ -98,7 +98,7 @@ class App extends Component {
       })
       .then((owner) => {
         const follows = owner[0].follows
-        return this.setState({followedPets: follows})
+        this.setState({followedPets: follows})
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
