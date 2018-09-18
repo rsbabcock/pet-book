@@ -11,7 +11,6 @@ import CommandsForm from './addPet/addCommands';
 import EditPetForm from './editPet/editPet';
 import Follow from './follow/follow';
 import swal from 'sweetalert';
-import avatar from './img/petBookLogo_white.png'
 
 
 
@@ -75,7 +74,6 @@ class App extends Component {
         return response.json();
       })
       .then((pets) => {
-        console.log('userPets', pets);
         this.setState({ userPets: pets, currentView: 'home' })
       })
       .then((stuff) => {
@@ -99,7 +97,7 @@ class App extends Component {
       })
       .then((owner) => {
         const follows = owner[0].follows
-        return this.setState({ followedPets: follows })
+        this.setState({ followedPets: follows })
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -161,10 +159,6 @@ class App extends Component {
       })
       .then((response) => {
         this.getFollowedPets()
-        // const img = document.createElement('img')
-        // img.src = avatar
-        // img.alt = "logo"
-        
         swal({
           title: "Following",
           icon: "success",

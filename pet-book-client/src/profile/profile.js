@@ -19,27 +19,28 @@ class Profile extends Component {
         petBreed: '',
     }
 
-    getPetBreed(data) {
+    
         //   a fetch to get all breeds and store them in the breed state
-        fetch(`http://127.0.0.1:8000/breeds/`, {
-            method: 'GET',
-        })
+    getPetBreed(){
+        // this.setState({petBreed: ""})
+        fetch(`http://127.0.0.1:8000/breeds/`)
             .then((response) => {
                 return response.json();
             })
             .then((breeds) => {
-                // console.log(breed)
-                breeds.map(x => {
-                    if (x.url === data.breed) {
-                     this.setState({ petBreed: x })
+                console.log(breeds)
+                let petBreed = breeds.filter(x => {
+                    // console.log(data)
+                    if (x.url === this.props.resource[0].breed) {
+                        this.setState({ petBreed: x })
                     }
-                    return console.log(this.state.petBreed)
                 })
+                return petBreed
             })
             .catch((err) => {
                 console.log("fetch no like you, brah", err);
             })
-    }
+    }       
     archiveNote = (content, date_posted, url) => {
         let token = localStorage.getItem("token")
         const archive = true
@@ -140,8 +141,9 @@ class Profile extends Component {
             });
     }
     componentDidMount() {
-        this.getPetBreed(this.props.resource)
+        this.getPetBreed()
     }
+
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
