@@ -60,8 +60,7 @@ class AllergiesForm extends Component {
       .then((response) => {
         // console.log(text)
         swal({
-          title: "Sweet!",
-          text: "New Allergy Added",
+          title: "New Allergy Added",
           icon: "success",
         });
         return this.displaySuccess(response)
@@ -95,8 +94,7 @@ class AllergiesForm extends Component {
       .then((response) => {
         this.getUserAllergies()
         swal({
-          title: "Sweet!",
-          text: "New Allergy Created",
+          title: "New Allergy Created",
           icon: "success",
         });
         return this.displaySuccess(response)
