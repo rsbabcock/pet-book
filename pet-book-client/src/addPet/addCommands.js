@@ -136,7 +136,7 @@ class CommandsForm extends Component {
                   type="text"
                   placeholder="Command Name"
                   name="command_name"
-                  onKeyPress={e => this.onChange(e)}
+                  onBlur={e => this.onChange(e)}
                 />
                 <TextArea
                   placeholder="Instructions"

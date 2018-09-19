@@ -136,12 +136,12 @@ class AllergiesForm extends Component {
                   type="text"
                   placeholder="Allergy Name"
                   name="allergy_name"
-                  onKeyPress={e => this.onChange(e)}
+                  onBlur={e => this.onChange(e)}
                 />
                 <TextArea
                   placeholder="Side Effects"
                   name="side_effects"
-                  onKeyPress={e => this.onChange(e)}>
+                  onBlur={e => this.onChange(e)}>
                   {this.state.side_effects}
                 </TextArea>
               </Field>
