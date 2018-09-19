@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { Hero, Box, Columns, Title, HeroHeader} from 'bloomer';
 import 'bulma/css/bulma.css';
 import './follow.css'
@@ -10,11 +9,13 @@ import CustomCard from "../dashboard/petCard";
 
 
 class Follow extends Component {
+    // This component is a list of all available pets to follow
     state = {
         allPets: []
     }
 
     getAllPets() {
+        // function to fetch all pets from api
         let token = localStorage.getItem("token")
         fetch(`http://127.0.0.1:8000/pets/`, {
             method: 'GET',

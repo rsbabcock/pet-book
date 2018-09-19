@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 import avatar from "../img/petBookLogo_white.png"
 
 class Auth extends Component {
-
+  // This component handles authentification with django rest auth api
   onChange(e) {
     // this is actually not necessary!
     const user = Object.assign({}, this.props.authState);
@@ -16,6 +16,7 @@ class Auth extends Component {
   }
 
   getuserPets() {
+    // this fetch gets pets based on current user via the token
     let token = localStorage.getItem("token")
     fetch(`http://127.0.0.1:8000/user-pets/`, {
       method: 'GET',
@@ -28,10 +29,10 @@ class Auth extends Component {
         return response.json();
       })
       .then((pets) => {
-        // console.log('userPets', pets);
         this.props.setAuthState({userPets: pets})
       })
       .then((stuff) => {
+        // gets pets that current user is following
         this.getFollowedPets()
       })
       .catch((err) => {
@@ -40,6 +41,8 @@ class Auth extends Component {
   }
 
   getFollowedPets() {
+    // gets pets that current user is following
+    // Again this gets the user pets based on the token
     let token = localStorage.getItem("token")
     fetch(`http://127.0.0.1:8000/followed-pets/`, {
       method: 'GET',
@@ -52,6 +55,7 @@ class Auth extends Component {
       })
       .then((owner) => {
         const follows = owner[0].follows
+        // setAuthState sets state in the app component, moving state upwards
         this.props.setAuthState({ followedPets: follows })
       })
       .catch((err) => {
