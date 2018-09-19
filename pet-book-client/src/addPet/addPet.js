@@ -116,11 +116,11 @@ class AddPetForm extends Component {
         return response.json()
       })
       .then((response) => {
+        this.props.getuserPets()
         swal({
           title: `${response.name} Added!`,
           icon: "success",
         });
-        this.props.getuserPets()
         return this.displaySuccess(response)
       })
       .catch((err) => {
