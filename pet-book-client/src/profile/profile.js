@@ -194,9 +194,9 @@ class Profile extends Component {
                                         <Box>
                                             <strong>Nick Name:</strong> <br /> {data.nick_name}
                                         </Box>
-                                        {/* <Box>
+                                        <Box>
                                             <strong>Breed:</strong> <br /> {this.state.petBreed.breed_name}
-                                        </Box> */}
+                                        </Box>
                                         <Box>
                                             <strong>Birthday:</strong> <br /> {data.birthday}
                                         </Box>
