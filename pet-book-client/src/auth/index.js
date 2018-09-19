@@ -74,7 +74,7 @@ class Auth extends Component {
         console.log('"auth', response);
         if(response.statusText === "Bad Request"){
           swal({
-            title: "We haven't been introduced, please register",
+            title: "Incorrect username or password",
             icon: "warning",
           });
           this.props.setAuthState({isAuth : false})
