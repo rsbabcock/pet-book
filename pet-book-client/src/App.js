@@ -37,6 +37,7 @@ class App extends Component {
     profileData: [],
     showEdit: false,
     showFollow: true,
+    profilePetBreed: ''
   }
 
 
@@ -75,6 +76,12 @@ class App extends Component {
       })
       .then((pets) => {
         this.setState({ userPets: pets, currentView: 'home' })
+        if (pets.length === 0) {
+          swal({
+            title: "You don't have any pets! Please add some",
+            icon: 'warning'
+          })
+        }
       })
       .then((stuff) => {
         this.getFollowedPets()
@@ -104,6 +111,21 @@ class App extends Component {
       })
   }
 
+  //  a fetch to get all breeds and store them in the breed state
+  getPetBreed(breedUrl) {
+    // this.setState({petBreed: ""})
+    fetch(`${breedUrl}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((breed) => {
+        console.log(breed)
+        this.setState({profilePetBreed: breed.breed_name})
+      })
+      .catch((err) => {
+        console.log("fetch no like you, brah", err);
+      })
+  }
   ProfileHandler = function (url) {
     let token = localStorage.getItem("token")
     fetch(`${url}`, {
@@ -117,6 +139,7 @@ class App extends Component {
         return response.json();
       })
       .then((pet) => {
+        console.log(pet)
         const petData = []
         petData.push(pet)
         this.state.userPets.filter(userPet => {
@@ -131,6 +154,7 @@ class App extends Component {
         this.setState({
           profileData: petData
         })
+        this.getPetBreed(pet.breed)
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -255,6 +279,7 @@ class App extends Component {
             viewHandler={this.showView}
             startFollowing={(url) => { this.startFollowing(url) }}
             ProfileHandler={(url) => { this.ProfileHandler(url) }}
+            petBreed={this.state.profilePetBreed}
             getFollowedPets={this.getFollowedPets} />
         case 'addPet':
           return <AddPetForm

@@ -205,7 +205,7 @@ class AddPetForm extends Component {
                   type="text"
                   placeholder="Name"
                   name="name"
-                  onKeyPress={e => this.onChange(e)}
+                  onBlur={e => this.onChange(e)}
                 />
                 <Input
                   type="text"

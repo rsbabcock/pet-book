@@ -207,19 +207,19 @@ class EditPetForm extends Component {
                                             type="text"
                                             placeholder={pet.name}
                                             name="name"
-                                            onKeyPress={e => this.onChange(e)}
+                                            onBlur={e => this.onChange(e)}
                                         />
                                         <Input
                                             type="text"
                                             placeholder={pet.nick_name}
                                             name="nick_name"
-                                            onKeyPress={e => this.onChange(e)}
+                                            onBlur={e => this.onChange(e)}
                                         />
                                         <Input
                                             type="text"
                                             placeholder={pet.birthday}
                                             name="birthday"
-                                            onKeyPress={e => this.onChange(e)}
+                                            onBlur={e => this.onChange(e)}
                                         />
                                         {/* <Input
                                             ref="file"
@@ -251,7 +251,7 @@ class EditPetForm extends Component {
                                         <TextArea
                                             placeholder={pet.crate_quirks}
                                             name="crate_quirks"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                             {this.state.crate_quirks}
                                         </TextArea>
                                     </Field>
@@ -259,39 +259,39 @@ class EditPetForm extends Component {
                                         <TextArea
                                             placeholder={pet.food_quirks}
                                             name="food_quirks"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                             {this.state.food_quirks}
                                         </TextArea>
                                         <TextArea
                                             placeholder={pet.aggression_notes}
                                             name="aggression_notes"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                         <Input
                                             type="text"
                                             placeholder={pet.bed_time}
                                             name="bed_time"
-                                            onKeyPress={e => this.onChange(e)}
+                                            onBlur={e => this.onChange(e)}
                                         />
                                         <TextArea
                                             placeholder={pet.eating_times}
                                             name="eating_times"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                         <TextArea
                                             placeholder={pet.fav_toy}
                                             name="fav_toy"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                         <TextArea
                                             placeholder={pet.potty_needs}
                                             name="potty_needs"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                         <TextArea
                                             placeholder={pet.walking_quirks}
                                             name="walking_quirks"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                     </Field>
                                 </Box>
