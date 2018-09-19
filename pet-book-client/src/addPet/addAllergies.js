@@ -94,7 +94,7 @@ class AllergiesForm extends Component {
       .then((response) => {
         this.getUserAllergies()
         swal({
-          title: "New Allergy Created",
+          title: `${response.allergy_name} added!`,
           icon: "success",
         });
         return this.displaySuccess(response)
