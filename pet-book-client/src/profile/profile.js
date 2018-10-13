@@ -181,8 +181,8 @@ class Profile extends Component {
                                             isColor="info"
                                             isOutlined
                                             onClick={() => {
-                                                // this.props.startFollowing(data.url)
-                                                // this.props.getFollowedPets()
+                                                this.props.stopFollowing(data.url)
+                                                this.props.getFollowedPets()
                                                 this.props.viewHandler("home")
                                             }}>Unfollow
                                         </Button>}
@@ -288,7 +288,7 @@ class Profile extends Component {
                                         <TextArea
                                             placeholder="Note"
                                             name="content"
-                                            onKeyPress={e => this.onChange(e)}>
+                                            onBlur={e => this.onChange(e)}>
                                         </TextArea>
                                     </Field>
                                     <Button isColor="info" isSize="medium" isOutlined onClick={() => this.postNote()}>Add Note</Button>
@@ -297,8 +297,9 @@ class Profile extends Component {
                             <div>
                                 <Container hasTextAlign="centered">
                                     {data.note.map(note => (
-                                        <Box>
+                                        <div>
                                             {note.archive === true ? null :
+                                        <Box>
                                                 <Card>
                                                     <CardHeader>
                                                         <CardHeaderTitle>
@@ -321,8 +322,9 @@ class Profile extends Component {
                                     </CardFooterItem>
                                                     </CardFooter>
                                                 </Card>
+                                                </Box>
                                             }
-                                        </Box>
+                                            </div>
                                     ))}
                                 </Container>
                             </div>

@@ -121,7 +121,7 @@ class App extends Component {
       })
       .then((breed) => {
         console.log(breed)
-        this.setState({profilePetBreed: breed.breed_name})
+        this.setState({ profilePetBreed: breed.breed_name })
       })
       .catch((err) => {
         console.log("fetch no like you, brah", err);
@@ -153,8 +153,8 @@ class App extends Component {
         })
         //  this checks the current profile is followed or not
         this.state.followedPets.filter(followedPet => {
-          if (followedPet.url === url){
-            this.setState({ unFollow: true, showFollow: false})
+          if (followedPet.url === url) {
+            this.setState({ unFollow: true, showFollow: false })
           }
 
           return console.log("Followed pet")
@@ -176,31 +176,43 @@ class App extends Component {
 
   postFollowing = (pets, follower) => {
     let token = localStorage.getItem("token")
-    fetch(` http://127.0.0.1:8000/create-follow/`, {
-      method: "POST",
-      body: JSON.stringify({
-        pets,
-        follower
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${token}`
+    let alreadyFollowed = false
+    this.state.followedPets.filter(alreadyFollows => {
+      if (pets === alreadyFollows.url) {
+        alreadyFollowed = true
       }
+      return console.log(alreadyFollows.url)
     })
-      .then((response) => {
-        return response.json()
+      if (alreadyFollowed === true) {
+      alert("you already follow this pet!")
+    }
+    else if (alreadyFollowed === false) {
+      fetch(` http://127.0.0.1:8000/create-follow/`, {
+        method: "POST",
+        body: JSON.stringify({
+          pets,
+          follower
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        }
       })
-      .then((response) => {
-        this.getFollowedPets()
-        swal({
-          title: "Following",
-          icon: "success",
+        .then((response) => {
+          return response.json()
+        })
+        .then((response) => {
+          this.getFollowedPets()
+          swal({
+            title: "Following",
+            icon: "success",
+          });
+          return this.displaySuccess(response)
+        })
+        .catch((err) => {
+          console.log("auth no like you, brah", err);
         });
-        return this.displaySuccess(response)
-      })
-      .catch((err) => {
-        console.log("auth no like you, brah", err);
-      });
+    }
   }
 
   startFollowing = (petUrl) => {
@@ -223,10 +235,14 @@ class App extends Component {
       .catch((err) => {
         console.log("auth no like you, brah", err);
       });
-
-
   }
 
+  stopFollowing = (petUrl) => {
+    swal({
+      text: "We are unable to un follow at this time",
+      icon: "error",
+    });
+  }
   componentDidMount() {
     let token = localStorage.getItem("token")
     let user = localStorage.getItem("user")
@@ -255,7 +271,8 @@ class App extends Component {
     if (view === "home") {
       this.setState({
         showEdit: false,
-        showFollow: true
+        showFollow: true,
+        unFollow: false
       })
     }
     // Update state to correct view will be rendered
@@ -288,6 +305,7 @@ class App extends Component {
             unFollow={this.state.unFollow}
             viewHandler={this.showView}
             startFollowing={(url) => { this.startFollowing(url) }}
+            stopFollowing={(url) => { this.stopFollowing(url) }}
             ProfileHandler={(url) => { this.ProfileHandler(url) }}
             petBreed={this.state.profilePetBreed}
             getFollowedPets={this.getFollowedPets} />
