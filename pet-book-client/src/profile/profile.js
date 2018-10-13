@@ -176,6 +176,16 @@ class Profile extends Component {
                                                 this.props.viewHandler("home")
                                             }}>Follow
                                         </Button>}
+                                        {this.props.unFollow === false ? null : <Button
+                                            isSize="large"
+                                            isColor="info"
+                                            isOutlined
+                                            onClick={() => {
+                                                // this.props.startFollowing(data.url)
+                                                // this.props.getFollowedPets()
+                                                this.props.viewHandler("home")
+                                            }}>Unfollow
+                                        </Button>}
                                         {this.props.showEdit === false ? null : <Button
                                             isSize="large"
                                             isColor="info"

@@ -37,6 +37,7 @@ class App extends Component {
     profileData: [],
     showEdit: false,
     showFollow: true,
+    unFollow: false,
     profilePetBreed: ''
   }
 
@@ -149,6 +150,14 @@ class App extends Component {
           }
 
           return console.log("Your pet!")
+        })
+        //  this checks the current profile is followed or not
+        this.state.followedPets.filter(followedPet => {
+          if (followedPet.url === url){
+            this.setState({ unFollow: true, showFollow: false})
+          }
+
+          return console.log("Followed pet")
         })
         // debugger
         this.setState({
@@ -276,6 +285,7 @@ class App extends Component {
             resource={this.state.profileData}
             showEdit={this.state.showEdit}
             showFollow={this.state.showFollow}
+            unFollow={this.state.unFollow}
             viewHandler={this.showView}
             startFollowing={(url) => { this.startFollowing(url) }}
             ProfileHandler={(url) => { this.ProfileHandler(url) }}
